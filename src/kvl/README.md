@@ -60,4 +60,4 @@ A key-value list with initial data and provided data list.
 </div>
 ```
 
-> Please not that this component is not part of the original MDL library and also it is in an early, development state.
+> Please note that this component is not part of the original MDL library and also it is in an early, development state.
