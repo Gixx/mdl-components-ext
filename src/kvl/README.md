@@ -54,7 +54,7 @@ These lists are not fully covers the possibilities but give a good start by prov
 
 A key-value list with initial data and provided data list.
 ```html
-<div class="element keyvaluelist mdl-kvl mdl-js-kvl mdl-kvl-phones">
+<div class="mdl-kvl mdl-js-kvl mdl-kvl-phones">
     <label class="mdl-kvl__label" for="phones">Phone</label>
     <textarea name="phones" id="phones" class="mdl-kvl__input">{"Home":"+49 123 12345678","Work":"0123 1234 9876"}</textarea>
 </div>
