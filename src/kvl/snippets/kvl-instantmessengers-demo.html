@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MDL-Styled Key-Value list element</title>
+        <link href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue_grey-red.min.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="static/material.kvl.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" media="screen" rel="stylesheet" type="text/css">
+        <style type="text/css">
+            div.page-content {
+                padding: 20px;
+            }
+            div.element {
+                display: block;
+            }
+
+            .mdl-kvl__label {
+                color: rgb(96,125,139);
+            }
+
+        </style>
+    </head>
+    <body>
+        <!-- Always shows a header, even in smaller screens. -->
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <header class="mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                    <!-- Title -->
+                    <span class="mdl-layout-title">MDL-Styled Key-Value list element</span>
+                    <!-- Add spacer, to align navigation to the right -->
+                    <div class="mdl-layout-spacer"></div>
+                </div>
+            </header>
+            <main class="mdl-layout__content">
+                <div class="page-content">
+                    <h1>Demo</h1>
+                    <form name="test" action="" method="post" id="testForm">
+                        <div class="element keyvaluelist mdl-kvl mdl-js-kvl mdl-kvl-instantmessengers">
+                            <label class="mdl-kvl__label" for="instantmessengers">Instant Messengers</label>
+                            <textarea name="instantmessengers" id="instantmessengers" class="mdl-kvl__input">{"Skype":"some.guy-1999"}</textarea>
+                        </div>
+
+                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Submit</button>
+                    </form>
+                </div>
+            </main>
+        </div>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
+        <script type="text/javascript" src="../kvl.js"></script>
+        <script type="text/javascript" src="static/form.js"></script>
+    </body>
+</html>
