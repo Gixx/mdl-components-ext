@@ -39,7 +39,7 @@
 
   & ul {
     margin: 0;
-    padding: 2px 0;
+    padding: 2px 0 0 0;
     list-style: none;
 
     li {
@@ -48,6 +48,35 @@
       flex-wrap: nowrap;
       justify-content: flex-start;
     }
+  }
+
+  & ul li div input {
+    padding: 6px 0;
+  }
+
+  & ul li div.mdl-kvl__list-key {
+    display: inline-block;
+    min-width: 120px;
+    width: 40%;
+    margin-right: 10px;
+  }
+
+  & ul li div.mdl-kvl__list-key .mdl-kvl__list-element-key {
+    border-right: 1px solid rgba(0,0,0,.12);
+  }
+
+  & ul li div.mdl-kvl__list-value {
+    display: inline-block;
+    flex: 0 1 auto;
+    min-width: 120px;
+  }
+
+  & ul li div.mdl-kvl__list-remove {
+    position: relative;
+    padding: $input-text-vertical-spacing 0;
+    display: inline-block;
+    width: 35px;
+    margin-left: 5px;
   }
 }
 
@@ -89,27 +118,6 @@
     border-bottom: 1px dotted $input-text-disabled-color;
     color: $input-text-disabled-text-color;
   }
-}
-
-.mdl-kvl ul li div.mdl-kvl__list-key {
-  display: inline-block;
-  min-width: 120px;
-  width: 40%;
-  margin-right: 10px;
-}
-
-.mdl-kvl ul li div.mdl-kvl__list-value {
-  display: inline-block;
-  flex: 0 1 auto;
-  min-width: 120px;
-}
-
-.mdl-kvl ul li div.mdl-kvl__list-remove {
-  position: relative;
-  padding: $input-text-vertical-spacing 0;
-  display: inline-block;
-  width: 35px;
-  margin-left: 5px;
 }
 
 // Styling for the label / floating label.
@@ -158,9 +166,7 @@
   }
 }
 
-.mdl-kvl__list-element-key {
-  border-right: 1px solid rgba(0,0,0,.12);
-}
+
 
 // kvl Error.
 .mdl-kvl__error {

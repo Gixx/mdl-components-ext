@@ -51,7 +51,69 @@
         KVL_PHONES: 'mdl-kvl-phones'
     };
 
+    /**
+     * Available input types
+     *
+     * @type {{KLV_TYPE_TEXT: string, KVL_TYPE_EMAIL: string, KVL_TYPE_URL: string, KVL_TYPE_TEL: string}}
+     * @private
+     */
+    MaterialKeyvaluelist.prototype.dataTypes_ = {
+        KLV_TYPE_TEXT: 'text',
+        KVL_TYPE_EMAIL: 'email',
+        KVL_TYPE_URL: 'url',
+        KVL_TYPE_TEL: 'tel'
+    };
+
+    /**
+     * Input validation patterns
+     *
+     * @type {{KLV_TYPE_TEXT: string, KVL_TYPE_EMAIL: string, KVL_TYPE_URL: string, KVL_TYPE_TEL: string}}
+     * @private
+     */
+    MaterialKeyvaluelist.prototype.dataPattern_ = {
+        text: '.+',
+        email: '[a-z0-9\\.\\_\\%\\+\\-]+\\@[a-z0-9]([a-z0-9\\.\\-]*[a-z0-9\\.\\-])?\\.[a-z]{2,4}',
+        url: 'https?\\:\\/\\/[a-z0-9]([a-z0-9\\.\\-]*[a-z0-9\\.\\-])?\\.[a-z]{2,4}\\/?[a-zA-Z0-9\\.\\/\\?\\-\\_\\#\\%\\&\\@\\=\\+]*',
+        tel: '((\\+[0-9]{2}|0[0-9]{1,4})[- ]?)?(\\([0-9]{1,3}\\)|[0-9]{1,3})[- \\/]?[0-9]{3,4}[- ]?[0-9]{3,4}'
+    };
+
+    /**
+     * List identifier string.
+     *
+     * @type {null}
+     * @private
+     */
     MaterialKeyvaluelist.prototype.listID_ = null;
+
+    /**
+     * List data type.
+     *
+     * @type {string}
+     * @private
+     */
+    MaterialKeyvaluelist.prototype.listDataType_ = 'text';
+
+    /**
+     * Whether to use list data validation or not.
+     *
+     * @type {boolean}
+     */
+    MaterialKeyvaluelist.prototype.useListDataPattern_ = false;
+
+    /**
+     * List data validation pattern.
+     *
+     * @type {string}
+     */
+    MaterialKeyvaluelist.prototype.listDataPattern_ = '';
+
+    /**
+     * List data placeholder string.
+     *
+     * @type {string}
+     * @private
+     */
+    MaterialKeyvaluelist.prototype.listDataPlaceholder_ = '';
 
     /**
      * Add button.
@@ -116,12 +178,14 @@
 
         listElement.innerHTML =
             '<div class="mdl-kvl__list-key mdl-textfield mdl-js-textfield">' +
-            '   <input list="mld-kvl-data-' + this.listID_ + '" id="' + this.listID_ + '-key-' + listElementIndex + '" data-value="' + this.listID_ + '-value-' + listElementIndex + '" type="text" class="mdl-textfield__input mdl-kvl__list-element-key" name="' + this.listID_ + '-key[' + listElementIndex + ']" value="' + key + '" pattern=".+" />' +
+            '   <input required list="mld-kvl-data-' + this.listID_ + '" id="' + this.listID_ + '-key-' + listElementIndex + '" data-value="' + this.listID_ + '-value-' + listElementIndex + '" type="text" class="mdl-textfield__input mdl-kvl__list-element-key" name="' + this.listID_ + '-key[' + listElementIndex + ']" value="' + key + '" pattern=".+" />' +
             '   <label class="mdl-textfield__label" for="' + this.listID_ + '-key-' + listElementIndex + '">Service</label>' +
             '</div>' +
             '<div class="mdl-kvl__list-value mdl-textfield mdl-js-textfield">' +
-            '   <input id="' + this.listID_ + '-value-' + listElementIndex + '" data-key="' + this.listID_ + '-key-' + listElementIndex + '" type="text" class="mdl-textfield__input mdl-kvl__list-element-value" name="' + this.listID_ + '-value[' + listElementIndex + ']" value="' + value + '" />' +
-            '   <label class="mdl-textfield__label" for="' + this.listID_ + '-value-' + listElementIndex + '">URL</label>' +
+            '   <input required id="' + this.listID_ + '-value-' + listElementIndex + '" data-key="' + this.listID_ + '-key-' + listElementIndex + '" type="' + this.listDataType_ + '" ' + (this.useListDataPattern_ ? ' pattern="' + this.listDataPattern_ + '"' : '') +
+            'class="mdl-textfield__input mdl-kvl__list-element-value" name="' + this.listID_ + '-value[' + listElementIndex + ']" value="' + value + '" />' +
+            '   <label class="mdl-textfield__label" for="' + this.listID_ + '-value-' + listElementIndex + '">' + this.listDataPlaceholder_ + '</label>' +
+            '   <span class="mdl-textfield__error">Input is not valid!</span>' +
             '</div>' +
             '<div class="mdl-kvl__list-remove">' +
             '   <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent">' +
@@ -232,7 +296,7 @@
             var valuePair = '';
 
             // remove error indicator if any
-            input.parentNode.classList.remove('is-invalid');
+            //input.parentNode.classList.remove('is-invalid');
 
             if (!input.value.trim()) {
                 input.parentNode.classList.add('is-invalid');
@@ -263,7 +327,39 @@
      */
     MaterialKeyvaluelist.prototype.init = function() {
         if (this.element_) {
-            this.listID_ = this.element_.querySelector('textarea').getAttribute('id');
+            var textarea = this.element_.querySelector('textarea');
+            // set list ID
+            this.listID_ = textarea.getAttribute('id');
+
+            // set list data placeholder
+            if (textarea.hasAttribute('placeholder')) {
+                this.listDataPlaceholder_ = textarea.getAttribute('placeholder');
+            }
+
+            // set list data type
+            if (textarea.hasAttribute('data-type')) {
+                var type = textarea.getAttribute('data-type');
+                for (var i in this.dataTypes_) {
+                    if (this.dataTypes_[i] == type) {
+                        this.listDataType_ = this.dataTypes_[i];
+                        break;
+                    }
+                }
+            }
+
+            // set list data pattern
+            if (textarea.hasAttribute('data-pattern')) {
+                this.useListDataPattern_ = true;
+
+                var pattern = textarea.getAttribute('data-pattern');
+
+                // if no specific pattern given, use the default one
+                if ('' == pattern) {
+                    pattern = this.dataPattern_[this.listDataType_];
+                }
+
+                this.listDataPattern_ = pattern;
+            }
 
             var initData = document.getElementById(this.listID_).value;
 
