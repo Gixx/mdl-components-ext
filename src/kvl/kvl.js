@@ -332,8 +332,8 @@
             this.listID_ = textarea.getAttribute('id');
 
             // set list data placeholder
-            if (textarea.hasAttribute('placeholder')) {
-                this.listDataPlaceholder_ = textarea.getAttribute('placeholder');
+            if (textarea.hasAttribute('data-placeholder')) {
+                this.listDataPlaceholder_ = textarea.getAttribute('data-placeholder');
             }
 
             // set list data type
