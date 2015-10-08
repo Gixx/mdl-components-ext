@@ -47,6 +47,12 @@
       flex-direction: row;
       flex-wrap: nowrap;
       justify-content: flex-start;
+      opacity: 0;
+      transition: opacity 500ms;
+    }
+
+    li.show {
+      opacity: 1;
     }
   }
 

@@ -160,8 +160,6 @@
     MaterialKeyvaluelist.prototype.addRow_ = function(event) {
         event.preventDefault();
         this.createRow_('','');
-        // reset event listeners
-        this.resetInputEventListeners_();
     };
 
     /**
@@ -173,8 +171,11 @@
      */
     MaterialKeyvaluelist.prototype.createRow_ = function(key, value) {
         var listElementIndex = this.keyValueList_.childNodes.length;
+        var listElementId = this.listID_ + '-list-element-' + listElementIndex;
         var listElement = document.createElement('li');
+
         listElement.classList.add('mdl-kvl__list-element');
+        listElement.setAttribute('id', listElementId);
 
         listElement.innerHTML =
             '<div class="mdl-kvl__list-key mdl-textfield mdl-js-textfield">' +
@@ -188,7 +189,7 @@
             '   <span class="mdl-textfield__error">Input is not valid!</span>' +
             '</div>' +
             '<div class="mdl-kvl__list-remove">' +
-            '   <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent">' +
+            '   <button type="button" id="' + this.listID_ + '-delete-' + listElementIndex + '" class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent">' +
             '       <i class="material-icons">remove</i>' +
             '   </button>' +
             '</div>';
@@ -196,6 +197,14 @@
         this.keyValueList_.appendChild(listElement);
         // apply MDL on new elements
         componentHandler.upgradeDom();
+        // Make sure the initial state is applied.
+        window.getComputedStyle(listElement).opacity;
+        // Add events
+        document.getElementById(this.listID_ + '-key-' + listElementIndex).addEventListener('change', this.inputChange_.bind(this), true);
+        document.getElementById(this.listID_ + '-value-' + listElementIndex).addEventListener('keyup', this.inputChange_.bind(this), true);
+        document.getElementById(this.listID_ + '-delete-' + listElementIndex).addEventListener('click', this.deleteRow_.bind(this), true);
+        // Fade in.
+        listElement.classList.add('show');
     };
 
     /**
@@ -217,34 +226,10 @@
 
         if (this.storedValue_) {
             for (var i in this.storedValue_) {
-                this.createRow_(i, this.storedValue_[i]);
+                if (this.storedValue_.hasOwnProperty(i)) {
+                    this.createRow_(i, this.storedValue_[i]);
+                }
             }
-        }
-        // reset event listeners
-        this.resetInputEventListeners_();
-    };
-
-    /**
-     * Reset event listeners
-     *
-     * @private
-     */
-    MaterialKeyvaluelist.prototype.resetInputEventListeners_ = function() {
-        var inputs = this.element_.querySelectorAll('.mdl-kvl__list-element input');
-
-        for (var i = 0; i < inputs.length; i++) {
-            inputs[i].removeEventListener('change', this.inputChange_);
-            inputs[i].addEventListener('change', this.inputChange_.bind(this));
-            inputs[i].removeEventListener('keyup', this.inputChange_);
-            inputs[i].addEventListener('keyup', this.inputChange_.bind(this));
-        }
-
-        var buttons = this.element_.querySelectorAll('.mdl-kvl__list-remove');
-
-        for (i = 0; i < buttons.length; i++)
-        {
-            buttons[i].removeEventListener('click', this.deleteRow_)
-            buttons[i].addEventListener('click', this.deleteRow_.bind(this))
         }
     };
 
@@ -258,20 +243,33 @@
     {
         event.preventDefault();
 
+        var kvlObj = this;
+
         for (var i = 0; i < event.path.length; i++) {
+
+            var listItemElement = event.path[i];
+
             // stop at document body
-            if (event.path[i].tagName == 'BODY') {
+            if (listItemElement.tagName == 'BODY') {
                 break;
             }
 
             // detect the row and remove it
-            if (event.path[i].tagName == 'LI' && event.path[i].classList.contains('mdl-kvl__list-element')) {
-                if (event.path[i].parentNode) {
-                    event.path[i].parentNode.removeChild(event.path[i]);
-                    // trigger input change event handler to rebuild data store
-                    this.inputChange_();
-                    // reset event listeners
-                    this.resetInputEventListeners_();
+            if (listItemElement.tagName == 'LI' && listItemElement.classList.contains('mdl-kvl__list-element')) {
+                if (typeof listItemElement.parentNode != 'undefined') {
+                    // get transition duration
+                    var sleep = parseFloat(window.getComputedStyle(listItemElement).transitionDuration) * 1000;
+                    // run transition
+                    listItemElement.classList.remove('show');
+                    // wait for the css transition
+                    setTimeout(function(){
+                        if (listItemElement.parentNode) {
+                            listItemElement.parentNode.removeChild(listItemElement);
+                        }
+
+                        // trigger input change event handler to rebuild data store
+                        kvlObj.inputChange_(event);
+                    }, sleep);
                 }
                 break;
             }
@@ -283,7 +281,10 @@
      *
      * @private
      */
-    MaterialKeyvaluelist.prototype.inputChange_ = function() {
+    MaterialKeyvaluelist.prototype.inputChange_ = function(event)
+    {
+        event.preventDefault();
+
         var inputs = this.element_.querySelectorAll('.mdl-kvl__list-element input');
         var data = {};
 
@@ -294,9 +295,6 @@
             var value = '';
             var keyPair = '';
             var valuePair = '';
-
-            // remove error indicator if any
-            //input.parentNode.classList.remove('is-invalid');
 
             if (!input.value.trim()) {
                 input.parentNode.classList.add('is-invalid');
