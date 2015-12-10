@@ -1,32 +1,23 @@
 /**
- * Copyright 2015 Google Inc. All Rights Reserved.
+ * MDL Key-Value List
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * LICENSE
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://webhemi.gixx-web.com/license/new-bsd
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@gixx-web.com so we can send you a copy immediately.
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
+ * This library is a fork of the original Material Design Light library
+ * @link      https://github.com/google/material-design-lite
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * @author    Gabor Ivan <gixx@gixx-web.com>
+ * @copyright 2015 Gixx-web (http://www.gixx-web.com)
+ * @license   http://webhemi.gixx-web.com/license/new-bsd   New BSD License
+ * @link      http://www.gixx-web.com
  */
 /*------------------------------------*\
     $CONTENTS
@@ -78,38 +69,8 @@
 * @see http://www.google.com/design/spec/style/color.html
 *
 **/
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 /* ==========  Color Palettes  ========== */
 /* colors.scss */
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 /* ==========  Color & Themes  ========== */
 /* ==========  Typography  ========== */
 /* ==========  Components  ========== */
@@ -159,21 +120,6 @@
 /* GRID */
 /* DATA TABLE */
 /* TOOLTIP */
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 /* Typography */
 /* Shadows */
 /* Animations */
@@ -261,14 +207,14 @@
   overflow: hidden;
   white-space: nowrap;
   text-align: left;
-  color: rgb(63,81,181);
+  color: rgb(96,125,139);
   font-size: 12px;
   top: 4px;
   visibility: visible; }
   fieldset[disabled] .mdl-kvl .mdl-kvl__label, .mdl-kvl.is-disabled.is-disabled .mdl-kvl__label {
     color: rgba(0,0,0, 0.26); }
   .mdl-kvl__label:after {
-    background-color: rgb(63,81,181);
+    background-color: rgb(96,125,139);
     bottom: 20px;
     content: '';
     height: 2px;
