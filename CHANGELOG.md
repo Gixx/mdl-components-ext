@@ -1,6 +1,9 @@
 Change log
 ==========
 
+Version 1.2
+-----------
+- Rename repository to give space for other features
 
 Version 1.1
 -----------
