@@ -36,7 +36,7 @@ You can use this component as any other MDL component, except this component nee
 </div>
 ```
 
-&nbsp;5. Additionally you can add a special `data-placeholder-multiple` attribute for the container `div` to give a custom text when multiple files were selected. Very useful for translations on non-English applications.
+&nbsp;5. Additionally you can add a special `data-placeholder-multiple` attribute for the container `div` to give a custom text when multiple files were selected. Very useful for translations in non-English applications.
 ```html
 <div data-placeholder-multiple="files had been added to the list">
   <input type="file" name="avatar" id="avatar" multiple="multiple">
