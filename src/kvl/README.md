@@ -14,12 +14,14 @@ You can use this component as any other MDL component, except this component nee
 ...
 </div>
 ```
+
 &nbsp;2. Inside the div, code a `<textarea>` element with an `id` and `name` attribute of your choice.
 ```html
 <div>
   <textarea name="phone" id="phone"></textarea>
 </div>
 ```
+
 &nbsp;3. Also inside the div, after the text field, code a `<label>` element with a `for` attribute whose value matches the `textarea` element's `id` value, and a short string to be used as the field's placeholder text.
 ```html
 <div>

@@ -1,4 +1,6 @@
 composer.lock
 /.sass-cache
+/src/file/.sass-cache
+/src/kvl/.sass-cache
 /.idea
-/test.html
+

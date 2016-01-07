@@ -12,7 +12,7 @@
  * to license@gixx-web.com so we can send you a copy immediately.
  *
  * @author    Gabor Ivan <gixx@gixx-web.com>
- * @copyright 2015 Gixx-web (http://www.gixx-web.com)
+ * @copyright 2012 - 2016 Gixx-web (http://www.gixx-web.com)
  * @license   http://webhemi.gixx-web.com/license/new-bsd   New BSD License
  * @link      http://www.gixx-web.com
  */
