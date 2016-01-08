@@ -23,6 +23,7 @@ Installation
 
 - Download and unzip the source files or clone the repository
 - Download and unzip the [Material Design Lite](https://github.com/google/material-design-lite) into the vendor folder or [install composer](https://getcomposer.org/doc/00-intro.md#installation-nix) and run `php composer.phar install` to get the required MDL packages
+- Download the [YUI Compressor](http://yui.github.io/yuicompressor/) and place it in the project root
 
 How to use
 ----------
