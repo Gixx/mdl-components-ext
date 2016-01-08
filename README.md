@@ -22,8 +22,8 @@ Installation
 ------------
 
 - Download and unzip the source files or clone the repository
-- Download and unzip the [Material Design Lite](https://github.com/google/material-design-lite) into the vendor folder or [install composer](https://getcomposer.org/doc/00-intro.md#installation-nix) and run `php composer.phar install` to get the required MDL packages
-- Download the [YUI Compressor](http://yui.github.io/yuicompressor/) and place it in the project root
+- Download and unzip the [Material Design Lite](https://github.com/google/material-design-lite) into the vendor folder or use the composer by running the `php composer.phar install` command to get the required MDL packages
+- Use the [YUI Compressor](http://yui.github.io/yuicompressor/) in the library folder
 
 How to use
 ----------
@@ -32,13 +32,13 @@ How to use
 ```bash
 sass src/kvl/_kvl.scss:src/kvl/snippets/static/material.kvl.css
 
-java -jar yuicompressor.jar src/kvl/snippets/static/material.kvl.css -o src/kvl/snippets/static/material.kvl.min.css
-java -jar yuicompressor.jar src/kvl/kvl.js -o src/kvl/snippets/static/material.kvl.min.js
+java -jar library/yuicompressor.jar src/kvl/snippets/static/material.kvl.css -o src/kvl/snippets/static/material.kvl.min.css
+java -jar library/yuicompressor.jar src/kvl/kvl.js -o src/kvl/snippets/static/material.kvl.min.js
 
 sass src/file/_file.scss:src/file/snippets/static/material.file.css
 
-java -jar yuicompressor.jar src/file/snippets/static/material.file.css -o src/file/snippets/static/material.file.min.css
-java -jar yuicompressor.jar src/file/file.js -o src/file/snippets/static/material.file.min.js
+java -jar library/yuicompressor.jar src/file/snippets/static/material.file.css -o src/file/snippets/static/material.file.min.css
+java -jar library/yuicompressor.jar src/file/file.js -o src/file/snippets/static/material.file.min.js
 
 ```
 
