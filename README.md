@@ -15,7 +15,7 @@ Requirements
 - [PHP 5.5+](http://php.net/downloads.php) (for composer)
 - [Sass](http://sass-lang.com/install) (for compile scss files)
 - [Material Design Lite](https://github.com/google/material-design-lite)
-- [Java] (http://www.java.com/en/download/mac_download.jsp) (for the Yui compressor)
+- [Java] (http://www.java.com/en/download/mac_download.jsp) (for the YUI compressor)
 - [YUI Compressor](http://yui.github.io/yuicompressor/)
 
 Installation
