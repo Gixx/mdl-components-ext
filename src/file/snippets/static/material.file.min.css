@@ -1,1 +1,8 @@
-.mdl-file .mdl-textfield__input[type=text]{box-sizing:border-box;width:calc(100% - 32px)}.mdl-file .mdl-button{right:0}.mdl-file .mdl-button input[type=file]{cursor:pointer;height:100%;right:0;opacity:0;position:absolute;top:0;width:300px;z-index:4}
+/*!
+ * mdl-components-ext - Component Extensions for the Material Design Light in CSS, JS and HTML
+ * @version 1.3
+ * @author    Gabor Ivan <gixx@gixx-web.com>
+ * @copyright 2012 - 2016 Gixx-web (http://www.gixx-web.com)
+ * @license   http://webhemi.gixx-web.com/license/new-bsd   New BSD License
+ * @link      http://www.gixx-web.com
+ */.mdl-file .mdl-textfield__input[type=text]{box-sizing:border-box;width:calc(100% - 32px)}.mdl-file .mdl-button{right:0}.mdl-file .mdl-button input[type=file]{cursor:pointer;height:100%;right:0;opacity:0;position:absolute;top:0;width:300px;z-index:4}

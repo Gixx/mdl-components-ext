@@ -44,3 +44,7 @@ java -jar yuicompressor.jar src/file/file.js -o src/file/snippets/static/materia
 
 - Include the generated files into your HTML and use the syntax described in each components' `README.md` file.
 
+Change Log
+----------
+
+- Check [Change log](CHANGELOG.md)
