@@ -29,17 +29,17 @@ You can use this component as any other MDL component, except this component nee
   <label for="phone">Phone numbers</label>
 </div>
 ```
-&nbsp;4. For the `textarea` you can specify a custom placeholder for the value elements by giving the `data-placeholder` attribute.
+&nbsp;4. For the `textarea` you can specify a custom placeholder for the value elements by giving the `data-key-placeholder` and/or `data-value-placeholder` attributes.
 ```html
 <div>
-  <textarea name="phone" id="phone" data-placeholder="Phone#"></textarea>
+  <textarea name="phone" id="phone" data-key-placeholder="Service" data-value-placeholder="Phone#"></textarea>
   <label for="phone">Phone numbers</label>
 </div>
 ```
 &nbsp;5. Add one or more MDL classes, separated by spaces, to the div container, text field, and field label using the `class` attribute.
 ```html
 <div class="mdl-kvl mdl-js-kvl">
-    <textarea name="phone" id="phone" data-placeholder="Phone#" class="mdl-kvl__input"></textarea>
+    <textarea name="phone" id="phone" data-key-placeholder="Service" data-value-placeholder="Phone#" class="mdl-kvl__input"></textarea>
     <label class="mdl-kvl__label" for="phone">Phone numbers</label>
 </div>
 ```
@@ -75,7 +75,7 @@ Add the `data-pattern` attribute to activate the input validation. If the attrib
 ```html
 <div class="mdl-kvl mdl-js-kvl mdl-kvl-phones">
     <label class="mdl-kvl__label" for="phones">Phone</label>
-    <textarea name="phones" id="phones" data-type="tel" data-pattern="" data-placeholder="Phone#" class="mdl-kvl__input">{"Home":"+49 123 12345678","Work":"0123 1234 9876"}</textarea>
+    <textarea name="phones" id="phones" data-type="tel" data-pattern="" data-key-placeholder="Service" data-value-placeholder="Phone#" class="mdl-kvl__input">{"Home":"+49 123 12345678","Work":"0123 1234 9876"}</textarea>
 </div>
 ```
 * Custom pattern for UK phone numbers
@@ -83,7 +83,7 @@ Add the `data-pattern` attribute to activate the input validation. If the attrib
 ```html
 <div class="mdl-kvl mdl-js-kvl mdl-kvl-phones">
     <label class="mdl-kvl__label" for="phones">Phone</label>
-    <textarea name="phones" id="phones" data-type="tel" data-pattern="^\s*\(?(020[7,8]{1}\)?[ ]?[1-9]{1}[0-9{2}[ ]?[0-9]{4})|(0[1-8]{1}[0-9]{3}\)?[ ]?[1-9]{1}[0-9]{2}[ ]?[0-9]{3})\s*$" data-placeholder="Phone#" class="mdl-kvl__input">{"Home":"+49 123 12345678","Work":"0123 1234 9876"}</textarea>
+    <textarea name="phones" id="phones" data-type="tel" data-pattern="^\s*\(?(020[7,8]{1}\)?[ ]?[1-9]{1}[0-9{2}[ ]?[0-9]{4})|(0[1-8]{1}[0-9]{3}\)?[ ]?[1-9]{1}[0-9]{2}[ ]?[0-9]{3})\s*$" data-key-placeholder="Service" data-value-placeholder="Phone#" class="mdl-kvl__input">{"Home":"+49 123 12345678","Work":"0123 1234 9876"}</textarea>
 </div>
 ```
 
@@ -93,7 +93,7 @@ A key-value list with initial data and provided data list.
 ```html
 <div class="mdl-kvl mdl-js-kvl mdl-kvl-phones">
     <label class="mdl-kvl__label" for="phones">Phone</label>
-    <textarea name="phone" id="phone" data-placeholder="Phone#" class="mdl-kvl__input">{"Home":"+49 123 12345678","Work":"0123 1234 9876"}</textarea>
+    <textarea name="phone" id="phone" data-key-placeholder="Service" data-value-placeholder="Phone#" class="mdl-kvl__input">{"Home":"+49 123 12345678","Work":"0123 1234 9876"}</textarea>
 </div>
 ```
 

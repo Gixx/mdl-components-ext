@@ -18,7 +18,6 @@
  */
 /*!
  * mdl-components-ext - Component Extensions for the Material Design Light in CSS, JS and HTML
- * @version 1.3
  * @author    Gabor Ivan <gixx@gixx-web.com>
  * @copyright 2012 - 2016 Gixx-web (http://www.gixx-web.com)
  * @license   http://webhemi.gixx-web.com/license/new-bsd   New BSD License
@@ -116,12 +115,20 @@
     MaterialKeyvaluelist.prototype.listDataPattern_ = '';
 
     /**
-     * List data placeholder string.
+     * List value placeholder string.
      *
      * @type {string}
      * @private
      */
-    MaterialKeyvaluelist.prototype.listDataPlaceholder_ = '';
+    MaterialKeyvaluelist.prototype.listDataValuePlaceholder_ = '';
+
+    /**
+     * List key placeholder string.
+     *
+     * @type {string}
+     * @private
+     */
+    MaterialKeyvaluelist.prototype.listDataKeyPlaceholder_ = '';
 
     /**
      * Add button.
@@ -188,12 +195,12 @@
         listElement.innerHTML =
             '<div class="mdl-kvl__list-key mdl-textfield mdl-js-textfield">' +
             '   <input required list="mld-kvl-data-' + this.listID_ + '" id="' + this.listID_ + '-key-' + listElementIndex + '" data-value="' + this.listID_ + '-value-' + listElementIndex + '" type="text" class="mdl-textfield__input mdl-kvl__list-element-key" name="' + this.listID_ + '-key[' + listElementIndex + ']" value="' + key + '" pattern=".+" />' +
-            '   <label class="mdl-textfield__label" for="' + this.listID_ + '-key-' + listElementIndex + '">Service</label>' +
+            '   <label class="mdl-textfield__label" for="' + this.listID_ + '-key-' + listElementIndex + '">' + this.listDataKeyPlaceholder_ + '</label>' +
             '</div>' +
             '<div class="mdl-kvl__list-value mdl-textfield mdl-js-textfield">' +
             '   <input required id="' + this.listID_ + '-value-' + listElementIndex + '" data-key="' + this.listID_ + '-key-' + listElementIndex + '" type="' + this.listDataType_ + '" ' + (this.useListDataPattern_ ? ' pattern="' + this.listDataPattern_ + '"' : '') +
             'class="mdl-textfield__input mdl-kvl__list-element-value" name="' + this.listID_ + '-value[' + listElementIndex + ']" value="' + value + '" />' +
-            '   <label class="mdl-textfield__label" for="' + this.listID_ + '-value-' + listElementIndex + '">' + this.listDataPlaceholder_ + '</label>' +
+            '   <label class="mdl-textfield__label" for="' + this.listID_ + '-value-' + listElementIndex + '">' + this.listDataValuePlaceholder_ + '</label>' +
             '   <span class="mdl-textfield__error">Input is not valid!</span>' +
             '</div>' +
             '<div class="mdl-kvl__list-remove">' +
@@ -338,8 +345,11 @@
             this.listID_ = textarea.getAttribute('id');
 
             // set list data placeholder
-            if (textarea.hasAttribute('data-placeholder')) {
-                this.listDataPlaceholder_ = textarea.getAttribute('data-placeholder');
+            if (textarea.hasAttribute('data-key-placeholder')) {
+                this.listDataKeyPlaceholder_ = textarea.getAttribute('data-key-placeholder');
+            }
+            if (textarea.hasAttribute('data-value-placeholder')) {
+                this.listDataValuePlaceholder_ = textarea.getAttribute('data-value-placeholder');
             }
 
             // set list data type

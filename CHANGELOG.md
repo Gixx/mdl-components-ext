@@ -1,6 +1,12 @@
 Change log
 ==========
 
+Version 1.4
+-----------
+* Add combined and versioned packages
+* KVL Component
+  * Add support for labeling the key field too.
+
 Version 1.3
 -----------
 * Initial version of the File Input component.
