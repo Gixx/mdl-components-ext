@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="theme-color" content="#263238">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Material Design Lite Components Extensions</title>
+        <link rel="shortcut icon" href="favicon.png">
+
+        <link rel="stylesheet" href="http://www.getmdl.io/assets/prism-default.css">
+        <link rel="stylesheet" href="http://www.getmdl.io/material.min.css">
+        <link rel="stylesheet" href="http://www.getmdl.io/assets/main.css">
+
+        <link rel="stylesheet" href="css/material.components.ext.min.css">
+
+        <link href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="http://www.getmdl.io/assets/components.css" rel="stylesheet">
+        <link href="http://www.getmdl.io/components/demos.css" rel="stylesheet" >
+
+        <script src="http://www.getmdl.io/assets/snippets.js"></script>
+        <script src="http://www.getmdl.io/assets/components.js"></script>
+    </head>
+
+    <body class="components">
+        <div class="image-preloader"></div>
+        <div class="docs-layout mdl-layout mdl-js-layout">
+            <header class="docs-layout-header mdl-layout__header">
+                <div class="docs-navigation__container">
+                    <nav class="docs-navigation mdl-navigation">
+                        <a href="index.html" class="mdl-navigation__link">About MDL C-extensions</a>
+                        <a href="getting-started.html" class="mdl-navigation__link">Getting Started</a>
+                        <a href="components-ext.html" class="mdl-navigation__link components">Component Extensions</a>
+                        <div class="spacer"></div>
+                        <a href="https://github.com/Gixx/mdl-components-ext" class="mdl-navigation__link mdl-navigation__link--icon github"><i class="material-icons">link</i><span>GitHub</span></a>
+                        <a href="https://github.com/Gixx/mdl-components-ext/blob/master/package/1.4/mdl-components-ext.zip?raw=true" class="mdl-navigation__link mdl-navigation__link--icon download">
+                            <i class="material-icons">&#xE2C4;</i><span>Download</span>
+                            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--fab mdl-button--mini-fab mdl-color--lime-A200">
+                                <i class="material-icons">&#xE2C4;</i>
+                            </button>
+                        </a>
+                    </nav>
+                </div>
+                <i class="material-icons scrollindicator scrollindicator--right">&#xE315;</i>
+                <i class="material-icons scrollindicator scrollindicator--left">&#xE314;</i>
+            </header>
+
+            <main class="docs-layout-content mdl-layout__content mdl-color-text--grey-600">
+                <div class="content mdl-grid mdl-grid--no-spacing" id="content">
+                    <div class="subpageheader mdl-cell--12-col">Components</div>
+
+                    <div class="mdl-components mdl-js-components mdl-cell mdl-cell--12-col">
+                        <aside class="mdl-components__nav docs-text-styling mdl-shadow--4dp">
+
+                            <a href="#badges-section" class="mdl-components__link mdl-component badges">
+                                <div class="mdl-components__link-image"
+                                     style="background-image: url('img/kvl.svg')">
+                                </div>
+                                <span class="mdl-components__link-text">Key-Value List</span>
+                            </a>
+
+                            <a href="#buttons-section" class="mdl-components__link mdl-component buttons">
+                                <div class="mdl-components__link-image"
+                                     style="background-image: url('img/file-input.svg')">
+                                </div>
+                                <span class="mdl-components__link-text">File Input</span>
+                            </a>
+                        </aside>
+
+                        <main class="mdl-components__pages">
+                            <section id="index-section" class="mdl-components-index mdl-components__page">
+                                <div class="mdl-components-index-text mdl-grid">
+                                    <div class="mdl-components-text docs-text-styling about-panel about-panel--text mdl-cell mdl-cell--12-col">
+                                        <dl class="mdl-components-dl">
+                                            <dt class="mdl-components-dt">COMPONENTS</dt>
+                                            <dd class="mdl_components-dd">
+                                                This library's purpose it to give to the developers some painfully missing components as an extension
+                                                to the <a href="http://www.getmdl.io/components">official Material Design Lite library</a>. I can only repeat the official MDL site:
+                                                <blockquote cite="http://www.getmdl.io/components/index.html">Understanding the goals and principles of Material Design is critical to the proper use of the Material Design Lite component extensions.</blockquote>
+                                                You should read the <a href="getting-started.html">Getting Started</a> section before attempting to use these components.
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!--BEGIN KVL-->
+                            <section id="badges-section" class="mdl-components__page mdl-grid">
+                                <div class="mdl-cell mdl-cell--12-col">
+                                    <div class="docs-text-styling component-title">
+                                        <h3>The "Key-Value List" (KVL)</h3>
+                                        <p>An enhanced, one level JSON data editor.</p>
+                                    </div>
+
+                                    <div class="snippet-group">
+                                        <div class="snippet-header">
+                                            <div class="snippet-demos">
+                                                <div class="snippet-demo-padding"></div>
+                                                <div class="snippet-demo" style="vertical-align: top">
+                                                    <div class="snippet-demo-container">
+
+                                                        <div class="mdl-kvl mdl-js-kvl">
+                                                            <textarea name="custom1" id="custom1" class="mdl-kvl__input"></textarea>
+                                                            <label class="mdl-kvl__label" for="custom1">Press "+" to add new item</label>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="snippet-demo" style="vertical-align: top">
+                                                    <div class="snippet-demo-container">
+
+                                                        <div class="mdl-kvl mdl-js-kvl">
+                                                            <textarea name="custom2" id="custom2" class="mdl-kvl__input" data-key-placeholder="Title" data-value-placeholder="Description">{"Weather":"Sunny","Mood":"Great"}</textarea>
+                                                            <label class="mdl-kvl__label" for="custom2">What's up?</label>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="snippet-demo-padding"></div>
+                                            </div>
+
+                                            <div class="snippet-captions">
+                                                <div class="snippet-caption-padding"></div>
+                                                <div class="snippet-caption">
+                                                    Simple (empty) list
+                                                </div>
+                                                <div class="snippet-caption">
+                                                    Customized list with starting data
+                                                </div>
+                                                <div class="snippet-caption-padding"></div>
+                                            </div>
+                                        </div>
+                                        <div class="snippet-code">
+                                            <pre class="language-markup codepen-button-enabled"><code>&lt;!-- Simple Key-Value List --&gt;
+&lt;div class=&quot;mdl-kvl mdl-js-kvl&quot;&gt;
+    &lt;textarea name=&quot;custom1&quot; id=&quot;custom1&quot; class=&quot;mdl-kvl__input&quot;&gt;&lt;/textarea&gt;
+    &lt;label class=&quot;mdl-kvl__label&quot; for=&quot;custom1&quot;&gt;My Custom list&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                            <pre class="language-markup codepen-button-enabled"><code>&lt;!-- Customized Key-Value List --&gt;
+&lt;div class=&quot;mdl-kvl mdl-js-kvl&quot;&gt;
+    &lt;textarea name=&quot;custom2&quot; id=&quot;custom2&quot; class=&quot;mdl-kvl__input&quot; data-key-placeholder=&quot;Title&quot; data-value-placeholder=&quot;Description&quot;&gt;{&quot;Weather&quot;:&quot;Sunny&quot;,&quot;Mood&quot;:&quot;Great&quot;}&lt;/textarea&gt;
+    &lt;label class=&quot;mdl-kvl__label&quot; for=&quot;custom2&quot;&gt;What's up?&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div>
+
+                                    <div class="docs-text-styling docs-readme">
+                                        <h2>Introduction</h2>
+                                        <p>The <strong>Key-Value List</strong> (KVL) component is an enhanced, one level JSON data editor, build on the standard HTML <code>&lt;textarea&gt;</code> element. After the component is activated, the <code>&lt;textarea&gt;</code> element is not visible any more, instead a new add button appears which adds new key-value option rows to the component.</p>
+                                        <p>While the user simply enters custom (or provided) keys and value pairs on the frontend, the component transform the given data into JSON as the <code>&lt;textarea&gt;</code> element's value.</p>
+
+                                        <h3>To include a <strong>KVL</strong> component:</h3>
+                                        <p>You can use this component as any other official MDL component, except this component needs individual JavaScript and CSS file to be included since this component is not part of the official MDL library.</p>
+                                        <p>&nbsp;1. Code  a <code>&lt;div&gt;</code> element to hold the text field.</p>
+                                        <pre><code class="language-markup">&lt;div&gt;...&lt;/div&gt;</code></pre>
+
+                                        <p>&nbsp;2. Inside the <code>&lt;div&gt;</code>, code a <code>&lt;textarea&gt;</code> element with an <code>id</code> and <code>name</code> attribute of your choice.</p>
+                                        <pre><code class="language-markup">&lt;div&gt;
+    &lt;textarea name=&quot;custom&quot; id=&quot;custom&quot;&gt;&lt;/textarea&gt;
+&lt;/div&gt;</code></pre>
+
+                                        <p>&nbsp;3. Also inside the <code>&lt;div&gt;</code>, after the <code>&lt;textarea&gt;</code> element, code a <code>&lt;label&gt;</code> element with a <code>for</code> attribute whose value matches the <code>&lt;textarea&gt;</code> element's <code>id</code> value, and type a short string to be used as the field's title / label.</p>
+                                        <pre><code class="language-markup">&lt;div&gt;
+    &lt;textarea name=&quot;custom&quot; id=&quot;custom&quot;&gt;&lt;/textarea&gt;
+    &lt;label for=&quot;custom&quot;&gt;My Custom List&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+
+                                        <p>&nbsp;4. Add one or more classes, separated by spaces, to the <code>&lt;div&gt;</code> container, the <code>&lt;textarea&gt;</code> element, and the <code>&lt;label&gt;</code> element using the <code>class</code> attribute.</p>
+                                        <pre><code class="language-markup">&lt;div class=&quot;mdl-kvl mdl-js-kvl&quot;&gt;
+    &lt;textarea name=&quot;custom&quot; id=&quot;custom&quot; class=&quot;mdl-kvl__input&quot;&gt;&lt;/textarea&gt;
+    &lt;label class=&quot;mdl-kvl__label&quot; for=&quot;custom&quot;&gt;My Custom List&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        <p>The KVL component is ready for use.</p>
+                                        <h3>To fine-tune a <strong>KVL</strong> component:</h3>
+                                        <p>The KVL component is more then just a blank container, you can specify some really useful behaviour as well.</p>
+
+                                        <p>&nbsp;1. Add <code>data-key-placeholder</code> and/or <code>data-value-placeholder</code> attributes to the <code>&lt;textarea&gt;</code> element to define field placeholders.</p>
+                                        <blockquote>
+                                            <p><strong>Note:</strong> Because of the limited size of the fields you have to use short keywords.</p>
+                                        </blockquote>
+                                        <pre><code class="language-markup">&lt;div class=&quot;mdl-kvl mdl-js-kvl&quot;&gt;
+    &lt;textarea name=&quot;custom&quot; id=&quot;custom&quot; class=&quot;mdl-kvl__input&quot; data-key-placeholder=&quot;Title&quot; data-value-placeholder=&quot;Description&quot;&gt;&lt;/textarea&gt;
+    &lt;label class=&quot;mdl-kvl__label&quot; for=&quot;custom&quot;&gt;My Custom List&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+
+                                        <p>&nbsp;2. There's a possibility the add a prepared data list for the keys in some special cases:</p>
+                                        <ul>
+                                            <li>Phone Numbers</li>
+                                            <li>Social Networks</li>
+                                            <li>Instant Messengers</li>
+                                        </ul>
+                                        <blockquote>
+                                            <p><strong>Note:</strong> These lists are not fully covers the possibilities but give a good start by providing the most popular cases</p>
+                                        </blockquote>
+                                        <p>To enable this feature you only need to add a special <code>class</code> attribute on the <code>&lt;div&gt;</code> element:</p>
+                                        <ul>
+                                            <li><code>mdl-kvl-phones</code> for phone numbers</li>
+                                            <li><code>mdl-kvl-socialnetworks</code> for the social networks</li>
+                                            <li><code>mdl-kvl-instantmessengers</code> for the instant messengers</li>
+                                        </ul>
+                                        <pre><code class="language-markup">&lt;div class=&quot;mdl-kvl mdl-js-kvl mdl-kvl-phones&quot;&gt;
+    &lt;textarea name=&quot;phone&quot; id=&quot;phone&quot; class=&quot;mdl-kvl__input&quot;&gt;&lt;/textarea&gt;
+    &lt;label class=&quot;mdl-kvl__label&quot; for=&quot;phone&quot;&gt;Contact phones&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+
+                                        <p>&nbsp;3. You can also set what kind of data you need for the values. For this just add a <code>data-type</code> attribute to the <code>&lt;textarea&gt;</code> element, with one of the supported types:</p>
+                                        <ul>
+                                            <li><code>text</code> for any type of text</li>
+                                            <li><code>email</code> for email addresses</li>
+                                            <li><code>url</code> for internet addresses</li>
+                                            <li><code>tel</code> for phone numbers.</li>
+                                        </ul>
+                                        <pre><code class="language-markup">&lt;div class=&quot;mdl-kvl mdl-js-kvl mdl-kvl-phones&quot;&gt;
+    &lt;textarea name=&quot;phone&quot; id=&quot;phone&quot; data-type=&quot;tel&quot; class=&quot;mdl-kvl__input&quot;&gt;&lt;/textarea&gt;
+    &lt;label class=&quot;mdl-kvl__label&quot; for=&quot;phone&quot;&gt;Contact phones&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        <p>As a bonus: also add the <code>data-pattern</code> attribute to activate the input validation. If the attribute value is empty, then the script will provide a default one according to the data-type.</p>
+                                        <pre><code class="language-markup">&lt;div class=&quot;mdl-kvl mdl-js-kvl mdl-kvl-phones&quot;&gt;
+    &lt;textarea name=&quot;phone&quot; id=&quot;phone&quot; data-type=&quot;tel&quot; data-pattern=&quot;^\s*\(?(020[7,8]{1}\)?[ ]?[1-9]{1}[0-9{2}[ ]?[0-9]{4})|(0[1-8]{1}[0-9]{3}\)?[ ]?[1-9]{1}[0-9]{2}[ ]?[0-9]{3})\s*$&quot; class=&quot;mdl-kvl__input&quot;&gt;&lt;/textarea&gt;
+    &lt;label class=&quot;mdl-kvl__label&quot; for=&quot;phone&quot;&gt;UK Phones Numbers&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+
+                                        <h4>Examples</h4>
+                                    </div>
+
+                                    <div class="snippet-group">
+                                        <div class="snippet-header">
+                                            <div class="snippet-demos">
+                                                <div class="snippet-demo-padding"></div>
+                                                <div class="snippet-demo" style="vertical-align: top">
+                                                    <div class="snippet-demo-container">
+
+                                                        <div class="mdl-kvl mdl-js-kvl mdl-kvl-instantmessengers">
+                                                            <label class="mdl-kvl__label" for="instantmessengers">Instant Messengers</label>
+                                                            <textarea name="instantmessengers" id="instantmessengers" data-key-placeholder="Service Name" class="mdl-kvl__input">{"Skype":"some.guy-1999"}</textarea>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="snippet-demo" style="vertical-align: top">
+                                                    <div class="snippet-demo-container">
+
+                                                        <div class="mdl-kvl mdl-js-kvl">
+                                                            <label class="mdl-kvl__label" for="websites">Websites</label>
+                                                            <textarea name="websites" id="websites" data-key-placeholder="Type" data-value-placeholder="URL" data-pattern="https?\:\/\/[a-z0-9]([a-z0-9\.\-]*[a-z0-9\.\-])?\.[a-z]{2,4}\/?[a-zA-Z0-9\.\/\?\-\_\#\%\&\@\=\+]*" data-type="url" class="mdl-kvl__input">{"Homepage":"http://foo.org"}</textarea>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="snippet-demo-padding"></div>
+                                            </div>
+
+                                            <div class="snippet-captions">
+                                                <div class="snippet-caption-padding"></div>
+                                                <div class="snippet-caption">
+                                                    List with autocomplete data list
+                                                </div>
+                                                <div class="snippet-caption">
+                                                    List with value validation
+                                                </div>
+                                                <div class="snippet-caption-padding"></div>
+                                            </div>
+                                        </div>
+                                        <div class="snippet-code">
+                                        <pre class="language-markup codepen-button-enabled"><code>&lt;div class=&quot;mdl-kvl mdl-js-kvl mdl-kvl-instantmessengers&quot;&gt;
+    &lt;label class=&quot;mdl-kvl__label&quot; for=&quot;instantmessengers&quot;&gt;Instant Messengers&lt;/label&gt;
+    &lt;textarea name=&quot;instantmessengers&quot; id=&quot;instantmessengers&quot; data-key-placeholder=&quot;Service Name&quot; class=&quot;mdl-kvl__input&quot;&gt;{&quot;Skype&quot;:&quot;some.guy-1999&quot;}&lt;/textarea&gt;
+&lt;/div&gt;</code></pre>
+                                        <pre class="language-markup codepen-button-enabled"><code>&lt;div class=&quot;mdl-kvl mdl-js-kvl&quot;&gt;
+    &lt;label class=&quot;mdl-kvl__label&quot; for=&quot;websites&quot;&gt;Websites&lt;/label&gt;
+    &lt;textarea name=&quot;websites&quot; id=&quot;websites&quot; data-key-placeholder=&quot;Type&quot; data-value-placeholder=&quot;URL&quot; data-pattern=&quot;https?\:\/\/[a-z0-9]([a-z0-9\.\-]*[a-z0-9\.\-])?\.[a-z]{2,4}\/?[a-zA-Z0-9\.\/\?\-\_\#\%\&\@\=\+]*&quot; data-type=&quot;url&quot; class=&quot;mdl-kvl__input&quot;&gt;{&quot;Homepage&quot;:&quot;http://foo.org&quot;}&lt;/textarea&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div>
+
+                                    <div class="docs-text-styling docs-readme">
+                                        <h2>Configuration options</h2>
+                                        <p>The CSS classes apply various predefined visual enhancements to the Key-Value List. The table below lists the available classes and their effects.</p>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>MDL Class</th>
+                                                    <th>Effect</th>
+                                                    <th>Remarks</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><code>mdl-kvl</code></td>
+                                                    <td>Defines container as an MDL component</td>
+                                                    <td>Required on "outer" div element</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>mdl-js-kvl</code></td>
+                                                    <td>Assigns basic MDL behavior to input</td>
+                                                    <td>Required on "outer" div element</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>mdl-kvl-instantmessengers</code></td>
+                                                    <td>Activates the predefined "IM" autocomplete list</td>
+                                                    <td>Optional on "outer" div element</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>mdl-kvl-socialnetworks</code></td>
+                                                    <td>Activates the predefined "Social Networks" autocomplete list</td>
+                                                    <td>Optional on "outer" div element</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>mdl-kvl-phones</code></td>
+                                                    <td>Activates the predefined "Phone group" autocomplete list</td>
+                                                    <td>Optional on "outer" div element</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>mdl-kvl__label</code></td>
+                                                    <td>Defines element as textarea label</td>
+                                                    <td>Required on label element for textarea elements</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>mdl-kvl__input</code></td>
+                                                    <td>Defines element as datacontainer input</td>
+                                                    <td>Required on textarea element</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                            <!--END KVL-->
+                            <!--BEGIN FILE INPUT-->
+                            <section id="buttons-section" class="mdl-components__page mdl-grid">
+                                <div class="mdl-cell mdl-cell--12-col">
+                                    <div class="docs-text-styling component-title">
+                                        <h3>File Input</h3>
+                                        <p>An enhanced file uploader</p>
+                                    </div>
+
+                                    <div class="snippet-group">
+                                        <div class="snippet-header">
+                                            <div class="snippet-demos">
+                                                <div class="snippet-demo-padding"></div>
+                                                <div class="snippet-demo">
+
+                                                    <div class="mdl-file mdl-js-file mdl-file--floating-label">
+                                                        <input type="file" name="avatar" id="avatar">
+                                                        <label class="mdl-file__label" for="avatar">Avatar</label>
+                                                    </div>
+
+                                                </div>
+                                                <div class="snippet-demo-padding"></div>
+                                            </div>
+
+                                            <div class="snippet-captions">
+                                                <div class="snippet-caption-padding"></div>
+                                                <div class="snippet-caption">
+                                                    File input with floating label
+                                                </div>
+                                                <div class="snippet-caption-padding"></div>
+                                            </div>
+                                        </div>
+                                        <div class="snippet-code">
+                                            <pre class="language-markup codepen-button-enabled"><code>&lt;!-- File input --&gt;
+&lt;div class=&quot;mdl-file mdl-js-file mdl-file--floating-label&quot;&gt;
+    &lt;input type=&quot;file&quot; name=&quot;avatar&quot; id=&quot;avatar&quot;&gt;
+    &lt;label class=&quot;mdl-file__label&quot; for=&quot;avatar&quot;&gt;Avatar&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div>
+
+                                    <div class="docs-text-styling docs-readme">
+                                        <blockquote>
+                                            <p><strong>Note:</strong> To unset/reset the file input only, you have to press the "attach" button again and on the popup file selection window, press the <code>Cancel</code> button.</p>
+                                        </blockquote>
+
+                                        <h2>Introduction</h2>
+                                        <p>The <strong>File Input</strong> component is an enhanced file input field, build on the standard <code>&lt;input type=&quot;file&quot;&gt;</code> element. After the component is activated, the <code>&lt;input type=&quot;file&quot;&gt;</code> element is not visible any more, instead a new attach <code>&lt;button&gt;</code> and an MDL <code>&lt;input&gt;</code> element appear which give the eye-candy.</p>
+
+                                        <h3>To include a <strong>File Input</strong> component:</h3>
+                                        <p>You can use this component as any other official MDL component, except this component needs individual JavaScript and CSS file to be included since this component is not part of the official MDL library.</p>
+
+                                        <p>&nbsp;1. Code  a <code>&lt;div&gt;</code> element to hold the text field.</p>
+                                        <pre><code class="language-markup">&lt;div&gt;...&lt;/div&gt;</code></pre>
+
+                                        <p>&nbsp;2. Inside the <code>&lt;div&gt;</code>, code a <code>&lt;input&gt;</code> element with an <code>id</code> and <code>name</code> attribute of your choice. You must set the <code>type</code> attribute to <code>file</code>.</p>
+                                        <pre><code class="language-markup">&lt;div&gt;
+    &lt;input type=&quot;file&quot; name=&quot;avatar&quot; id=&quot;avatar&quot;&gt;
+&lt;/div&gt;</code></pre>
+
+                                        <p>&nbsp;3. Also inside the <code>&lt;div&gt;</code>, after the <code>&lt;input&gt;</code> element, code a <code>&lt;label&gt;</code> element with a <code>for</code> attribute whose value matches the <code>&lt;input&gt;</code> element's <code>id</code> value, and type a short string to be used as the field's label.</p>
+                                        <pre><code class="language-markup">&lt;div&gt;
+    &lt;input type=&quot;file&quot; name=&quot;avatar&quot; id=&quot;avatar&quot;&gt;
+    &lt;label for=&quot;avatar&quot;&gt;Avatar&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+
+                                        <p>&nbsp;4. Add one or more classes, separated by spaces, to the <code>&lt;div&gt;</code> container and the <code>&lt;label&gt;</code> element using the <code>class</code> attribute.</p>
+                                        <pre><code class="language-markup">&lt;div class=&quot;mdl-file mdl-js-file mdl-file--floating-label&quot;&gt;
+    &lt;input type=&quot;file&quot; name=&quot;avatar&quot; id=&quot;avatar&quot;&gt;
+    &lt;label class=&quot;mdl-file__label&quot; for=&quot;avatar&quot;&gt;Avatar&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        <p>The File Input component is ready for use.</p>
+
+                                        <h4 id="examples">Examples</h4>
+                                        <p>A file input with custom text when multiple files are selected.</p>
+                                        <pre><code class="language-markup">&lt;div class=&quot;mdl-file mdl-js-file mdl-file--floating-label&quot; data-placeholder-multiple=&quot;files had been added to the list&quot;&gt;
+    &lt;input type=&quot;file&quot; name=&quot;avatar&quot; id=&quot;avatar&quot; multiple=&quot;multiple&quot;&gt;
+    &lt;label class=&quot;mdl-file__label&quot; for=&quot;avatar&quot;&gt;Avatar&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        <blockquote>
+                                            <p><strong>Note:</strong> The <code>data-placeholder-multiple</code> attribute requires the <code>multiple</code> attribute to present.</p>
+                                            <p><strong>Note:</strong> The content of the <code>data-placeholder-multiple</code> attribute will be concatenated to the number of the selected files, like: "3 files had been added to the list"</p>
+                                        </blockquote>
+
+                                        <h2>Configuration options</h2>
+                                        <p>The CSS classes apply various predefined visual enhancements to the file input. The table below lists the available classes and their effects.</p>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>MDL class</th>
+                                                    <th>Effect</th>
+                                                    <th>Remarks</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><code>mdl-file</code></td>
+                                                    <td>Defines container as an MDL component</td>
+                                                    <td>Required on "outer" div element</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>mdl-js-file</code></td>
+                                                    <td>Assigns basic MDL behavior to input</td>
+                                                    <td>Required on "outer" div element</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>mdl-file--floating-label</code></td>
+                                                    <td>Applies floating label effect</td>
+                                                    <td>Optional on "outer" div element</td>
+                                                </tr>
+                                                <tr>
+                                                <tr>
+                                                    <td><code>mdl-file__label</code></td>
+                                                    <td>Defines element as textarea label</td>
+                                                    <td>Required on label element for textarea elements</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        </main>
+                    </div>
+                </div>
+
+                <section class="docs-text-styling download mdl-color--grey-800">
+                    <a href="https://github.com/Gixx/mdl-components-ext/blob/master/package/1.4/mdl-components-ext.zip?raw=true" class="mdl-color-text--grey-50">Download Kit</a>
+                </section>
+
+                <footer class="docs-text-styling docs-footer mdl-mini-footer mdl-color--grey-900">
+                    <ul>
+                        <li class="mdl-mini-footer--social-btn">
+                            <a href="https://github.com/Gixx/mdl-components-ext" class="social-btn social-btn__github" role="button" title="GitHub"></a>
+                        </li>
+                    </ul>
+                </footer>
+            </main>
+        </div>
+        <script src="http://www.getmdl.io/material.min.js"></script>
+        <script src="js/material.components.ext.min.js"></script>
+        <!-- Add Copy-to-CodePen buttons to code blocks -->
+        <script src="http://www.getmdl.io/assets/codepen.js"></script>
+        <!-- Enable Prism syntax highlighting -->
+        <script src="http://www.getmdl.io/assets/prism.js"></script>
+        <script src="http://www.getmdl.io/assets/prism-markup.min.js"></script>
+        <script src="http://www.getmdl.io/assets/prism-javascript.min.js"></script>
+        <script src="http://www.getmdl.io/assets/prism-css.min.js"></script>
+        <script src="http://www.getmdl.io/assets/prism-bash.min.js"></script>
+        <script src="http://www.getmdl.io/assets/main.js"></script>
+    </body>
+</html>
