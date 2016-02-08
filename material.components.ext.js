@@ -19,5 +19,16 @@
  * @license   http://webhemi.gixx-web.com/license/new-bsd   New BSD License
  * @link      http://www.gixx-web.com
  */
-@import '../vendor/google/material-design-lite/src/variables';
-@import '../vendor/google/material-design-lite/src/mixins';
+/*!
+ * mdl-components-ext - Component Extensions for the Material Design Light in CSS, JS and HTML
+ * @version   1.4.1
+ * @author    Gabor Ivan <gixx@gixx-web.com>
+ * @copyright 2012 - 2016 Gixx-web (http://www.gixx-web.com)
+ * @license   http://webhemi.gixx-web.com/license/new-bsd   New BSD License
+ * @link      http://www.gixx-web.com
+ */
+
+
+// import src/file/file.js
+// import src/kvl/kvl.js
+;

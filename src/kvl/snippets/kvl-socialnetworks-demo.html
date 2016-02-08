@@ -16,7 +16,7 @@
             <header class="mdl-layout__header">
                 <div class="mdl-layout__header-row">
                     <!-- Title -->
-                    <span class="mdl-layout-title">MDL-Styled File input element</span>
+                    <span class="mdl-layout-title">MDL-Styled Key-Value list element</span>
                     <!-- Add spacer, to align navigation to the right -->
                     <div class="mdl-layout-spacer"></div>
                 </div>
@@ -24,11 +24,10 @@
             <main class="mdl-layout__content">
                 <div class="page-content">
                     <h1>Demo</h1>
-                    <form name="test" action="" method="post" id="testForm" enctype="multipart/form-data">
-
-                        <div class="element file mdl-file mdl-js-file mdl-file--floating-label" data-placeholder-multiple="files had been added to the list">
-                            <input type="file" name="avatar" id="avatar" multiple="multiple">
-                            <label class="mdl-file__label" for="avatar">Avatar</label>
+                    <form name="test" action="" method="post" id="testForm">
+                        <div class="element keyvaluelist mdl-kvl mdl-js-kvl mdl-kvl-socialnetworks">
+                            <label class="mdl-kvl__label" for="socialnetworks">Social Networks</label>
+                            <textarea name="socialnetworks" id="socialnetworks" data-key-placeholder="Choose or type" data-value-placeholder="URL" data-pattern="" data-type="url" class="mdl-kvl__input">{"Facebook":"https:\/\/www.facebook.com\/some.guy.99","LinkedIn":"http:\/\/www.linkedin.com\/in\/someguy"}</textarea>
                         </div>
                         <br>
                         <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Submit</button>

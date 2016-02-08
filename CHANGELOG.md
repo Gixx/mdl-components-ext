@@ -1,6 +1,12 @@
 Change log
 ==========
 
+Version 1.4.1
+-------------
+* Add combined SCSS file and modified the README file how to generate package
+* Use combined minified files and vendor files in snippets
+* Removed WebHemi2 specific colors (use [MDL Color Theme package](https://github.com/Gixx/mdl-color-theme) in the future)
+
 Version 1.4
 -----------
 * Add combined and versioned packages

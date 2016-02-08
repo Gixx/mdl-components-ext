@@ -16,13 +16,6 @@
  * @license   http://webhemi.gixx-web.com/license/new-bsd   New BSD License
  * @link      http://www.gixx-web.com
  */
-/*!
- * mdl-components-ext - Component Extensions for the Material Design Light in CSS, JS and HTML
- * @author    Gabor Ivan <gixx@gixx-web.com>
- * @copyright 2012 - 2016 Gixx-web (http://www.gixx-web.com)
- * @license   http://webhemi.gixx-web.com/license/new-bsd   New BSD License
- * @link      http://www.gixx-web.com
- */
 (function() {
     'use strict';
 

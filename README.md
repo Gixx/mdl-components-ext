@@ -27,19 +27,20 @@ Installation
 
 How to use
 ----------
+The easy way:
+
+- Check the [Material Design Lite Component Extensions](http://mdl.gixx-web.com/getting-started.html) website for detailed instructions.
+ 
+The "geek" way:
+
 - Run the following commands to compile the `scss` files and compress `css` and `js` files:
 
 ```bash
-sass src/kvl/_kvl.scss:src/kvl/snippets/static/material.kvl.css
+sass src/material.components.ext.scss:material.components.ext.css
 
-java -jar library/yuicompressor.jar src/kvl/snippets/static/material.kvl.css -o src/kvl/snippets/static/material.kvl.min.css
-java -jar library/yuicompressor.jar src/kvl/kvl.js -o src/kvl/snippets/static/material.kvl.min.js
+java -jar library/yuicompressor.jar material.components.ext.css -o package/material.components.ext.min.css
 
-sass src/file/_file.scss:src/file/snippets/static/material.file.css
-
-java -jar library/yuicompressor.jar src/file/snippets/static/material.file.css -o src/file/snippets/static/material.file.min.css
-java -jar library/yuicompressor.jar src/file/file.js -o src/file/snippets/static/material.file.min.js
-
+cat ./material.components.ext.js ./src/kvl/kvl.js ./src/file/file.js | java -jar library/yuicompressor.jar --type js -o package/material.components.ext.min.js
 ```
 
 - Include the generated files into your HTML and use the syntax described in each components' `README.md` file.
