@@ -29,12 +29,27 @@
 
   box-sizing: border-box;
   width: 300px;
-  max-width: 100%;
+  max-width: $input-text-width;
   margin: 0;
   padding: $input-text-vertical-spacing 0;
 
-  & div.mdl-kvl__list-add {
-    float:right;
+  & div.mdl-kvl__label {
+    position: relative;
+    width: $input-text-width;
+  }
+
+  & div.mdl-kvl__label label.mdl-textfield__label {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+    width: calc(#{$input-text-width} - #{$button-icon-size});
+    line-height: $button-icon-size;
+  }
+
+  & button.mdl-kvl__list-add {
+    position: relative;
+    width: $button-icon-size;
   }
 
   & textarea.mdl-kvl__input {
@@ -129,54 +144,6 @@
     color: $input-text-disabled-text-color;
   }
 }
-
-// Styling for the label / floating label.
-.mdl-kvl__label {
-  bottom: 0;
-  left: 0;
-  right: 0;
-  pointer-events: none;
-  display:inline-block;
-  padding: 6px 0;
-  vertical-align: bottom;
-  overflow: hidden;
-  white-space: nowrap;
-  text-align: left;
-  color: $input-text-highlight-color;
-  font-size : $input-text-floating-label-fontsize;
-  top: $input-text-vertical-spacing - ($input-text-floating-label-fontsize + $input-text-padding);
-  visibility: visible;
-
-  fieldset[disabled] .mdl-kvl &,
-  .mdl-kvl.is-disabled.is-disabled & {
-    color: $input-text-disabled-text-color;
-  }
-
-  // The after label is the colored underline for the kvl.
-  &:after {
-    background-color: $input-text-highlight-color;
-    bottom: $input-text-vertical-spacing;
-    content: '';
-    height: 2px;
-    left: 45%;
-    position: absolute;
-    @include material-animation-default();
-    visibility: hidden;
-    width: 10px;
-  }
-
-  .mdl-kvl.is-focused &:after {
-    left: 0;
-    visibility: visible;
-    width: 100%;
-  }
-
-  .mdl-kvl.is-invalid &:after {
-    background-color: $input-text-error-color;
-  }
-}
-
-
 
 // kvl Error.
 .mdl-kvl__error {

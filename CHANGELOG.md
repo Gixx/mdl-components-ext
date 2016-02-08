@@ -1,6 +1,12 @@
 Change log
 ==========
 
+Version 1.5
+-----------
+* KVL Component
+  * Remove hardcoded color values from CSS (follow the MDL's color scheme)
+  * Add more elegant rendering for the label and the Add button (get rid of floating)
+
 Version 1.4.1
 -------------
 * Add combined SCSS file and modified the README file how to generate package

@@ -666,8 +666,19 @@
   max-width: 100%;
   margin: 0;
   padding: 20px 0; }
-  .mdl-kvl div.mdl-kvl__list-add {
-    float: right; }
+  .mdl-kvl div.mdl-kvl__label {
+    position: relative;
+    width: 100%; }
+  .mdl-kvl div.mdl-kvl__label label.mdl-textfield__label {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+    width: calc(100% - 32px);
+    line-height: 32px; }
+  .mdl-kvl button.mdl-kvl__list-add {
+    position: relative;
+    width: 32px; }
   .mdl-kvl textarea.mdl-kvl__input {
     display: none; }
   .mdl-kvl ul {
@@ -729,41 +740,6 @@
     background-color: transparent;
     border-bottom: 1px dotted rgba(0,0,0, 0.12);
     color: rgba(0,0,0, 0.26); }
-
-.mdl-kvl__label {
-  bottom: 0;
-  left: 0;
-  right: 0;
-  pointer-events: none;
-  display: inline-block;
-  padding: 6px 0;
-  vertical-align: bottom;
-  overflow: hidden;
-  white-space: nowrap;
-  text-align: left;
-  color: rgb(63,81,181);
-  font-size: 12px;
-  top: 4px;
-  visibility: visible; }
-  fieldset[disabled] .mdl-kvl .mdl-kvl__label, .mdl-kvl.is-disabled.is-disabled .mdl-kvl__label {
-    color: rgba(0,0,0, 0.26); }
-  .mdl-kvl__label:after {
-    background-color: rgb(63,81,181);
-    bottom: 20px;
-    content: '';
-    height: 2px;
-    left: 45%;
-    position: absolute;
-    transition-duration: 0.2s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    visibility: hidden;
-    width: 10px; }
-  .mdl-kvl.is-focused .mdl-kvl__label:after {
-    left: 0;
-    visibility: visible;
-    width: 100%; }
-  .mdl-kvl.is-invalid .mdl-kvl__label:after {
-    background-color: rgb(213,0,0); }
 
 .mdl-kvl__error {
   color: rgb(213,0,0);

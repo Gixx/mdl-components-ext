@@ -47,7 +47,17 @@
         JS_KVL: 'mdl-js-kvl',
         KVL_SOCIALNETS: 'mdl-kvl-socialnetworks',
         KVL_MESSENGERS: 'mdl-kvl-instantmessengers',
-        KVL_PHONES: 'mdl-kvl-phones'
+        KVL_PHONES: 'mdl-kvl-phones',
+        KVL_LABEL: 'mdl-kvl__label',
+        IS_FOCUSED: 'is-focused',
+        TEXTFIELD_LABEL: 'mdl-textfield__label',
+        TEXTFIELD_FLOATING: 'mdl-textfield--floating-label',
+        BUTTON_KVL_ADD: 'mdl-kvl__list-add',
+        BUTTON_KVL: 'mdl-button',
+        BUTTON_KVL_JS: 'mdl-js-button',
+        BUTTON_KVL_ICON: 'mdl-button--icon',
+        BUTTON_KVL_COLORED: 'mdl-button--colored',
+        MATERIAL_ICONS: 'material-icons'
     };
 
     /**
@@ -333,8 +343,38 @@
     MaterialKeyvaluelist.prototype.init = function() {
         if (this.element_) {
             var textarea = this.element_.querySelector('textarea');
+            // the textarea and label container
+            var mdlContainer = textarea.parentNode;
             // set list ID
             this.listID_ = textarea.getAttribute('id');
+
+            // Create a new container for the Label and the Add button before the Textarea
+            var labelContainer = document.createElement('div');
+            labelContainer.classList.add(this.CssClasses_.KVL_LABEL);
+            labelContainer.classList.add(this.CssClasses_.IS_FOCUSED);
+            labelContainer.classList.add(this.CssClasses_.TEXTFIELD_FLOATING);
+            mdlContainer.insertBefore(labelContainer, textarea);
+
+            // Move the label into the new container
+            var label = mdlContainer.querySelector('label');
+            var clonedLabel = label.cloneNode(true);
+            clonedLabel.classList.remove();
+            clonedLabel.classList.add(this.CssClasses_.TEXTFIELD_LABEL);
+            labelContainer.appendChild(clonedLabel);
+            label.remove();
+
+            // Create Add button
+            this.addButton_ = document.createElement('button');
+            this.addButton_.setAttribute('type', 'button');
+            this.addButton_.classList.add(this.CssClasses_.BUTTON_KVL_ADD);
+            this.addButton_.classList.add(this.CssClasses_.BUTTON_KVL);
+            this.addButton_.classList.add(this.CssClasses_.BUTTON_KVL_JS);
+            this.addButton_.classList.add(this.CssClasses_.BUTTON_KVL_ICON);
+            this.addButton_.classList.add(this.CssClasses_.BUTTON_KVL_COLORED);
+            this.addButton_.innerHTML = '<i class="material-icons">add</i>';
+
+            labelContainer.appendChild(this.addButton_);
+
 
             // set list data placeholder
             if (textarea.hasAttribute('data-key-placeholder')) {
@@ -374,15 +414,6 @@
             if (initData) {
                 this.storedValue_ = JSON.parse(initData);
             }
-
-            this.addButton_ = document.createElement('div');
-            this.addButton_.classList.add('mdl-kvl__list-add');
-            this.addButton_.innerHTML =
-                '   <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">' +
-                '       <i class="material-icons">add</i>' +
-                '   </button>';
-
-            this.element_.appendChild(this.addButton_);
 
             // Create <datalist> element if necessary
             for (var i in this.Services_) {
