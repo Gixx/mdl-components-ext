@@ -5,23 +5,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>MDL-Styled Key-Value list element</title>
-        <link href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue_grey-red.min.css" media="screen" rel="stylesheet" type="text/css">
-        <link href="static/material.kvl.min.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="../../../vendor/google/material-design-lite/material.min.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="../../../package/material.components.ext.min.css" media="screen" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" media="screen" rel="stylesheet" type="text/css">
         <link rel="shortcut icon" href="../../../favicon.png">
-        <style type="text/css">
-            div.page-content {
-                padding: 20px;
-            }
-            div.element {
-                display: block;
-            }
-
-            .mdl-kvl__label {
-                color: rgb(96,125,139);
-            }
-
-        </style>
     </head>
     <body>
         <!-- Always shows a header, even in smaller screens. -->
@@ -42,15 +29,13 @@
                             <label class="mdl-kvl__label" for="cars">Cars</label>
                             <textarea name="cars" id="cars" data-key-placeholder="Brand" data-value-placeholder="Mark"  class="mdl-kvl__input"></textarea>
                         </div>
-
+                        <br>
                         <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Submit</button>
                     </form>
                 </div>
             </main>
         </div>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script type="text/javascript" src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
-        <script type="text/javascript" src="static/material.kvl.min.js"></script>
-        <script type="text/javascript" src="static/form.js"></script>
+        <script type="text/javascript" src="../../../vendor/google/material-design-lite/material.min.js"></script>
+        <script type="text/javascript" src="../../../package/material.components.ext.min.js"></script>
     </body>
 </html>
