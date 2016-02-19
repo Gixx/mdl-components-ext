@@ -4,9 +4,14 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>MDL-Styled File input element</title>
+        <title>MDL-Styled Avatar element</title>
         <link href="../../../vendor/google/material-design-lite/material.min.css" media="screen" rel="stylesheet" type="text/css">
         <link href="../../../package/material.components.ext.min.css" media="screen" rel="stylesheet" type="text/css">
+
+
+        <link href="../avatar.css" media="screen" rel="stylesheet" type="text/css">
+
+
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" media="screen" rel="stylesheet" type="text/css">
         <link rel="shortcut icon" href="../../../favicon.png">
     </head>
@@ -16,7 +21,7 @@
             <header class="mdl-layout__header">
                 <div class="mdl-layout__header-row">
                     <!-- Title -->
-                    <span class="mdl-layout-title">MDL-Styled File input element</span>
+                    <span class="mdl-layout-title">MDL-Styled Avatar element</span>
                     <!-- Add spacer, to align navigation to the right -->
                     <div class="mdl-layout-spacer"></div>
                 </div>
@@ -26,17 +31,27 @@
                     <h1>Demo</h1>
                     <form name="test" action="" method="post" id="testForm" enctype="multipart/form-data">
 
-                        <div class="element file mdl-file mdl-js-file mdl-file--floating-label" data-placeholder-multiple="files had been added to the list">
-                            <input type="file" name="avatar" id="avatar" multiple="multiple">
-                            <label class="mdl-file__label" for="avatar">Avatar</label>
+                        <div class="mdl-avatar mdl-js-avatar mdl-avatar--floating-label">
+                            <input type="text" name="avatar" id="avatar" value="/src/avatar/snippets/img/default1.png" data-gallery-src="/src/avatar/snippets/img" data-gallery-list="default2.png,default3.png,default4.png" data-i18n-gallery="Default" data-i18n-gravatar="GR" data-i18n-url="Web Address" data-i18n-upload="From local machine">
+                            <label for="avatar">Avatar</label>
+                            <div class="mdl-avatar-overlay">
+                                <input type="text" name="avatar-source" vale="" />
+                            </div>
                         </div>
+
                         <br>
                         <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Submit</button>
                     </form>
                 </div>
             </main>
+            <p>The default avatars are licensed images from the <a href="https://roundicons.com/illustrated-icons/">RoundIcons.com</a>. &copy; 2016, All rights reserved. Redistribution of these images are prohibited.</p>
         </div>
         <script type="text/javascript" src="../../../vendor/google/material-design-lite/material.min.js"></script>
         <script type="text/javascript" src="../../../package/material.components.ext.min.js"></script>
+
+
+        <script type="text/javascript" src="../avatar.js"></script>
+
+
     </body>
 </html>
