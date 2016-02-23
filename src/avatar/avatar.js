@@ -92,10 +92,10 @@
      * @private
      */
     MaterialAvatar.prototype.I18n_ = {
-        gallery: 'Gallery',
-        gravatar: 'GR Avatar',
-        url: 'URL',
-        upload: 'Upload'
+        gallery: {name: 'Gallery', icon: 'image'},
+        gravatar: {name: 'GR Avatar', icon: 'assignment_ind'},
+        url: {name: 'URL', icon: 'language'},
+        upload: {name: 'Upload', icon: 'file_upload'}
     };
 
     /**
@@ -295,21 +295,22 @@
             this.DefaultImage_ = avatarInput.getAttribute('value');
 
             if (avatarInput.hasAttribute('data-i18n-gallery')) {
-                this.I18n_.gallery = avatarInput.getAttribute('data-i18n-gallery');
+                this.I18n_.gallery.name = avatarInput.getAttribute('data-i18n-gallery');
             }
 
             if (avatarInput.hasAttribute('data-i18n-gravatar')) {
-                this.I18n_.gravatar = avatarInput.getAttribute('data-i18n-gravatar');
+                this.I18n_.gravatar.name = avatarInput.getAttribute('data-i18n-gravatar');
             }
 
             if (avatarInput.hasAttribute('data-i18n-url')) {
-                this.I18n_.url = avatarInput.getAttribute('data-i18n-url');
+                this.I18n_.url.name = avatarInput.getAttribute('data-i18n-url');
             }
 
             if (avatarInput.hasAttribute('data-i18n-upload')) {
-                this.I18n_.upload = avatarInput.getAttribute('data-i18n-upload');
+                this.I18n_.upload.name = avatarInput.getAttribute('data-i18n-upload');
             }
 
+            // register gallery elements
             this.Gellery_.push(this.DefaultImage_);
 
             if (avatarInput.hasAttribute('data-gallery-src')) {
@@ -329,26 +330,39 @@
             // Hide input element
             avatarInput.setAttribute('type', 'hidden');
 
+
+            // Create overlay container
+            var overlayElement = document.createElement('div');
+            overlayElement.classList.add('mdl-avatar-overlay');
+
+            // The select overlay
+            var selectOverlay = '<div class="select">' +
+                '<ul class="mdl-list">';
+            for (var i in this.I18n_) {
+                selectOverlay += '<li class="mdl-list__item">' +
+                    '<span class="mdl-list__item-primary-content"><i class="material-icons  mdl-list__item-avatar">' + this.I18n_[i].icon + '</i>' +
+                    '<label for="' + this.FormInputElementName_ + '-type-' + i + '">' + this.I18n_[i].name + '</label></span>' +
+                    '<span class="mdl-list__item-secondary-action"><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="' + this.FormInputElementName_ + '-type-' + i + '">' +
+                    '<input type="radio" id="' + this.FormInputElementName_ + '-type-' + i + '" class="mdl-radio__button" name="' + this.FormInputElementName_ + '-type" value="' + i + '"' +
+                    ("gallery" == i ? ' checked="checked"' : '') + ' />' +
+                    '</label></span>' +
+                    '</li>';
+            }
+            selectOverlay += '</ul></div>';
+
+            overlayElement.innerHTML = selectOverlay;
+
+            this.element_.appendChild(overlayElement);
+
             // Create avatar
             var imageElement = document.createElement('img');
             imageElement.src = this.DefaultImage_;
             this.element_.appendChild(imageElement);
 
-            // Create type selector
-            var selectElement = document.createElement('select');
-            selectElement.setAttribute('name', this.FormInputElementName_ + '-type');
-
-            for (var i in this.I18n_) {
-                var optionElement = document.createElement('option');
-                optionElement.setAttribute('value', i);
-                optionElement.textContent = this.I18n_[i];
-
-                if (i == 'gallery') {
-                    optionElement.setAttribute('selected', 'selected');
-                }
-                selectElement.appendChild(optionElement);
-            }
-            this.element_.appendChild(selectElement);
+            overlayElement.addEventListener('click', function(){
+                overlayElement.querySelector('div.select').style.display = 'block';
+                overlayElement.classList.add('show');
+            });
 
             // Switch to MDL label
             var label = mdlContainer.querySelector('label');
