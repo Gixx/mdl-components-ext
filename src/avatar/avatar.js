@@ -373,6 +373,8 @@
             mdlContainer.classList.add(this.CssClasses_.IS_FOCUSED);
             mdlContainer.classList.add(this.CssClasses_.TEXTFIELD_FLOATING);
 
+            // apply MDL on new elements
+            componentHandler.upgradeDom();
         }
     };
 
