@@ -2,6 +2,7 @@
 .mdl-avatar {
     position: relative;
     width: 300px;
+    height: 256px;
     padding-top: 24px;
 }
 
@@ -50,7 +51,12 @@
 .mdl-avatar .mdl-avatar-overlay .select .mdl-list .mdl-list__item .mdl-list__item-primary-content label {
     display: inline-block;
     width: 100%;
+    max-height: 32px;
     line-height: 32px;
+    max-width: 164px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .mdl-avatar .mdl-avatar-overlay .select .mdl-list .mdl-list__item {
