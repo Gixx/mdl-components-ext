@@ -364,10 +364,15 @@
                 overlayElement.classList.add('show');
             });
 
-            // Switch to MDL label
-            var label = mdlContainer.querySelector('label');
-            label.classList.remove();
-            label.classList.add(this.CssClasses_.TEXTFIELD_LABEL);
+            // Switch to MDL label (if exists)
+            for (var i in this.element_.children) {
+                if ('LABEL' == this.element_.children[i].tagName) {
+                    var label = this.element_.children[i];
+                    label.classList.remove();
+                    label.classList.add(this.CssClasses_.TEXTFIELD_LABEL);
+                    break;
+                }
+            }
 
             // Force the label to be focused
             mdlContainer.classList.add(this.CssClasses_.IS_FOCUSED);
