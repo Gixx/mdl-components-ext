@@ -44,8 +44,14 @@
      */
     MaterialAvatar.prototype.CssClasses_ = {
         IS_UPGRADED: 'is-upgraded',
+        IS_CHECKED: 'is-checked',
+        IS_SHOW: 'show',
         JS_AVATAR: 'mdl-js-avatar',
+        RADIO_BTN: 'mdl-radio__button',
+        AVATAR_OVERLAY: 'mdl-avatar-overlay',
         AVATAR_LABEL: 'mdl-avatar__label',
+        AVATAR_INPUT: 'mdl-avatar__input',
+        AVATAR_IMAGE: 'mdl-avatar__image',
         IS_FOCUSED: 'is-focused',
         TEXTFIELD_LABEL: 'mdl-textfield__label',
         TEXTFIELD_FLOATING: 'mdl-textfield--floating-label',
@@ -282,10 +288,87 @@
     };
 
     /**
+     * Open the overlay
+     *
+     * @param event
+     * @private
+     */
+    MaterialAvatar.prototype.openOverlay_ = function(event) {
+        var overlayElement = this.element_.querySelector('.' + this.CssClasses_.AVATAR_OVERLAY);
+
+        if (!overlayElement.classList.contains(this.CssClasses_.IS_SHOW)) {
+            // show the option list
+            overlayElement.querySelector('.select').style.display = 'block';
+            overlayElement.classList.add(this.CssClasses_.IS_SHOW);
+        }
+    };
+
+    /**
+     * Close the overlay keeping the data untouched
+     *
+     * @param event
+     * @private
+     */
+    MaterialAvatar.prototype.closeOverlay_ = function(event) {
+        var overlayElement = this.element_.querySelector('.' + this.CssClasses_.AVATAR_OVERLAY);
+
+        if (overlayElement.classList.contains(this.CssClasses_.IS_SHOW)) {
+            // hide overlay
+            overlayElement.classList.remove(this.CssClasses_.IS_SHOW);
+            // hide all sub-overlays
+            for (var i in overlayElement.children) {
+                if ('DIV' == overlayElement.children[i].tagName) {
+                    overlayElement.children[i].style.display = 'none';
+                }
+            }
+        }
+    };
+
+    /**
+     * Cancel changes, reset component to init state
+     *
+     * @param event
+     * @private
+     */
+    MaterialAvatar.prototype.cancelChange_ = function(event) {
+        var overlayElement = this.element_.querySelector('.' + this.CssClasses_.AVATAR_OVERLAY);
+
+        // do it only when the overlay is visible
+        if (overlayElement.classList.contains(this.CssClasses_.IS_SHOW)) {
+            // don't prevent default behavior when the user clicks inside the component
+            for (var i = 0, len = event.path.length; i < len; i++) {
+                if (event.path[i] === overlayElement) {
+                    return true;
+                }
+            }
+            // prevent default functionality
+            event.preventDefault();
+            // reset avatar image if changed
+            this.element_.querySelector('input.' + this.CssClasses_.AVATAR_INPUT).setAttribute('value', this.DefaultImage_);
+            this.element_.querySelector('img.' + this.CssClasses_.AVATAR_IMAGE).src = this.DefaultImage_;
+            // reset select buttons
+            var checkedRadio = overlayElement.querySelector('.select .' + this.CssClasses_.IS_CHECKED);
+            if (checkedRadio) {
+                //checkedRadio.querySelector('input').checked = false;
+                checkedRadio.classList.remove(this.CssClasses_.IS_CHECKED);
+            }
+            // hide overlay
+            overlayElement.classList.remove(this.CssClasses_.IS_SHOW);
+            // hide all sub-overlays
+            for (var i in overlayElement.children) {
+                if ('DIV' == overlayElement.children[i].tagName) {
+                    overlayElement.children[i].style.display = 'none';
+                }
+            }
+        }
+    };
+
+    /**
      * Initialize component.
      */
     MaterialAvatar.prototype.init = function() {
         if (this.element_) {
+            // the first input element will always be the one with the stored data
             var avatarInput = this.element_.querySelector('input');
             // the input and label container
             var mdlContainer = avatarInput.parentNode;
@@ -329,38 +412,34 @@
 
             // Hide input element
             avatarInput.setAttribute('type', 'hidden');
+            avatarInput.classList.add(this.CssClasses_.AVATAR_INPUT);
+
+            // Create avatar image
+            var imageElement = document.createElement('img');
+            imageElement.src = this.DefaultImage_;
+            imageElement.classList.add(this.CssClasses_.AVATAR_IMAGE);
+            this.element_.appendChild(imageElement);
 
             // Create overlay container
             var overlayElement = document.createElement('div');
-            overlayElement.classList.add('mdl-avatar-overlay');
+            overlayElement.classList.add(this.CssClasses_.AVATAR_OVERLAY);
 
             // The select overlay
-            var selectOverlay = '<div class="select">' +
-                '<ul class="mdl-list">';
+            var selectOverlay = '<div class="select"><ul class="mdl-list">';
             for (var i in this.I18n_) {
                 selectOverlay += '<li class="mdl-list__item">' +
                     '<span class="mdl-list__item-primary-content"><i class="material-icons  mdl-list__item-avatar">' + this.I18n_[i].icon + '</i>' +
                     '<label for="' + this.FormInputElementName_ + '-type-' + i + '">' + this.I18n_[i].name + '</label></span>' +
                     '<span class="mdl-list__item-secondary-action"><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="' + this.FormInputElementName_ + '-type-' + i + '">' +
-                    '<input type="radio" id="' + this.FormInputElementName_ + '-type-' + i + '" class="mdl-radio__button" name="' + this.FormInputElementName_ + '-type" value="' + i + '" />' +
+                    '<input type="radio" id="' + this.FormInputElementName_ + '-type-' + i + '" class="' + this.CssClasses_.RADIO_BTN + '" name="' + this.FormInputElementName_ + '-type" value="' + i + '" />' +
                     '</label></span>' +
                     '</li>';
             }
             selectOverlay += '</ul></div>';
 
+            // this is faster than creating every element by DOM one-by-one
             overlayElement.innerHTML = selectOverlay;
-
             this.element_.appendChild(overlayElement);
-
-            // Create avatar
-            var imageElement = document.createElement('img');
-            imageElement.src = this.DefaultImage_;
-            this.element_.appendChild(imageElement);
-
-            overlayElement.addEventListener('click', function(){
-                overlayElement.querySelector('div.select').style.display = 'block';
-                overlayElement.classList.add('show');
-            });
 
             // Switch to MDL label (if exists)
             for (var i in this.element_.children) {
@@ -378,6 +457,16 @@
 
             // apply MDL on new elements
             componentHandler.upgradeDom();
+
+            // Set up events
+            overlayElement.addEventListener('click', this.openOverlay_.bind(this));
+            document.addEventListener('click', this.cancelChange_.bind(this));
+
+            var radioButtons = overlayElement.querySelectorAll('.' + this.CssClasses_.RADIO_BTN);
+            for (var i = 0, num = radioButtons.length; i < num; i++) {
+                radioButtons[i].addEventListener('change', this.closeOverlay_.bind(this));
+                radioButtons[i].addEventListener('focus', this.closeOverlay_.bind(this));
+            }
         }
     };
 
