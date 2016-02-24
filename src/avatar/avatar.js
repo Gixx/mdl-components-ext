@@ -330,7 +330,6 @@
             // Hide input element
             avatarInput.setAttribute('type', 'hidden');
 
-
             // Create overlay container
             var overlayElement = document.createElement('div');
             overlayElement.classList.add('mdl-avatar-overlay');
@@ -343,8 +342,7 @@
                     '<span class="mdl-list__item-primary-content"><i class="material-icons  mdl-list__item-avatar">' + this.I18n_[i].icon + '</i>' +
                     '<label for="' + this.FormInputElementName_ + '-type-' + i + '">' + this.I18n_[i].name + '</label></span>' +
                     '<span class="mdl-list__item-secondary-action"><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="' + this.FormInputElementName_ + '-type-' + i + '">' +
-                    '<input type="radio" id="' + this.FormInputElementName_ + '-type-' + i + '" class="mdl-radio__button" name="' + this.FormInputElementName_ + '-type" value="' + i + '"' +
-                    ("gallery" == i ? ' checked="checked"' : '') + ' />' +
+                    '<input type="radio" id="' + this.FormInputElementName_ + '-type-' + i + '" class="mdl-radio__button" name="' + this.FormInputElementName_ + '-type" value="' + i + '" />' +
                     '</label></span>' +
                     '</li>';
             }
