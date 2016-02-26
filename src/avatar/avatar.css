@@ -6,7 +6,7 @@
     padding-top: 24px;
 }
 
-.mdl-avatar img {
+.mdl-avatar .mdl-avatar__image {
     position: relative;
     vertical-align: middle;
     display: block;
@@ -15,8 +15,13 @@
     margin: 0 auto;
 }
 
-.mdl-avatar label {
+.mdl-avatar .mdl-avatar__label,
+.mdl-avatar .mdl-textfield__label {
     z-index: 200;
+}
+
+.mdl-avatar .mdl-avatar__input {
+    display: none;
 }
 
 .mdl-avatar .mdl-avatar-overlay {
@@ -31,16 +36,56 @@
     transition: opacity 500ms;
 }
 
-.mdl-avatar .mdl-avatar-overlay.show {
+.mdl-avatar .mdl-avatar-overlay.is-show {
     opacity: 1;
 }
 
-.mdl-avatar .mdl-avatar-overlay .select {
+.mdl-avatar .mdl-avatar-overlay .select,
+.mdl-avatar .mdl-avatar-overlay .gallery,
+.mdl-avatar .mdl-avatar-overlay .gravatar,
+.mdl-avatar .mdl-avatar-overlay .url,
+.mdl-avatar .mdl-avatar-overlay .upload {
     margin: 10px;
-    border: 1px solid lightgray;
+    border: 1px solid rgba(158,158,158,.2);
     background: #fff;
     height: calc(100% - 22px);
     display: none;
+    cursor: default;
+    box-sizing: border-box;
+}
+
+.mdl-avatar .mdl-avatar-overlay .select.is-active,
+.mdl-avatar .mdl-avatar-overlay .gallery.is-active,
+.mdl-avatar .mdl-avatar-overlay .gravatar.is-active,
+.mdl-avatar .mdl-avatar-overlay .url.is-active,
+.mdl-avatar .mdl-avatar-overlay .upload.is-active {
+    display: block;
+}
+
+.mdl-avatar .mdl-avatar-overlay .gallery {
+    padding:13px 0 0 17px;
+    overflow: scroll;
+}
+
+.mdl-avatar .mdl-avatar-overlay .gallery .mdl-avatar__apply {
+    width: 68px;
+    height: 68px;
+    border: 1px solid transparent;
+    margin: 0 17px 17px 0;
+    cursor: pointer;
+}
+
+.mdl-avatar .mdl-avatar-overlay .gravatar {
+    padding: 16px;
+    text-align: right;
+}
+
+.mdl-avatar .mdl-avatar-overlay .gravatar button {
+    margin-left: 16px;
+}
+
+.mdl-avatar .mdl-avatar-overlay .gallery .mdl-avatar__apply.is-selected {
+    border: 1px solid #ff4081;
 }
 
 .mdl-avatar .mdl-avatar-overlay .select .mdl-list {
@@ -48,26 +93,15 @@
     margin: 0;
 }
 
-.mdl-avatar .mdl-avatar-overlay .select .mdl-list .mdl-list__item .mdl-list__item-primary-content label {
-    display: inline-block;
-    width: 100%;
-    max-height: 32px;
-    line-height: 32px;
-    max-width: 164px;
-    overflow: hidden;
-    white-space: nowrap;
-    cursor: pointer;
-    text-overflow: ellipsis;
-}
-
 .mdl-avatar .mdl-avatar-overlay .select .mdl-list .mdl-list__item {
     padding: 13px 16px;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid rgba(158,158,158,.2);
 }
 
 .mdl-avatar .mdl-avatar-overlay .select .mdl-list .mdl-list__item:last-child {
     border-bottom: none;
 }
+
 
 .mdl-avatar .mdl-avatar-overlay .select .mdl-list .mdl-list__item .mdl-radio {
     display: inline;
@@ -85,4 +119,16 @@
     background-color: #fff;
     font-size: 32px;
     color: #757575;
+}
+
+.mdl-avatar .mdl-avatar-overlay .select .mdl-list .mdl-list__item .mdl-avatar-list__label {
+    display: inline-block;
+    width: 100%;
+    max-height: 32px;
+    line-height: 32px;
+    max-width: 164px;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    text-overflow: ellipsis;
 }

@@ -29,6 +29,20 @@
     var MaterialAvatar = function MaterialAvatar(element) {
         this.element_ = element;
 
+        // reset data (otherwise multiple instances may use each other's data)
+        this.GrAvatarSecured_ = (window.location.protocol === "https:");
+        this.FormInputElementName_ = '';
+        this.DefaultImage_ = '';
+        this.GalleryPath_ = '';
+        this.Gallery_ = [];
+        this.AvatarType_ = null;
+        this.I18n_ = {
+            gallery: {name: 'Gallery', icon: 'image'},
+            gravatar: {name: 'GR Avatar', icon: 'assignment_ind'},
+            url: {name: 'URL', icon: 'language'},
+            upload: {name: 'Upload', icon: 'file_upload'}
+        };
+
         // Initialize instance.
         this.init();
     };
@@ -44,20 +58,44 @@
      */
     MaterialAvatar.prototype.CssClasses_ = {
         IS_UPGRADED: 'is-upgraded',
+        IS_FOCUSED: 'is-focused',
         IS_CHECKED: 'is-checked',
-        IS_SHOW: 'show',
+        IS_SELECTED: 'is-selected',
+        IS_SHOW: 'is-show',
+        IS_ACTIVE: 'is-active',
+        IS_INVALID: 'is-invalid',
+        IS_DIRTY: 'is-dirty',
         JS_AVATAR: 'mdl-js-avatar',
         RADIO_BTN: 'mdl-radio__button',
         AVATAR_OVERLAY: 'mdl-avatar-overlay',
         AVATAR_LABEL: 'mdl-avatar__label',
+        AVATAR__LIST_LABEL: 'mdl-avatar-list__label',
         AVATAR_INPUT: 'mdl-avatar__input',
         AVATAR_IMAGE: 'mdl-avatar__image',
-        IS_FOCUSED: 'is-focused',
+        AVATAR_APPLY: 'mdl-avatar__apply',
+        AVATAR_CANCEL: 'mdl-avatar__cancel',
         TEXTFIELD_LABEL: 'mdl-textfield__label',
         TEXTFIELD_FLOATING: 'mdl-textfield--floating-label',
+        TEXTFIELD_INPUT: 'mdl-textfield__input',
         BUTTON_AVATAR_JS: 'mdl-js-button',
         MATERIAL_ICONS: 'material-icons'
     };
+
+    /**
+     * If use HTTPS or not
+     *
+     * @type {boolean}
+     * @private
+     */
+    MaterialAvatar.prototype.GrAvatarSecured_ = false;
+
+    /**
+     * Custom event for close the overlay
+     *
+     * @type {string}
+     * @private
+     */
+    MaterialAvatar.prototype.OverlayCloseEvent_ = 'overlayCloseEvent';
 
     /**
      * Form element name attribute
@@ -89,7 +127,15 @@
      * @type {Array}
      * @private
      */
-    MaterialAvatar.prototype.Gellery_ = [];
+    MaterialAvatar.prototype.Gallery_ = [];
+
+    /**
+     * Avatar type flag
+     *
+     * @type {string}
+     * @private
+     */
+    MaterialAvatar.prototype.AvatarType_ = null;
 
     /**
      * Custom labels for the type selection
@@ -110,7 +156,7 @@
      * @private
      */
     MaterialAvatar.prototype.dataPattern_ = {
-        email: '[a-z0-9\\.\\_\\%\\+\\-]+\\@[a-z0-9]([a-z0-9\\.\\-]*[a-z0-9\\.\\-])?\\.[a-z]{2,4}',
+        email: '[a-z0-9]([a-z0-9\\.\\-]*[a-z0-9])@[a-z0-9]([a-z0-9\\.\\-]*[a-z0-9])\\.[a-z]{2,4}',
         url: 'https?\\:\\/\\/[a-z0-9]([a-z0-9\\.\\-]*[a-z0-9\\.\\-])?\\.[a-z]{2,4}\\/?[a-zA-Z0-9\\.\\/\\?\\-\\_\\#\\%\\&\\@\\=\\+]*'
     };
 
@@ -288,40 +334,237 @@
     };
 
     /**
+     * Create a variant name for the original field name.
+     * Handles arrayed names as well.
+     *
+     * @param {mixed} inputElement
+     * @param {string }variant
+     * @returns {string}
+     * @private
+     */
+    MaterialAvatar.prototype.getFieldNameVariant_ = function(inputElement, variant) {
+        var fieldName = '';
+        var nameVariant = '';
+
+        if (typeof inputElement == 'string') {
+            fieldName = inputElement;
+        } else {
+            fieldName = inputElement.getAttribute('name');
+        }
+
+        if (fieldName) {
+            if (fieldName.endsWith(']')) {
+                nameVariant = fieldName.substr(0, (fieldName.length - 1)) + '-' + variant + ']';
+            } else {
+                nameVariant = fieldName + '-' + variant;
+            }
+        } else {
+            console.warn('No name defined');
+        }
+
+        return nameVariant;
+    };
+
+    /**
+     * Centralized event handler proxy to avoid conflicts between event handlers for the component.
+     * Handles the event only within the current component
+     *
+     * @param event
+     * @private
+     */
+    MaterialAvatar.prototype.clickEventHandler_ = function(event) {
+        if (~event.path.indexOf(this.element_)) {
+            var element = event.target;
+            if (element.classList.contains(this.CssClasses_.AVATAR_OVERLAY)) {
+                this.openOverlay_(event);
+            } else if (element.classList.contains(this.CssClasses_.RADIO_BTN)) {
+                this.openStepTwo_(event);
+            } else if (element.classList.contains(this.CssClasses_.AVATAR_APPLY)) {
+                this.applyChange_(event);
+            } else if (element.classList.contains(this.CssClasses_.AVATAR_CANCEL)) {
+                this.resetOverlay_(event);
+            }
+        } else {
+            this.resetOverlay_(event);
+        }
+    };
+
+    /**
      * Open the overlay
      *
      * @param event
      * @private
      */
     MaterialAvatar.prototype.openOverlay_ = function(event) {
-        var overlayElement = this.element_.querySelector('.' + this.CssClasses_.AVATAR_OVERLAY);
+        var overlayElement = event.target;
 
-        if (!overlayElement.classList.contains(this.CssClasses_.IS_SHOW)) {
-            // show the option list
-            overlayElement.querySelector('.select').style.display = 'block';
+        if (overlayElement.classList.contains(this.CssClasses_.AVATAR_OVERLAY)
+            && !overlayElement.classList.contains(this.CssClasses_.IS_SHOW)
+        ) {
+            // show options overlay
+            overlayElement.querySelector('.select').classList.add(this.CssClasses_.IS_ACTIVE);
             overlayElement.classList.add(this.CssClasses_.IS_SHOW);
         }
     };
 
     /**
-     * Close the overlay keeping the data untouched
+     * Open the specified overlay. The event must be triggered only by the radio button focus.
      *
      * @param event
      * @private
      */
-    MaterialAvatar.prototype.closeOverlay_ = function(event) {
+    MaterialAvatar.prototype.openStepTwo_ = function(event) {
         var overlayElement = this.element_.querySelector('.' + this.CssClasses_.AVATAR_OVERLAY);
 
         if (overlayElement.classList.contains(this.CssClasses_.IS_SHOW)) {
-            // hide overlay
-            overlayElement.classList.remove(this.CssClasses_.IS_SHOW);
-            // hide all sub-overlays
-            for (var i in overlayElement.children) {
-                if ('DIV' == overlayElement.children[i].tagName) {
-                    overlayElement.children[i].style.display = 'none';
+            // hide options overlay
+            overlayElement.querySelector('.select').classList.remove(this.CssClasses_.IS_ACTIVE);
+            // open apply overlay if exists
+            var option = event.target.value;
+            var secondaryOverlay = overlayElement.querySelector('.' + option);
+
+            if (secondaryOverlay) {
+                // @TODO: on cancel we must set back to previous state
+                this.AvatarType_ = option;
+
+                // set the selected avatar type for the POST
+                var hiddenElement = this.element_.querySelector('input[type=hidden]');
+                if (hiddenElement) {
+                    hiddenElement.setAttribute('value', option);
+                }
+
+                secondaryOverlay.classList.add(this.CssClasses_.IS_ACTIVE);
+            }
+        }
+    };
+
+    /**
+     * Apply changes from step two
+     *
+     * @param event
+     * @private
+     */
+    MaterialAvatar.prototype.applyChange_ = function(event) {
+        // prevent default action
+        event.preventDefault();
+        var applied = false;
+
+        switch (this.AvatarType_) {
+            case 'gallery':
+                applied = this.applyGalleryChange_(event);
+                break;
+
+            case 'gravatar':
+                applied = this.applyGravatarChange_(event);
+                break;
+
+            case 'url':
+                applied = this.applyUrlChange_(event);
+                break;
+
+            case 'upload':
+                applied = this.applyUploadChange_(event);
+                break;
+        }
+
+        if (applied) {
+            // reset and close overlay by firing a custom event
+            var overlayCloseEvent = new Event(this.OverlayCloseEvent_);
+            document.dispatchEvent(overlayCloseEvent);
+        }
+    };
+
+    /**
+     * Apply selected gallery element
+     *
+     * @param even
+     * @private
+     */
+    MaterialAvatar.prototype.applyGalleryChange_ = function(event) {
+        var overlayElement = this.element_.querySelector('.' + this.CssClasses_.AVATAR_OVERLAY);
+
+        // do it only when the overlay is visible
+        if (overlayElement.classList.contains(this.CssClasses_.IS_SHOW)) {
+            // register new default image
+            this.DefaultImage_ = event.target.src;
+            // set the form input value too
+            this.element_.querySelector('.' + this.CssClasses_.AVATAR_INPUT).value = this.DefaultImage_;
+            // set avatar
+            this.element_.querySelector('.' + this.CssClasses_.AVATAR_IMAGE).src = this.DefaultImage_;
+            // deal with gallery images
+            var galleryImages = this.element_.querySelectorAll('.gallery img.' + this.CssClasses_.AVATAR_APPLY);
+            for (var i = 0, num = galleryImages.length; i < num; i++) {
+                // reset the previous selected
+                if (galleryImages[i].classList.contains(this.CssClasses_.IS_SELECTED)) {
+                    galleryImages[i].classList.remove(this.CssClasses_.IS_SELECTED);
+                }
+                // set new selected
+                if (galleryImages[i].src == this.DefaultImage_) {
+                    galleryImages[i].classList.add(this.CssClasses_.IS_SELECTED);
                 }
             }
         }
+
+        return true;
+    };
+
+    /**
+     * Check and apply GR Avatar value
+     * @param even
+     * @private
+     */
+    MaterialAvatar.prototype.applyGravatarChange_ = function(event) {
+        var overlayElement = this.element_.querySelector('.' + this.CssClasses_.AVATAR_OVERLAY);
+
+        // do it only when the overlay is visible
+        if (overlayElement.classList.contains(this.CssClasses_.IS_SHOW)) {
+            var inputElement = overlayElement.querySelector('.gravatar .' + this.CssClasses_.TEXTFIELD_INPUT);
+            // if there's no native browser validation then we have to believe that the user is not a noob :)
+            var isValid = (typeof inputElement.willValidate !== "undefined") ? inputElement.checkValidity() : true;
+
+            if (!isValid) {
+                return null;
+            } else {
+                event.preventDefault();
+                var baseUrl = this.GrAvatarSecured_ ? 'https://secure.gravatar.com/avatar/' : 'http://www.gravatar.com/avatar/';
+                var gravatarImageUrl = baseUrl + this.md5(inputElement.value) + '?r=g&d=' + encodeURIComponent('') + '&size=256';
+                var avatarImage = this.element_.querySelector('.' + this.CssClasses_.AVATAR_IMAGE);
+                var inputElement = this.element_.querySelector('.' + this.CssClasses_.AVATAR_INPUT);
+                var reference = this;
+                var tmpImage = new Image;
+
+                tmpImage.onload = function() {
+                    // register new default image
+                    reference.DefaultImage_ = gravatarImageUrl;
+                    // set avatar
+                    avatarImage.src = gravatarImageUrl;
+                    inputElement.value = gravatarImageUrl;
+                };
+
+                try { tmpImage.src = gravatarImageUrl; } catch (exp){}
+            }
+        }
+
+        return true;
+    };
+
+    /**
+     * Check and apply URL value
+     * @param even
+     * @private
+     */
+    MaterialAvatar.prototype.applyUrlChange_ = function(event) {
+        console.info('url');
+    };
+
+    /**
+     * Check and apply upload value
+     *
+     * @param even
+     * @private
+     */
+    MaterialAvatar.prototype.applyUploadChange_ = function(event) {
+        console.info('file');
     };
 
     /**
@@ -330,16 +573,14 @@
      * @param event
      * @private
      */
-    MaterialAvatar.prototype.cancelChange_ = function(event) {
+    MaterialAvatar.prototype.resetOverlay_ = function(event) {
         var overlayElement = this.element_.querySelector('.' + this.CssClasses_.AVATAR_OVERLAY);
 
         // do it only when the overlay is visible
         if (overlayElement.classList.contains(this.CssClasses_.IS_SHOW)) {
-            // don't prevent default behavior when the user clicks inside the component
-            for (var i = 0, len = event.path.length; i < len; i++) {
-                if (event.path[i] === overlayElement) {
-                    return true;
-                }
+            // don't prevent default behavior when the user clicks inside the component unless it is the Cancel button
+            if (~event.path.indexOf(overlayElement) && !event.target.classList.contains(this.CssClasses_.AVATAR_CANCEL)) {
+                return true;
             }
             // prevent default functionality
             event.preventDefault();
@@ -349,17 +590,35 @@
             // reset select buttons
             var checkedRadio = overlayElement.querySelector('.select .' + this.CssClasses_.IS_CHECKED);
             if (checkedRadio) {
-                //checkedRadio.querySelector('input').checked = false;
+                checkedRadio.querySelector('input').checked = false;
                 checkedRadio.classList.remove(this.CssClasses_.IS_CHECKED);
+                this.AvatarType_ = null;
+            }
+
+            // reset input fields
+            var gravatarInputField = overlayElement.querySelector('.gravatar input.' + this.CssClasses_.TEXTFIELD_INPUT);
+            if (gravatarInputField) {
+                gravatarInputField.value = '';
+                gravatarInputField.parentNode.classList.remove(this.CssClasses_.IS_FOCUSED);
+                gravatarInputField.parentNode.classList.remove(this.CssClasses_.IS_DIRTY);
+                gravatarInputField.parentNode.classList.remove(this.CssClasses_.IS_INVALID);
+            }
+
+            var urlInputField = overlayElement.querySelector('.url input .' + this.CssClasses_.TEXTFIELD_INPUT);
+            if (urlInputField) {
+                urlInputField.value = '';
+                urlInputField.parentNode.classList.remove(this.CssClasses_.IS_FOCUSED);
+                urlInputField.parentNode.classList.remove(this.CssClasses_.IS_DIRTY);
+                urlInputField.parentNode.classList.remove(this.CssClasses_.IS_INVALID);
+            }
+
+            // hide opened sub-overlay (must be maximum one)
+            var subOverlay = overlayElement.querySelector('.' + this.CssClasses_.IS_ACTIVE);
+            if (subOverlay) {
+                subOverlay.classList.remove(this.CssClasses_.IS_ACTIVE);
             }
             // hide overlay
             overlayElement.classList.remove(this.CssClasses_.IS_SHOW);
-            // hide all sub-overlays
-            for (var i in overlayElement.children) {
-                if ('DIV' == overlayElement.children[i].tagName) {
-                    overlayElement.children[i].style.display = 'none';
-                }
-            }
         }
     };
 
@@ -369,7 +628,7 @@
     MaterialAvatar.prototype.init = function() {
         if (this.element_) {
             // the first input element will always be the one with the stored data
-            var avatarInput = this.element_.querySelector('input');
+            var avatarInput = this.element_.querySelector('.' + this.CssClasses_.AVATAR_INPUT);
             // the input and label container
             var mdlContainer = avatarInput.parentNode;
 
@@ -394,25 +653,39 @@
             }
 
             // register gallery elements
-            this.Gellery_.push(this.DefaultImage_);
+            this.Gallery_.push(this.DefaultImage_);
 
+            // If specific path is given
             if (avatarInput.hasAttribute('data-gallery-src')) {
                 this.GalleryPath_ = avatarInput.getAttribute('data-gallery-src');
+                var patt = new RegExp(".*\/$");
+                // the path must end with slash
+                if (!patt.test(this.GalleryPath_)) {
+                    this.GalleryPath_ += '/';
+                }
             }
 
+            // If additional gallery images are provided
             if (avatarInput.hasAttribute('data-gallery-list')) {
                 var imageList = avatarInput.getAttribute('data-gallery-list').split(',');
 
                 for (var i = 0, num = imageList.length; i < num; i++) {
-                    var image = this.GalleryPath_ + '/' + imageList[i];
-                    image = image.replace(/\/\//, '/');
-                    this.Gellery_.push(image);
+                    var image = imageList[i];
+
+                    // if we have gallery path given and the image path doesn't start with slash, we make it alternative to the gallery path
+                    if (this.GalleryPath_ != '' && image.indexOf('/') !== 0) {
+                        image = this.GalleryPath_ + image;
+                    }
+                    this.Gallery_.push(image);
                 }
             }
 
-            // Hide input element
-            avatarInput.setAttribute('type', 'hidden');
-            avatarInput.classList.add(this.CssClasses_.AVATAR_INPUT);
+            // Create hidden input for the type (default value is 'gallery'
+            var hiddenElement = document.createElement('input');
+            hiddenElement.setAttribute('type', 'hidden');
+            hiddenElement.setAttribute('name', this.getFieldNameVariant_(this.FormInputElementName_, 'type'));
+            hiddenElement.setAttribute('value', 'gallery');
+            this.element_.appendChild(hiddenElement);
 
             // Create avatar image
             var imageElement = document.createElement('img');
@@ -429,27 +702,45 @@
             for (var i in this.I18n_) {
                 selectOverlay += '<li class="mdl-list__item">' +
                     '<span class="mdl-list__item-primary-content"><i class="material-icons  mdl-list__item-avatar">' + this.I18n_[i].icon + '</i>' +
-                    '<label for="' + this.FormInputElementName_ + '-type-' + i + '">' + this.I18n_[i].name + '</label></span>' +
-                    '<span class="mdl-list__item-secondary-action"><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="' + this.FormInputElementName_ + '-type-' + i + '">' +
-                    '<input type="radio" id="' + this.FormInputElementName_ + '-type-' + i + '" class="' + this.CssClasses_.RADIO_BTN + '" name="' + this.FormInputElementName_ + '-type" value="' + i + '" />' +
+                    '<label class="mdl-avatar-list__label" for="' + this.getFieldNameVariant_(this.FormInputElementName_, 'type-' + i) + '">' + this.I18n_[i].name + '</label></span>' +
+                    '<span class="mdl-list__item-secondary-action"><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="' + this.getFieldNameVariant_(this.FormInputElementName_, 'type-' + i) + '">' +
+                    '<input type="radio" id="' + this.getFieldNameVariant_(this.FormInputElementName_, 'type-' + i) + '" class="mdl-radio__button" name="' + this.getFieldNameVariant_(this.FormInputElementName_, 'type') + '" value="' + i + '" />' +
                     '</label></span>' +
                     '</li>';
             }
             selectOverlay += '</ul></div>';
 
+            // Gallery overlay
+            var galleryOverlay = '<div class="gallery">';
+            for (var i = 0, num = this.Gallery_.length; i < num; i++) {
+                galleryOverlay += '<img src="' + this.Gallery_[i] + '" class="mdl-avatar__apply' +
+                    (this.Gallery_[i] == this.DefaultImage_ ? ' ' + this.CssClasses_.IS_SELECTED : '') + '">';
+            }
+            galleryOverlay += '</div>';
+
+            // GR Avatar overlay
+            var gravatarOverlay = '<div class="gravatar">' +
+                '<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">' +
+                '<input class="mdl-textfield__input" type="email" pattern="' + this.dataPattern_.email + '" placeholder="E-mail" value="">' +
+                '<label class="mdl-textfield__label" for="sample4">' + this.I18n_.gravatar.name + '</label>' +
+                '</div>' +
+                '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab ' + this.CssClasses_.AVATAR_APPLY + '"><i class="material-icons ' + this.CssClasses_.AVATAR_APPLY + '">done</i></button>' +
+                '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored ' + this.CssClasses_.AVATAR_CANCEL + '"><i class="material-icons ' + this.CssClasses_.AVATAR_CANCEL + '">delete_forever</i></button>' +
+                '</div>';
+
+            // URL overlay
+            var urlOverlay = '<div class="url">URL</div>';
+
+            // Upload overlay
+            var uploadOverlay = '<div class="upload">Upload</div>';
+
             // this is faster than creating every element by DOM one-by-one
-            overlayElement.innerHTML = selectOverlay;
+            overlayElement.innerHTML = selectOverlay + galleryOverlay + gravatarOverlay + urlOverlay + uploadOverlay;
             this.element_.appendChild(overlayElement);
 
             // Switch to MDL label (if exists)
-            for (var i in this.element_.children) {
-                if ('LABEL' == this.element_.children[i].tagName) {
-                    var label = this.element_.children[i];
-                    label.classList.remove();
-                    label.classList.add(this.CssClasses_.TEXTFIELD_LABEL);
-                    break;
-                }
-            }
+            var labelElement = mdlContainer.querySelector('.' + this.CssClasses_.AVATAR_LABEL);
+            labelElement.classList.add(this.CssClasses_.TEXTFIELD_LABEL);
 
             // Force the label to be focused
             mdlContainer.classList.add(this.CssClasses_.IS_FOCUSED);
@@ -459,14 +750,8 @@
             componentHandler.upgradeDom();
 
             // Set up events
-            overlayElement.addEventListener('click', this.openOverlay_.bind(this));
-            document.addEventListener('click', this.cancelChange_.bind(this));
-
-            var radioButtons = overlayElement.querySelectorAll('.' + this.CssClasses_.RADIO_BTN);
-            for (var i = 0, num = radioButtons.length; i < num; i++) {
-                radioButtons[i].addEventListener('change', this.closeOverlay_.bind(this));
-                radioButtons[i].addEventListener('focus', this.closeOverlay_.bind(this));
-            }
+            document.addEventListener('click', this.clickEventHandler_.bind(this));
+            document.addEventListener(this.OverlayCloseEvent_, this.resetOverlay_.bind(this));
         }
     };
 

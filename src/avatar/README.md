@@ -30,10 +30,10 @@ By default, this component supports only 256x256 pixel images. This may be dynam
 </div>
 ```
 
-&nbsp;4. Additionally you can add a special `data-gallery-src` and `data-gallery-list` attributes for the `<img>` element to enable a gallery preset for the component. The value of the `data-gallery-list` attribute MUST be a comma-separated list. The value of the `value` attribute will be added to the list automatically, so you can leave it out from the list.
+&nbsp;4. Additionally you can add a special `data-gallery-src` and `data-gallery-list` attributes for the `<img>` element to enable a gallery preset for the component. The value of the `data-gallery-list` attribute MUST be a comma-separated list. The value of the `value` attribute will be added to the list automatically, so you can leave it out from the list. In the gallery list you can specify the images with absolute path (start with '/') too. 
 ```html
 <div>
-  <input type="text" name="avatar" id="avatar" value="/img/avatars/default1.jpg" data-gallery-src="/img/avatars" data-gallery-list="default1.jpg,default2.jpg,default3.jpg">
+  <input type="text" name="avatar" id="avatar" value="/img/avatars/default1.jpg" data-gallery-src="/img/avatars" data-gallery-list="default2.jpg,default3.jpg,/img/myProfilePic.jpg">
   <label for="avatar">Avatar</label>
 </div>
 ```
@@ -41,7 +41,7 @@ By default, this component supports only 256x256 pixel images. This may be dynam
 &nbsp;5. Additionally you can add a special `data-i18n-...` attributes for the `<img>` element to set the translations of the four options: 'Gallery', 'GR Avatar', 'URL', 'Upload File'.
 ```html
 <div>
-  <input type="text" name="avatar" id="avatar" value="/img/avatars/default1.jpg" data-gallery-src="/img/avatars" data-gallery-list="default1.jpg,default2.jpg,default3.jpg" data-i18n-gallery="Default" data-i18n-gravatar="GR" data-i18n-url="Web Address" data-i18n-upload="From local machine">
+  <input type="text" name="avatar" id="avatar" value="/img/avatars/default1.jpg" data-gallery-src="/img/avatars" data-gallery-list="default2.jpg,default3.jpg,/img/myProfilePic.jpg" data-i18n-gallery="Default" data-i18n-gravatar="GR" data-i18n-url="Web Address" data-i18n-upload="From local machine">
   <label for="avatar">Avatar</label>
 </div>
 ```
@@ -49,7 +49,7 @@ By default, this component supports only 256x256 pixel images. This may be dynam
 &nbsp;6. Add one or more MDL classes, separated by spaces, to the div container and the field label using the `class` attribute.
 ```html
 <div class="mdl-avatar mdl-js-avatar mdl-avatar--floating-label">
-  <input type="text" name="avatar" id="avatar" value="/img/avatars/default1.jpg" data-gallery-src="/img/avatars" data-gallery-list="default1.jpg,default2.jpg,default3.jpg" data-i18n-gallery="Default" data-i18n-gravatar="GR" data-i18n-url="Web Address" data-i18n-upload="From local machine">
+  <input class="mdl-avatar__input" type="text" name="avatar" id="avatar" value="/img/avatars/default1.jpg" data-gallery-src="/img/avatars" data-gallery-list="default2.jpg,default3.jpg,/img/myProfilePic.jpg" data-i18n-gallery="Default" data-i18n-gravatar="GR" data-i18n-url="Web Address" data-i18n-upload="From local machine">
   <label class="mdl-avatar__label" for="avatar">Avatar</label>
 </div>
 ```
