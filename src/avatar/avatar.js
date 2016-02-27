@@ -167,7 +167,7 @@
      */
     MaterialAvatar.prototype.dataPattern_ = {
         email: '[a-z0-9]([a-z0-9\\.\\-]*[a-z0-9])@[a-z0-9]([a-z0-9\\.\\-]*[a-z0-9])\\.[a-z]{2,4}',
-        url: 'https?\\:\\/\\/[a-z0-9]([a-z0-9\\.\\-]*[a-z0-9\\.\\-])?\\.[a-z]{2,4}\\/?[a-zA-Z0-9\\.\\/\\?\\-\\_\\#\\%\\&\\@\\=\\+]*'
+        url: 'https?:\\/\\/[a-z0-9]([a-z0-9\\.\\-]*[a-z0-9\\.\\-])?\\.[a-z]{2,4}\\/?[a-zA-Z0-9\\.\\/?\\-_#%&@=+]*\\.(jpg|jpeg|gif|png|svg)'
     };
 
     /**
@@ -624,7 +624,44 @@
      * @private
      */
     MaterialAvatar.prototype.applyUrlChange_ = function(event) {
-        console.info('url');
+        var overlayElement = this.element_.querySelector('.' + this.CssClasses_.AVATAR_OVERLAY);
+
+        // do it only when the overlay is visible
+        if (overlayElement.classList.contains(this.CssClasses_.IS_SHOW)) {
+            var textInputElement = overlayElement.querySelector('.url .' + this.CssClasses_.TEXTFIELD_INPUT);
+            // check native browser validation
+            var canValidate = (typeof textInputElement.willValidate !== "undefined");
+            var isValid = canValidate ? textInputElement.checkValidity() : true;
+
+            if (!isValid) {
+                if (canValidate) {
+                    var errorElement = overlayElement.querySelector('.url .' + this.CssClasses_.TEXTFIELD_ERROR);
+                    if (errorElement) {
+                        errorElement.innerHTML = textInputElement.validationMessage;
+                    }
+                }
+                return false;
+            } else {
+                event.preventDefault();
+                var imageUrl = textInputElement.value;
+                var avatarImage = this.element_.querySelector('.' + this.CssClasses_.AVATAR_IMAGE);
+                var inputElement = this.element_.querySelector('.' + this.CssClasses_.AVATAR_INPUT);
+                var reference = this;
+                var tmpImage = new Image;
+
+                tmpImage.onload = function() {
+                    // register new default image
+                    reference.DefaultImage_ = imageUrl;
+                    // set avatar
+                    avatarImage.src = imageUrl;
+                    inputElement.value = imageUrl;
+                };
+
+                try { tmpImage.src = textInputElement.value; } catch (exp){ }
+            }
+        }
+
+        return true;
     };
 
     /**
@@ -684,7 +721,7 @@
                 gravatarInputField.parentNode.classList.remove(this.CssClasses_.IS_INVALID);
             }
 
-            var urlInputField = overlayElement.querySelector('.url input .' + this.CssClasses_.TEXTFIELD_INPUT);
+            var urlInputField = overlayElement.querySelector('.url input.' + this.CssClasses_.TEXTFIELD_INPUT);
             if (urlInputField) {
                 urlInputField.value = '';
                 urlInputField.parentNode.classList.remove(this.CssClasses_.IS_FOCUSED);
@@ -800,7 +837,7 @@
             // GR Avatar overlay
             var gravatarOverlay = '<div class="gravatar">' +
                 '<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">' +
-                '<input class="mdl-textfield__input" type="email" pattern="' + this.dataPattern_.email + '" placeholder="E-mail" value="">' +
+                '<input class="mdl-textfield__input" type="email" pattern="' + this.dataPattern_.email + '" placeholder="bar@foo.org" value="">' +
                 '<label class="mdl-textfield__label">' + this.I18n_.gravatar.name + '</label>' +
                 '<span class="mdl-textfield__error"></span>' +
                 '</div>' +
@@ -809,7 +846,15 @@
                 '</div>';
 
             // URL overlay
-            var urlOverlay = '<div class="url">URL</div>';
+            var urlOverlay = '<div class="url">' +
+                '<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">' +
+                '<input class="mdl-textfield__input" type="url" pattern="' + this.dataPattern_.url + '" placeholder="http://www.foo.org/bar.jpg" value="">' +
+                '<label class="mdl-textfield__label">' + this.I18n_.url.name + '</label>' +
+                '<span class="mdl-textfield__error"></span>' +
+                '</div>' +
+                '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab ' + this.CssClasses_.AVATAR_APPLY + '"><i class="material-icons ' + this.CssClasses_.AVATAR_APPLY + '">done</i></button>' +
+                '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored ' + this.CssClasses_.AVATAR_CANCEL + '"><i class="material-icons ' + this.CssClasses_.AVATAR_CANCEL + '">delete_forever</i></button>' +
+                '</div>';
 
             // Upload overlay
             var uploadOverlay = '<div class="upload">Upload</div>';
