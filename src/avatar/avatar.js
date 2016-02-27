@@ -35,7 +35,8 @@
         this.DefaultImage_ = '';
         this.GalleryPath_ = '';
         this.Gallery_ = [];
-        this.AvatarType_ = null;
+        this.AvatarType_ = 'gallery';
+        this.AppliedAvatarType_ = 'gallery';
         this.I18n_ = {
             gallery: {name: 'Gallery', icon: 'image'},
             gravatar: {name: 'GR Avatar', icon: 'assignment_ind'},
@@ -77,6 +78,7 @@
         TEXTFIELD_LABEL: 'mdl-textfield__label',
         TEXTFIELD_FLOATING: 'mdl-textfield--floating-label',
         TEXTFIELD_INPUT: 'mdl-textfield__input',
+        TEXTFIELD_ERROR: 'mdl-textfield__error',
         BUTTON_AVATAR_JS: 'mdl-js-button',
         MATERIAL_ICONS: 'material-icons'
     };
@@ -135,7 +137,15 @@
      * @type {string}
      * @private
      */
-    MaterialAvatar.prototype.AvatarType_ = null;
+    MaterialAvatar.prototype.AvatarType_ = 'gallery';
+
+    /**
+     * Applied avatar type flag
+     *
+     * @type {string}
+     * @private
+     */
+    MaterialAvatar.prototype.AppliedAvatarType_ = 'gallery';
 
     /**
      * Custom labels for the type selection
@@ -164,7 +174,7 @@
      * MD5 encrypter. Based on the brilliant code of Joseph Myers.
      * @link http://www.myersdaily.org/joseph/javascript/md5-text.html
      *
-     * @param {String} value
+     * @param {string} value
      */
     MaterialAvatar.prototype.md5 = function(value) {
         var add32 = function(a, b) {
@@ -334,10 +344,53 @@
     };
 
     /**
+     * Checks if target is within container
+     *
+     * @param {object} event
+     * @param {object} containerElement
+     * @retrun {bool}
+     */
+    MaterialAvatar.prototype.isWithinElement_ = function(event, containerElement) {
+        if (typeof event.path != 'undefined') {
+            return  ~event.path.indexOf(containerElement);
+        } else if (event.target == containerElement) {
+            return true;
+        } else {
+            var element = event.target.parentNode;
+            while (element) {
+                if (element == containerElement) {
+                    return true;
+                }
+                element = element.parentNode;
+            }
+        }
+
+        return false;
+    };
+
+    /**
+     * Fallback function for check string ending
+     *
+     * @param string
+     * @param search
+     * @returns {boolean}
+     * @private
+     */
+    MaterialAvatar.prototype.isStringEndsWith_ = function(string, search) {
+        try {
+            return string.endsWith(search);
+        } catch (exp) {
+            var stringLength = string.length;
+            var searchLength = search.length;
+            return (string == (string.substring(0, (stringLength - searchLength)) + search));
+        }
+    };
+
+    /**
      * Create a variant name for the original field name.
      * Handles arrayed names as well.
      *
-     * @param {mixed} inputElement
+     * @param {*} inputElement
      * @param {string }variant
      * @returns {string}
      * @private
@@ -353,7 +406,7 @@
         }
 
         if (fieldName) {
-            if (fieldName.endsWith(']')) {
+            if (this.isStringEndsWith_(fieldName, ']')) {
                 nameVariant = fieldName.substr(0, (fieldName.length - 1)) + '-' + variant + ']';
             } else {
                 nameVariant = fieldName + '-' + variant;
@@ -373,7 +426,7 @@
      * @private
      */
     MaterialAvatar.prototype.clickEventHandler_ = function(event) {
-        if (~event.path.indexOf(this.element_)) {
+        if (this.isWithinElement_(event, this.element_)) {
             var element = event.target;
             if (element.classList.contains(this.CssClasses_.AVATAR_OVERLAY)) {
                 this.openOverlay_(event);
@@ -424,13 +477,12 @@
             var secondaryOverlay = overlayElement.querySelector('.' + option);
 
             if (secondaryOverlay) {
-                // @TODO: on cancel we must set back to previous state
                 this.AvatarType_ = option;
 
                 // set the selected avatar type for the POST
                 var hiddenElement = this.element_.querySelector('input[type=hidden]');
                 if (hiddenElement) {
-                    hiddenElement.setAttribute('value', option);
+                    hiddenElement.value = option;
                 }
 
                 secondaryOverlay.classList.add(this.CssClasses_.IS_ACTIVE);
@@ -468,16 +520,23 @@
         }
 
         if (applied) {
+            // register avatar type as applied
+            this.AppliedAvatarType_ = this.AvatarType_;
             // reset and close overlay by firing a custom event
-            var overlayCloseEvent = new Event(this.OverlayCloseEvent_);
-            document.dispatchEvent(overlayCloseEvent);
+            try {
+                var overlayCloseEvent = new Event(this.OverlayCloseEvent_);
+                document.dispatchEvent(overlayCloseEvent);
+            } catch (exp) {
+                document.body.click();
+            }
         }
     };
 
     /**
      * Apply selected gallery element
      *
-     * @param even
+     * @param event
+     * @returns {boolean}
      * @private
      */
     MaterialAvatar.prototype.applyGalleryChange_ = function(event) {
@@ -510,7 +569,9 @@
 
     /**
      * Check and apply GR Avatar value
-     * @param even
+     *
+     * @param event
+     * @returns {boolean}
      * @private
      */
     MaterialAvatar.prototype.applyGravatarChange_ = function(event) {
@@ -518,16 +579,23 @@
 
         // do it only when the overlay is visible
         if (overlayElement.classList.contains(this.CssClasses_.IS_SHOW)) {
-            var inputElement = overlayElement.querySelector('.gravatar .' + this.CssClasses_.TEXTFIELD_INPUT);
-            // if there's no native browser validation then we have to believe that the user is not a noob :)
-            var isValid = (typeof inputElement.willValidate !== "undefined") ? inputElement.checkValidity() : true;
+            var textInputElement = overlayElement.querySelector('.gravatar .' + this.CssClasses_.TEXTFIELD_INPUT);
+            // check native browser validation
+            var canValidate = (typeof textInputElement.willValidate !== "undefined");
+            var isValid = canValidate ? textInputElement.checkValidity() : true;
 
             if (!isValid) {
-                return null;
+                if (canValidate) {
+                    var errorElement = overlayElement.querySelector('.gravatar .' + this.CssClasses_.TEXTFIELD_ERROR);
+                    if (errorElement) {
+                        errorElement.innerHTML = textInputElement.validationMessage;
+                    }
+                }
+                return false;
             } else {
                 event.preventDefault();
                 var baseUrl = this.GrAvatarSecured_ ? 'https://secure.gravatar.com/avatar/' : 'http://www.gravatar.com/avatar/';
-                var gravatarImageUrl = baseUrl + this.md5(inputElement.value) + '?r=g&d=' + encodeURIComponent('') + '&size=256';
+                var gravatarImageUrl = baseUrl + this.md5(textInputElement.value) + '?r=g&d=' + encodeURIComponent('') + '&size=256';
                 var avatarImage = this.element_.querySelector('.' + this.CssClasses_.AVATAR_IMAGE);
                 var inputElement = this.element_.querySelector('.' + this.CssClasses_.AVATAR_INPUT);
                 var reference = this;
@@ -550,7 +618,9 @@
 
     /**
      * Check and apply URL value
-     * @param even
+     *
+     * @param event
+     * @returns {boolean}
      * @private
      */
     MaterialAvatar.prototype.applyUrlChange_ = function(event) {
@@ -560,7 +630,8 @@
     /**
      * Check and apply upload value
      *
-     * @param even
+     * @param event
+     * @returns {boolean}
      * @private
      */
     MaterialAvatar.prototype.applyUploadChange_ = function(event) {
@@ -579,20 +650,29 @@
         // do it only when the overlay is visible
         if (overlayElement.classList.contains(this.CssClasses_.IS_SHOW)) {
             // don't prevent default behavior when the user clicks inside the component unless it is the Cancel button
-            if (~event.path.indexOf(overlayElement) && !event.target.classList.contains(this.CssClasses_.AVATAR_CANCEL)) {
+            if (this.isWithinElement_(event, overlayElement) && !event.target.classList.contains(this.CssClasses_.AVATAR_CANCEL)) {
                 return true;
             }
             // prevent default functionality
             event.preventDefault();
             // reset avatar image if changed
-            this.element_.querySelector('input.' + this.CssClasses_.AVATAR_INPUT).setAttribute('value', this.DefaultImage_);
+            this.element_.querySelector('input.' + this.CssClasses_.AVATAR_INPUT).value = this.DefaultImage_;
             this.element_.querySelector('img.' + this.CssClasses_.AVATAR_IMAGE).src = this.DefaultImage_;
+
+            // reset the selected avatar type if the change was cancelled
+            if (this.AvatarType_ != this.AppliedAvatarType_) {
+                var hiddenElement = this.element_.querySelector('input[type=hidden]');
+                if (hiddenElement) {
+                    hiddenElement.value = this.AppliedAvatarType_;
+                }
+                this.AvatarType_ = this.AppliedAvatarType_;
+            }
+
             // reset select buttons
             var checkedRadio = overlayElement.querySelector('.select .' + this.CssClasses_.IS_CHECKED);
             if (checkedRadio) {
                 checkedRadio.querySelector('input').checked = false;
                 checkedRadio.classList.remove(this.CssClasses_.IS_CHECKED);
-                this.AvatarType_ = null;
             }
 
             // reset input fields
@@ -634,7 +714,7 @@
 
             // prepare the working data
             this.FormInputElementName_ = avatarInput.getAttribute('name');
-            this.DefaultImage_ = avatarInput.getAttribute('value');
+            this.DefaultImage_ = avatarInput.value;
 
             if (avatarInput.hasAttribute('data-i18n-gallery')) {
                 this.I18n_.gallery.name = avatarInput.getAttribute('data-i18n-gallery');
@@ -658,9 +738,8 @@
             // If specific path is given
             if (avatarInput.hasAttribute('data-gallery-src')) {
                 this.GalleryPath_ = avatarInput.getAttribute('data-gallery-src');
-                var patt = new RegExp(".*\/$");
                 // the path must end with slash
-                if (!patt.test(this.GalleryPath_)) {
+                if (!this.isStringEndsWith_(this.GalleryPath_, '/')) {
                     this.GalleryPath_ += '/';
                 }
             }
@@ -684,7 +763,7 @@
             var hiddenElement = document.createElement('input');
             hiddenElement.setAttribute('type', 'hidden');
             hiddenElement.setAttribute('name', this.getFieldNameVariant_(this.FormInputElementName_, 'type'));
-            hiddenElement.setAttribute('value', 'gallery');
+            hiddenElement.value = 'gallery';
             this.element_.appendChild(hiddenElement);
 
             // Create avatar image
@@ -722,7 +801,8 @@
             var gravatarOverlay = '<div class="gravatar">' +
                 '<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">' +
                 '<input class="mdl-textfield__input" type="email" pattern="' + this.dataPattern_.email + '" placeholder="E-mail" value="">' +
-                '<label class="mdl-textfield__label" for="sample4">' + this.I18n_.gravatar.name + '</label>' +
+                '<label class="mdl-textfield__label">' + this.I18n_.gravatar.name + '</label>' +
+                '<span class="mdl-textfield__error"></span>' +
                 '</div>' +
                 '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab ' + this.CssClasses_.AVATAR_APPLY + '"><i class="material-icons ' + this.CssClasses_.AVATAR_APPLY + '">done</i></button>' +
                 '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored ' + this.CssClasses_.AVATAR_CANCEL + '"><i class="material-icons ' + this.CssClasses_.AVATAR_CANCEL + '">delete_forever</i></button>' +
