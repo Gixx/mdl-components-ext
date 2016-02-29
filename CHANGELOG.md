@@ -1,6 +1,11 @@
 Change log
 ==========
 
+Version 1.5.2
+-------------
+* File Upload Component
+  * Add support for file extension filtering (documentation only)
+  
 Version 1.5.1
 -------------
 * File Upload Component

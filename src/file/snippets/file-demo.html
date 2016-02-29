@@ -27,8 +27,9 @@
                     <form name="test" action="" method="post" id="testForm" enctype="multipart/form-data">
 
                         <div class="element file mdl-file mdl-js-file mdl-file--floating-label">
-                            <input type="file" name="avatar[profileImage]" id="avatar[profileImage]" multiple="multiple">
-                            <label class="mdl-file__label" for="avatar">Avatar</label>
+                            <input type="file" name="avatar[profileImage]" id="avatar[profileImage]" multiple="multiple" accept=".jpg,.gif,.png,.svg">
+                            <label class="mdl-file__label" for="avatar[profileImage]">Avatar</label>
+                            <span class="mdl-textfield__error">You can upload only </span>
                         </div>
                         <br>
                         <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Submit</button>
