@@ -22,9 +22,13 @@
 /*!
  * mdl-components-ext - Component Extensions for the Material Design Light in CSS, JS and HTML
 <<<<<<< HEAD
+<<<<<<< HEAD
  * @version   1.6
 =======
  * @version   1.5.1
+>>>>>>> master
+=======
+ * @version   1.5.2
 >>>>>>> master
  * @author    Gabor Ivan <gixx@gixx-web.com>
  * @copyright 2012 - 2016 Gixx-web (http://www.gixx-web.com)

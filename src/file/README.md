@@ -52,6 +52,15 @@ You can use this component as any other MDL component, except this component nee
 </div>
 ```
 
+&nbsp;7. You can use the browser-native HTML5 `accept` attribute on the the `input[type=file]` element to add file format filtering
+```html
+<div class="element file mdl-file mdl-js-file mdl-file--floating-label" data-placeholder-multiple="files had been added to the list">
+  <input type="file" name="avatar" id="avatar" multiple="multiple" accept=".jpg,.gif,.png,.svg">
+  <label class="mdl-file__label" for="avatar">Avatar</label>
+</div>
+```
+> TIP: Check the [W3Schools](http://www.w3schools.com/tags/att_input_accept.asp) website on how to use the `accept` attribute.
+
 The file component is ready for use.
 
 > Please note that this component is not part of the original MDL library and also it is in an early, development state.
