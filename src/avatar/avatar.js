@@ -393,7 +393,7 @@
      * Handles arrayed names as well.
      *
      * @param {*} inputElement
-     * @param {string }variant
+     * @param {string} variant
      * @returns {string}
      * @private
      */
@@ -674,7 +674,34 @@
      * @private
      */
     MaterialAvatar.prototype.applyUploadChange_ = function(event) {
-        console.info('file');
+        var overlayElement = this.element_.querySelector('.' + this.CssClasses_.AVATAR_OVERLAY);
+
+        // do it only when the overlay is visible
+        if (overlayElement.classList.contains(this.CssClasses_.IS_SHOW)) {
+            event.preventDefault();
+            try {
+                var avatarImage = this.element_.querySelector('.' + this.CssClasses_.AVATAR_IMAGE);
+                var inputElement = this.element_.querySelector('.' + this.CssClasses_.AVATAR_INPUT);
+                var file    = document.querySelector('.upload input[type=file]').files[0];
+                var reader  = new FileReader();
+                var reference = this;
+
+                reader.onload = function () {
+                    // register new default image
+                    reference.DefaultImage_ = reader.result;
+                    // set avatar
+                    avatarImage.src = reader.result;
+                    inputElement.value = file.name;
+                };
+
+                // try to read the file from the client's file system
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            } catch (exp) {}
+        }
+
+        return true;
     };
 
     /**
@@ -730,6 +757,8 @@
                 urlInputField.parentNode.classList.remove(this.CssClasses_.IS_DIRTY);
                 urlInputField.parentNode.classList.remove(this.CssClasses_.IS_INVALID);
             }
+
+            // The file input won't reset since it cannot be restored (don't know how yet)
 
             // hide opened sub-overlay (must be maximum one)
             var subOverlay = overlayElement.querySelector('.' + this.CssClasses_.IS_ACTIVE);
@@ -799,14 +828,24 @@
             }
 
             // Create hidden input for the type (default value is 'gallery') if not exists
-            var hiddenTypeElement = mdlContainer.querySelector('.' + this.CssClasses_.AVATAR_TYPE);
-            if (hiddenTypeElement) {
+            var hiddenTypeElement = this.element_.querySelector('.' + this.CssClasses_.AVATAR_TYPE);
+            if (!hiddenTypeElement) {
                 hiddenTypeElement = document.createElement('input');
                 hiddenTypeElement.setAttribute('type', 'hidden');
                 hiddenTypeElement.setAttribute('name', this.getFieldNameVariant_(this.FormInputElementName_, 'type'));
                 hiddenTypeElement.classList.add(this.CssClasses_.AVATAR_TYPE);
                 hiddenTypeElement.value = 'gallery';
                 this.element_.appendChild(hiddenTypeElement);
+            }
+
+            // Generate default name attribute value for the new file input
+            var fileInputName = this.getFieldNameVariant_(this.FormInputElementName_, 'file');
+            // Remove file input if supplied
+            var defaultFileInput = this.element_.querySelector('input[type=file');
+            if (defaultFileInput) {
+                // Save the given name attribute
+                fileInputName = defaultFileInput.getAttribute('name');
+                defaultFileInput.parentNode.removeChild(defaultFileInput);
             }
 
             // Create avatar image
@@ -818,6 +857,8 @@
             // Create overlay container
             var overlayElement = document.createElement('div');
             overlayElement.classList.add(this.CssClasses_.AVATAR_OVERLAY);
+
+
 
             // The select overlay
             var selectOverlay = '<div class="select"><ul class="mdl-list">';
@@ -865,8 +906,8 @@
             // Upload overlay
             var uploadOverlay = '<div class="upload">' +
                 '<div class="mdl-file mdl-js-file mdl-file--floating-label">' +
-                '<input type="file" name="' + this.getFieldNameVariant_(this.FormInputElementName_, 'file') + '" id="' + this.getFieldNameVariant_(this.FormInputElementName_, 'file') + '">' +
-                '<label class="mdl-file__label" for="avatar">' + this.I18n_.upload.name + '</label>' +
+                '<input type="file" name="' + fileInputName + '" id="' + fileInputName + '" accept=".jpg,.png,.gif,.svg">' +
+                '<label class="mdl-file__label" for="' + fileInputName + '">' + this.I18n_.upload.name + '</label>' +
                 '</div>' +
                 '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab ' + this.CssClasses_.AVATAR_APPLY + '"><i class="material-icons ' + this.CssClasses_.AVATAR_APPLY + '">done</i></button>' +
                 '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored ' + this.CssClasses_.AVATAR_CANCEL + '"><i class="material-icons ' + this.CssClasses_.AVATAR_CANCEL + '">delete_forever</i></button>' +
