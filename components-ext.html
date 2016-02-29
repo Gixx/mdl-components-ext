@@ -67,6 +67,13 @@
                                 </div>
                                 <span class="mdl-components__link-text">File Input</span>
                             </a>
+
+                            <a href="#cards-section" class="mdl-components__link mdl-component buttons">
+                                <div class="mdl-components__link-image"
+                                     style="background-image: url('img/avatar.svg')">
+                                </div>
+                                <span class="mdl-components__link-text">Avatar</span>
+                            </a>
                         </aside>
 
                         <main class="mdl-components__pages">
@@ -330,6 +337,7 @@
                                 </div>
                             </section>
                             <!--END KVL-->
+
                             <!--BEGIN FILE INPUT-->
                             <section id="buttons-section" class="mdl-components__page mdl-grid">
                                 <div class="mdl-cell mdl-cell--12-col">
@@ -450,6 +458,226 @@
                                     </div>
                                 </div>
                             </section>
+                            <!--END FILE INPUT--->
+
+                            <!--BEGIN AVATAR-->
+                            <section id="cards-section" class="mdl-components__page mdl-grid">
+                                <div class="mdl-cell mdl-cell--12-col">
+                                    <div class="docs-text-styling component-title">
+                                        <h3>Avatar</h3>
+                                        <p>An enhanced avatar file uploader</p>
+                                    </div>
+
+                                    <div class="snippet-group">
+                                        <div class="snippet-header">
+                                            <div class="snippet-demos">
+                                                <div class="snippet-demo-padding"></div>
+                                                <div class="snippet-demo">
+
+                                                    <div class="mdl-avatar mdl-js-avatar mdl-avatar--floating-label">
+                                                        <input class="mdl-avatar__input" type="text" name="profile_image" id="profile_image" value="img/avatars/default1.png">
+                                                        <label class="mdl-avatar__label" for="profile_image">Profile Image</label>
+                                                    </div>
+
+                                                </div>
+                                                <div class="snippet-demo-padding"></div>
+                                            </div>
+
+                                            <div class="snippet-captions">
+                                                <div class="snippet-caption-padding"></div>
+                                                <div class="snippet-caption">
+                                                    The most basic avatar uploader setup.
+                                                </div>
+                                                <div class="snippet-caption-padding"></div>
+                                            </div>
+                                        </div>
+                                        <div class="snippet-code">
+                                            <pre class="language-markup codepen-button-enabled"><code>&lt;!-- Avatar --&gt;
+&lt;div class=&quot;mdl-avatar mdl-js-avatar mdl-avatar--floating-label&quot;&gt;
+    &lt;input class=&quot;mdl-avatar__input&quot; type=&quot;text&quot; name=&quot;profile_image&quot; id=&quot;profile_image&quot; value=&quot;img/avatars/default1.png&quot;&gt;
+    &lt;label class=&quot;mdl-avatar__label&quot; for=&quot;profile_image&quot;>Profile Image&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div>
+
+                                    <div class="docs-text-styling docs-readme">
+                                        <blockquote>
+                                            <p><strong>Note:</strong> You have to set <code>enctype="multipart/form-data"</code> as the <code>&lt;form&gt;</code> element's attribute to be able to upload any file.</p>
+                                        </blockquote>
+
+                                        <h2>Introduction</h2>
+                                        <p>The <strong>Avatar</strong> component is an enhanced file uploader, which combines many MDL components, like <code>`List`</code>, <code>`Fab buttons`</code>, <code>`Input fields`</code> and also another Component Extension the <code>`File input`</code>.</p>
+
+                                        <h3>To include an <strong>Avatar</strong> component:</h3>
+                                        <p>You can use this component as any other official MDL component, except this component needs individual JavaScript and CSS file to be included since this component is not part of the official MDL library.</p>
+
+                                        <p>&nbsp;1. Code  a <code>&lt;div&gt;</code> element to hold the text field.</p>
+                                        <pre><code class="language-markup">&lt;div&gt;...&lt;/div&gt;</code></pre>
+
+                                        <p>&nbsp;2. Inside the <code>&lt;div&gt;</code>, code a <code>&lt;input type=&quot;text&quot;&gt;</code> element with an <code>id</code> and <code>name</code> attribute of your choice. You also have to set the <code>value</code> attribute to the initial location of the avatar (e.g.: a default or blank image)</p>
+                                        <pre><code class="language-markup">&lt;div&gt;
+    &lt;input type=&quot;text&quot; name=&quot;profile_image&quot; id=&quot;profile_image&quot; value=&quot;img/avatars/default1.png&quot;&gt;
+&lt;/div&gt;</code></pre>
+
+                                        <p>&nbsp;3. Also inside the <code>&lt;div&gt;</code>, after the <code>&lt;input&gt;</code> element, code a <code>&lt;label&gt;</code> element with a <code>for</code> attribute whose value matches the <code>&lt;input&gt;</code> element's <code>id</code> value, and type a short string to be used as the field's label.</p>
+                                        <pre><code class="language-markup">&lt;div&gt;
+    &lt;input type=&quot;text&quot; name=&quot;profile_image&quot; id=&quot;profile_image&quot; value=&quot;img/avatars/default1.png&quot;&gt;
+    &lt;label for=&quot;profile_image&quot;&gt;Profile Image&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+
+                                        <p>&nbsp;4. Add one or more classes, separated by spaces, to the <code>&lt;div&gt;</code> container and the <code>&lt;label&gt;</code> element using the <code>class</code> attribute.</p>
+                                        <pre><code class="language-markup">&lt;div class=&quot;mdl-avatar mdl-js-avatar mdl-avatar--floating-label&quot;&gt;
+    &lt;input class=&quot;mdl-avatar__input&quot; type=&quot;text&quot; name=&quot;profile_image&quot; id=&quot;profile_image&quot; value=&quot;img/avatars/default1.png&quot;&gt;
+    &lt;label class=&quot;mdl-avatar__label&quot; for=&quot;profile_image&quot;&gt;Profile Image&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        <p>The File Input component is ready for use.</p>
+                                        <h3>To fine-tune an <strong>Avatar</strong> component:</h3>
+                                        <p>There are some tricks in the pocket to control the component</p>
+
+                                        <p>&nbsp;1. Add <code>data-gallery-src</code> and <code>data-gallery-list</code> attributes to the <code>&lt;input&gt;</code> element to enable a gallery preset for the component. The value of the <code>data-gallery-list</code> attribute MUST be a comma-separated list. The value of the <code>value</code> attribute will be added to the list automatically, so you can leave it out from the list.</p>
+                                        <blockquote>
+                                            <p><strong>Note:</strong> In the gallery list you can specify the images with absolute path (start with '/') too.</p>
+                                        </blockquote>
+                                        <pre><code class="language-markup">&lt;div class=&quot;mdl-avatar mdl-js-avatar mdl-avatar--floating-label&quot;&gt;
+    &lt;input class=&quot;mdl-avatar__input&quot; type=&quot;text&quot; name=&quot;profile_image&quot; id=&quot;profile_image&quot; value=&quot;/img/avatars/default1.png&quot; data-gallery-src=&quot;/img/avatars/&quot; data-gallery-list=&quot;default2.png,default3.png,default4.png&quot;&gt;
+    &lt;label class=&quot;mdl-avatar__label&quot; for=&quot;profile_image&quot;&gt;Profile Image&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        <p>&nbsp;2. Add <code>data-i18n-*</code> attributes to the <code>&lt;input&gt;</code> element to set translations or custom labels for the four options: 'Gallery', 'GR Avatar', 'URL', 'Upload File'.</p>
+                                        <blockquote>
+                                            <p><strong>Note:</strong> The label size is limited, so the too long texts will be cut half.</p>
+                                        </blockquote>
+                                        <pre><code class="language-markup">&lt;div class=&quot;mdl-avatar mdl-js-avatar mdl-avatar--floating-label&quot;&gt;
+    &lt;input class=&quot;mdl-avatar__input&quot; type=&quot;text&quot; name=&quot;profile_image&quot; id=&quot;profile_image&quot; value=&quot;/img/avatars/default1.png&quot; data-i18n-gallery=&quot;Default&quot; data-i18n-gravatar=&quot;GRavatar email&quot; data-i18n-url=&quot;Internet link&quot; data-i18n-upload=&quot;From local machine&quot;&gt;
+    &lt;label class=&quot;mdl-avatar__label&quot; for=&quot;profile_image&quot;&gt;Profile Image&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        <p>&nbsp;3. Using the examples above the component will POST three data by default:</p>
+                                        <pre><code class="language-markup">
+array (size=3)
+    'profile_image' => string '/img/avatar/default1.png' (length=24)
+    'profile_image-type' => string 'gallery' (length=7)
+    'profile_image-file' =>
+        array (size=5)
+            'name' => string '' (length=0)
+            'type' => string '' (length=0)
+            'tmp_name' => string '' (length=0)
+            'error' => int 4
+            'size' => int 0
+</code></pre>
+                                        <p>... or when uploading a file:</p>
+                                        <pre><code class="language-markup">
+array (size=3)
+    'profile_image' => string 'custom_profile_image.png' (length=24)
+    'profile_image-type' => string 'upload' (length=6)
+    'profile_image-file' =>
+        array (size=5)
+            'name' => string 'custom_profile_image.png' (length=24)
+            'type' => string 'image/png' (length=10)
+            'tmp_name' => string '/tmp/phpxu2KUo' (length=14)
+            'error' => int 0
+            'size' => int 95079
+</code></pre>
+                                        <blockquote>
+                                            <p><strong>Note:</strong> Depending on the script language or application on the server-side, the uploaded file may presented in a different way.</p>
+                                        </blockquote>
+                                        <p>If your application - for validation purposes - requires the <code>form</code> to render all the elements that will submit data, you may specify the <code>type</code> and <code>file</code> elements and you can also give custom field names to them:</p>
+                                        <pre><code class="language-markup">&lt;div class=&quot;mdl-avatar mdl-js-avatar mdl-avatar--floating-label&quot;&gt;
+    &lt;input class=&quot;mdl-avatar__input&quot; type=&quot;text&quot; name=&quot;profile_image&quot; id=&quot;profile_image&quot; value=&quot;img/avatars/default1.png&quot;&gt;
+    &lt;input type=&quot;hidden&quot; class=&quot;mdl-avatar__type&quot; name=&quot;profile_type&quot; value=&quot;&quot;&gt;
+    &lt;input type=&quot;file&quot; name=&quot;profile_file&quot;&gt;
+    &lt;label class=&quot;mdl-avatar__label&quot; for=&quot;profile_image&quot;&gt;Profile Image&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        <blockquote>
+                                            <p><strong>Note:</strong> There are some restrictions you must keep:</p>
+                                            <ul>
+                                                <li>* Do not use any custom containers for the <code>&lt;input type=&quot;file&quot;&gt;</code> and for the avatar type input.</li>
+                                                <li>* The <code>input</code> element for the avatar type must use the <code>type=&quot;hidden&quot;</code> attribute.</li>
+                                                <li>* The <code>input</code> element for the avatar type must use the <code>class=&quot;mdl-avatar__type&quot;</code> attribute.</li>
+                                            </ul>
+                                        </blockquote>
+                                        <h4>Examples</h4>
+                                    </div>
+
+                                    <div class="snippet-group">
+                                        <div class="snippet-header">
+                                            <div class="snippet-demos">
+                                                <div class="snippet-demo-padding"></div>
+                                                <div class="snippet-demo" style="vertical-align: top">
+                                                    <div class="snippet-demo-container">
+
+                                                        <div class="mdl-avatar mdl-js-avatar mdl-avatar--floating-label">
+                                                            <input class="mdl-avatar__input" type="text" name="profile[image]" id="profile[image]" value="img/avatars/default3.png" data-gallery-src="/img/avatars/" data-gallery-list="default1.png,default2.png,default4.png"  data-i18n-gallery="Default" data-i18n-gravatar="GRavatar email" data-i18n-url="Internet link" data-i18n-upload="From local machine">
+                                                            <input type="hidden" class="mdl-avatar__type" name="profile[type]" value="">
+                                                            <input type="file" name="profile[file]">
+                                                            <label class="mdl-avatar__label" for="profile[image]">Profile Image</label>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="snippet-demo-padding"></div>
+                                            </div>
+
+                                            <div class="snippet-captions">
+                                                <div class="snippet-caption-padding"></div>
+                                                <div class="snippet-caption">
+                                                    A full configuration component
+                                                </div>
+                                                <div class="snippet-caption-padding"></div>
+                                            </div>
+                                        </div>
+                                        <div class="snippet-code">
+                                        <pre class="language-markup codepen-button-enabled"><code>&lt;div class=&quot;mdl-avatar mdl-js-avatar mdl-avatar--floating-label&quot;&gt;
+    &lt;input class=&quot;mdl-avatar__input&quot; type=&quot;text&quot; name=&quot;profile[image]&quot; id=&quot;profile[image]&quot; value=&quot;img/avatars/default1.png&quot; data-gallery-src=&quot;/img/avatars/&quot; data-gallery-list=&quot;default2.png,default3.png,default4.png&quot;  data-i18n-gallery=&quot;Default&quot; data-i18n-gravatar=&quot;GRavatar email&quot; data-i18n-url=&quot;Internet link&quot; data-i18n-upload=&quot;From local machine&quot;&gt;
+    &lt;input type=&quot;hidden&quot; class=&quot;mdl-avatar__type&quot; name=&quot;profile[type]&quot; value=&quot;&quot;&gt;
+    &lt;input type=&quot;file&quot; name=&quot;profile[file]&quot;&gt;
+    &lt;label class=&quot;mdl-avatar__label&quot; for=&quot;profile[image]&quot;&gt;Profile Image&lt;/label&gt;
+&lt;/div&gt</code></pre>
+                                        </div>
+                                    </div>
+
+                                    <div class="docs-text-styling docs-readme">
+                                        <h2>Configuration options</h2>
+                                        <p>The CSS classes apply various predefined visual enhancements to the file input. The table below lists the available classes and their effects.</p>
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <th>MDL class</th>
+                                                <th>Effect</th>
+                                                <th>Remarks</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td><code>mdl-avatar</code></td>
+                                                <td>Defines container as an MDL component</td>
+                                                <td>Required on "outer" div element</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>mdl-js-avatar</code></td>
+                                                <td>Assigns basic MDL behavior to input</td>
+                                                <td>Required on "outer" div element</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>mdl-avatar--floating-label</code></td>
+                                                <td>Applies floating label effect</td>
+                                                <td>Optional on "outer" div element</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>mdl-avatar__input</code></td>
+                                                <td>Defines element as text field</td>
+                                                <td>Required on input element</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>mdl-avatar__label</code></td>
+                                                <td>Defines element as text field label</td>
+                                                <td>Required on label element for text field elements</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                            <!--END AVATAR-->
                         </main>
                     </div>
                 </div>
