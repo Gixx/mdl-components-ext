@@ -1,6 +1,11 @@
 Change log
 ==========
 
+Version 1.6.2
+-------------
+* Avatar Component
+  * Fix file input name conflicting upon multiple instances
+
 Version 1.6.1
 -------------
 * Avatar Component

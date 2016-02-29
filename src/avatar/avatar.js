@@ -682,7 +682,7 @@
             try {
                 var avatarImage = this.element_.querySelector('.' + this.CssClasses_.AVATAR_IMAGE);
                 var inputElement = this.element_.querySelector('.' + this.CssClasses_.AVATAR_INPUT);
-                var file    = document.querySelector('.upload input[type=file]').files[0];
+                var file    = this.element_.querySelector('.upload input[type=file]').files[0];
                 var reader  = new FileReader();
                 var reference = this;
 
