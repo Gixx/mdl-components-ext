@@ -68,10 +68,68 @@
     /**
      * File upload identifier string.
      *
-     * @type {null}
+     * @type {string}
      * @private
      */
     MaterialFile.prototype.fileID_ = null;
+
+    /**
+     * File name input string;
+     *
+     * @type {string}
+     * @private
+     */
+    MaterialFile.prototype.fileNameID_ = null;
+
+    /**
+     * Fallback function for check string ending
+     *
+     * @param string
+     * @param search
+     * @returns {boolean}
+     * @private
+     */
+    MaterialFile.prototype.isStringEndsWith_ = function(string, search) {
+        try {
+            return string.endsWith(search);
+        } catch (exp) {
+            var stringLength = string.length;
+            var searchLength = search.length;
+            return (string == (string.substring(0, (stringLength - searchLength)) + search));
+        }
+    };
+
+    /**
+     * Create a variant name for the original field name.
+     * Handles arrayed names as well.
+     *
+     * @param {*} inputElement
+     * @param {string }variant
+     * @returns {string}
+     * @private
+     */
+    MaterialFile.prototype.getFieldNameVariant_ = function(inputElement, variant) {
+        var fieldName = '';
+        var nameVariant = '';
+
+        if (typeof inputElement == 'string') {
+            fieldName = inputElement;
+        } else {
+            fieldName = inputElement.getAttribute('name');
+        }
+
+        if (fieldName) {
+            if (this.isStringEndsWith_(fieldName, ']')) {
+                nameVariant = fieldName.substr(0, (fieldName.length - 1)) + '-' + variant + ']';
+            } else {
+                nameVariant = fieldName + '-' + variant;
+            }
+        } else {
+            console.warn('No name defined');
+        }
+
+        return nameVariant;
+    };
 
     /**
      * Input change event.
@@ -81,14 +139,18 @@
     MaterialFile.prototype.inputChange_ = function(event)
     {
         event.preventDefault();
-
         var fileInput = event.target;
-        var textInput = this.element_.querySelector('#' + this.fileID_ + 'FileName');
+        var selector  = this.fileNameID_.replace(/([^a-zA-Z0-9])/g, '\\$1') + '';
+        var textInput = this.element_.querySelector('#' + selector);
         var fileCount = fileInput.files.length;
 
         if (!this.element_.classList.contains('is-focused') && !this.element_.classList.contains('is-dirty')) {
-            var focusEvent = new Event('focus');
-            textInput.dispatchEvent(focusEvent);
+            try {
+                var focusEvent = new Event('focus');
+                textInput.dispatchEvent(focusEvent);
+            } catch (exp) {
+                textInput.click();
+            }
         }
 
         if (fileCount > 0 && typeof fileInput.files[0].name != 'undefined') {
@@ -117,8 +179,9 @@
             var fileInput = this.element_.querySelector('input[type=file]');
             // the file input and label container
             var mdlContainer = fileInput.parentNode;
-            // set the ID
+            // set the IDs
             this.fileID_ = fileInput.getAttribute('id');
+            this.fileNameID_ = this.getFieldNameVariant_(this.fileID_, 'filename');
 
             // update container class list
             if (!mdlContainer.classList.contains(this.CssClasses_.TEXTFIELD)) {
@@ -138,13 +201,13 @@
             var label = mdlContainer.querySelector('label');
             label.classList.remove(this.CssClasses_.FILE_LABEL);
             label.classList.add(this.CssClasses_.TEXTFIELD_LABEL);
-            label.setAttribute('for', this.fileID_ + 'FileName');
+            label.setAttribute('for', this.fileNameID_);
 
             // add input field
             var textInput = document.createElement('input');
             textInput.setAttribute('type', 'text');
-            textInput.setAttribute('id', this.fileID_ + 'FileName');
-            textInput.setAttribute('name', this.fileID_ + 'FileName');
+            textInput.setAttribute('id', this.fileNameID_);
+            textInput.setAttribute('name', this.fileNameID_);
             textInput.setAttribute('readonly', 'readonly');
             textInput.classList.add(this.CssClasses_.TEXTFIELD_INPUT);
             mdlContainer.insertBefore(textInput, label);
