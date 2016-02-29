@@ -827,6 +827,7 @@
                 }
             }
 
+            var hiddenTypeName = this.getFieldNameVariant_(this.FormInputElementName_, 'type');
             // Create hidden input for the type (default value is 'gallery') if not exists
             var hiddenTypeElement = this.element_.querySelector('.' + this.CssClasses_.AVATAR_TYPE);
             if (!hiddenTypeElement) {
@@ -834,9 +835,12 @@
                 hiddenTypeElement.setAttribute('type', 'hidden');
                 hiddenTypeElement.setAttribute('name', this.getFieldNameVariant_(this.FormInputElementName_, 'type'));
                 hiddenTypeElement.classList.add(this.CssClasses_.AVATAR_TYPE);
-                hiddenTypeElement.value = 'gallery';
                 this.element_.appendChild(hiddenTypeElement);
+            } else {
+                hiddenTypeName = hiddenTypeElement.getAttribute('name');
             }
+            // overwrite if anything else was given
+            hiddenTypeElement.value = 'gallery';
 
             // Generate default name attribute value for the new file input
             var fileInputName = this.getFieldNameVariant_(this.FormInputElementName_, 'file');
@@ -865,9 +869,9 @@
             for (var i in this.I18n_) {
                 selectOverlay += '<li class="mdl-list__item">' +
                     '<span class="mdl-list__item-primary-content"><i class="material-icons  mdl-list__item-avatar">' + this.I18n_[i].icon + '</i>' +
-                    '<label class="mdl-avatar-list__label" for="' + this.getFieldNameVariant_(this.FormInputElementName_, 'type-' + i) + '">' + this.I18n_[i].name + '</label></span>' +
-                    '<span class="mdl-list__item-secondary-action"><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="' + this.getFieldNameVariant_(this.FormInputElementName_, 'type-' + i) + '">' +
-                    '<input type="radio" id="' + this.getFieldNameVariant_(this.FormInputElementName_, 'type-' + i) + '" class="mdl-radio__button" name="' + this.getFieldNameVariant_(this.FormInputElementName_, 'type') + '" value="' + i + '" />' +
+                    '<label class="mdl-avatar-list__label" for="' + hiddenTypeName + '-' + i + '">' + this.I18n_[i].name + '</label></span>' +
+                    '<span class="mdl-list__item-secondary-action"><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="' + hiddenTypeName + '-' + i + '">' +
+                    '<input type="radio" id="' + hiddenTypeName + '-' + i + '" class="mdl-radio__button" name="' + hiddenTypeName + '" value="' + i + '" />' +
                     '</label></span>' +
                     '</li>';
             }

@@ -30,7 +30,7 @@ By default, this component supports only 256x256 pixel images. This may be dynam
 </div>
 ```
 
-&nbsp;4. Additionally you can add a special `data-gallery-src` and `data-gallery-list` attributes for the `<img>` element to enable a gallery preset for the component. The value of the `data-gallery-list` attribute MUST be a comma-separated list. The value of the `value` attribute will be added to the list automatically, so you can leave it out from the list. In the gallery list you can specify the images with absolute path (start with '/') too. 
+&nbsp;4. Additionally you can add a special `data-gallery-src` and `data-gallery-list` attributes for the `<input>` element to enable a gallery preset for the component. The value of the `data-gallery-list` attribute MUST be a comma-separated list. The value of the `value` attribute will be added to the list automatically, so you can leave it out from the list. In the gallery list you can specify the images with absolute path (start with '/') too.
 ```html
 <div>
   <input type="text" name="avatar" id="avatar" value="/img/avatars/default1.jpg" data-gallery-src="/img/avatars" data-gallery-list="default2.jpg,default3.jpg,/img/myProfilePic.jpg">
@@ -38,7 +38,7 @@ By default, this component supports only 256x256 pixel images. This may be dynam
 </div>
 ```
 
-&nbsp;5. Additionally you can add a special `data-i18n-...` attributes for the `<img>` element to set the translations of the four options: 'Gallery', 'GR Avatar', 'URL', 'Upload File'.
+&nbsp;5. Additionally you can add a special `data-i18n-...` attributes for the `<input>` element to set the translations of the four options: 'Gallery', 'GR Avatar', 'URL', 'Upload File'.
 ```html
 <div>
   <input type="text" name="avatar" id="avatar" value="/img/avatars/default1.jpg" data-gallery-src="/img/avatars" data-gallery-list="default2.jpg,default3.jpg,/img/myProfilePic.jpg" data-i18n-gallery="Default" data-i18n-gravatar="GR" data-i18n-url="Web Address" data-i18n-upload="From local machine">
@@ -66,11 +66,12 @@ When you define the `Avatar Component` described above, you have to prepare your
 
 * There will be a file upload data with the default name of `...-file`, where the `...` is the value of the input field above. E.g.: if the input field's `name` attribute is `avatarImage`, then the type will be posted as `avatarImage-file`.
  
-* If your application requires, you can change the default naming behaviour for the file input by explicitly define it. In this case the component won't modify the `name` attribute.
+* If your application requires, you can change the default naming behaviour for the file and type data by explicitly define them. In this case the component won't modify the `name` attributes.
 
 ```html
 <div class="mdl-avatar mdl-js-avatar mdl-avatar--floating-label">
   <input class="mdl-avatar__input" type="text" name="avatar" id="avatar" value="/img/avatars/default1.jpg" data-gallery-src="/img/avatars" data-gallery-list="default2.jpg,default3.jpg,/img/myProfilePic.jpg" data-i18n-gallery="Default" data-i18n-gravatar="GR" data-i18n-url="Web Address" data-i18n-upload="From local machine">
+  <input type="hidden" name="avatarProfileType" value="gallery">
   <input type="file" name="avatarProfileImage">
   <label class="mdl-avatar__label" for="avatar">Avatar</label>
 </div>

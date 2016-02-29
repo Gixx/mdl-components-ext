@@ -1,6 +1,12 @@
 Change log
 ==========
 
+Version 1.6.1
+-------------
+* Avatar Component
+  * Add support for custom avatar type field
+  * Fix documentation
+
 Version 1.6
 -----------
 * Initial version of the Avatar Component
