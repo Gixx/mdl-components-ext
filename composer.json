@@ -18,18 +18,18 @@
     "vendor-dir": "vendor"
   },
   "require": {
-    "google/material-design-lite": "v1.0.6"
+    "google/material-design-lite": "v1.1.1"
   },
   "repositories": [
     {
       "type": "package",
       "package": {
-        "version": "v1.0.6",
+        "version": "v1.1.1",
         "name": "google/material-design-lite",
         "source": {
           "url": "https://github.com/google/material-design-lite",
           "type": "git",
-          "reference": "v1.0.6"
+          "reference": "v1.1.1"
         }
       }
     }

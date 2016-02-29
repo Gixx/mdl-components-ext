@@ -1,14 +1,19 @@
 Change log
 ==========
 
+Version 1.6
+-----------
+* Initial version of the Avatar Component
+* Add bash file to make package creation easy
+
 Version 1.5.2
 -------------
-* File Upload Component
+* File Input Component
   * Add support for file extension filtering (documentation only)
   
 Version 1.5.1
 -------------
-* File Upload Component
+* File Input Component
   * Add support of arrayed input IDs (eg.: avatar[default-image])
 
 Version 1.5
@@ -31,7 +36,7 @@ Version 1.4
 
 Version 1.3
 -----------
-* Initial version of the File Input component.
+* Initial version of the File Input Component.
 * Move Google MDL into vendor folder
 * Corrected license issues
 
@@ -51,4 +56,4 @@ Version 1.1
 
 Version 1.0
 -----------
-* Initial version of the key-value list (KVL) element component.
+* Initial version of the Key-Value List (KVL) component.

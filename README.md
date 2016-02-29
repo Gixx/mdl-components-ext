@@ -36,11 +36,7 @@ The "geek" way:
 - Run the following commands to compile the `scss` files and compress `css` and `js` files:
 
 ```bash
-sass src/material.components.ext.scss:material.components.ext.css
-
-java -jar library/yuicompressor.jar material.components.ext.css -o package/material.components.ext.min.css
-
-cat ./material.components.ext.js ./src/kvl/kvl.js ./src/file/file.js | java -jar library/yuicompressor.jar --type js -o package/material.components.ext.min.js
+library/create-package.sh
 ```
 
 - Include the generated files into your HTML and use the syntax described in each components' `README.md` file.

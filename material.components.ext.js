@@ -21,7 +21,7 @@
  */
 /*!
  * mdl-components-ext - Component Extensions for the Material Design Light in CSS, JS and HTML
- * @version   1.5.2
+ * @version   1.6
  * @author    Gabor Ivan <gixx@gixx-web.com>
  * @copyright 2012 - 2016 Gixx-web (http://www.gixx-web.com)
  * @license   http://webhemi.gixx-web.com/license/new-bsd   New BSD License
@@ -31,4 +31,5 @@
 
 // import src/file/file.js
 // import src/kvl/kvl.js
+// import src/avatar/avatar.js
 ;

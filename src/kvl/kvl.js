@@ -355,13 +355,18 @@
             labelContainer.classList.add(this.CssClasses_.TEXTFIELD_FLOATING);
             mdlContainer.insertBefore(labelContainer, textarea);
 
-            // Move the label into the new container
-            var label = mdlContainer.querySelector('label');
-            var clonedLabel = label.cloneNode(true);
-            clonedLabel.classList.remove();
-            clonedLabel.classList.add(this.CssClasses_.TEXTFIELD_LABEL);
-            labelContainer.appendChild(clonedLabel);
-            label.remove();
+            // Move the label into the new container (if exists)
+            for (var i in this.element_.children) {
+                if ('LABEL' == this.element_.children[i].tagName) {
+                    var label = this.element_.children[i];
+                    var clonedLabel = label.cloneNode(true);
+                    clonedLabel.classList.remove();
+                    clonedLabel.classList.add(this.CssClasses_.TEXTFIELD_LABEL);
+                    labelContainer.appendChild(clonedLabel);
+                    label.remove();
+                    break;
+                }
+            }
 
             // Create Add button
             this.addButton_ = document.createElement('button');

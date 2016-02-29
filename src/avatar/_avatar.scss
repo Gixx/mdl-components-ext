@@ -1,0 +1,199 @@
+/**
+ * MDL File input
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://webhemi.gixx-web.com/license/new-bsd
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@gixx-web.com so we can send you a copy immediately.
+ *
+ * This library is a fork of the original Material Design Light library
+ * @link      https://github.com/google/material-design-lite
+ *
+ * @author    Gabor Ivan <gixx@gixx-web.com>
+ * @copyright 2012 - 2016 Gixx-web (http://www.gixx-web.com)
+ * @license   http://webhemi.gixx-web.com/license/new-bsd   New BSD License
+ * @link      http://www.gixx-web.com
+ */
+
+@import "../common";
+
+//@extend-elements
+//original selectors
+//.mdl-avatar .mdl-avatar-overlay .select, .mdl-avatar .mdl-avatar-overlay .gallery, .mdl-avatar .mdl-avatar-overlay .gravatar, .mdl-avatar .mdl-avatar-overlay .url, .mdl-avatar .mdl-avatar-overlay .upload
+%extend_1 {
+  margin: 10px;
+  border: 1px solid $button-primary-color;
+  background: $color-dark-contrast;
+  height: calc(100% - 22px);
+  display: none;
+  cursor: default;
+  //Instead of the line below you could use @include box-sizing($bs)
+  box-sizing: border-box;
+}
+
+//original selectors
+//.mdl-avatar .mdl-avatar-overlay .select .mdl-list .mdl-list__item .mdl-list__item-avatar, .mdl-avatar .mdl-avatar-overlay .select .mdl-list .mdl-list__item .mdl-list__item-avatar.material-icons
+%extend_2 {
+  height: 32px;
+  width: 32px;
+  //Instead of the line below you could use @include box-sizing($bs)
+  box-sizing: border-box;
+  background-color: unquote("rgb(#{$color-dark-contrast})");
+  font-size: 32px;
+  color: $footer-color;
+}
+
+
+.mdl-avatar {
+  position: relative;
+  width: 300px;
+  height: 256px;
+  padding-top: 24px;
+  > {
+    .mdl-avatar__image {
+      position: relative;
+      vertical-align: middle;
+      display: block;
+      width: 256px;
+      height: 256px;
+      margin: 0 auto;
+    }
+    .mdl-avatar__file {
+      display: none;
+    }
+    .mdl-avatar__label {
+      z-index: 200;
+    }
+  }
+  .mdl-textfield__label {
+    z-index: 200;
+  }
+  .mdl-avatar__input {
+    display: none;
+  }
+  .mdl-avatar-overlay {
+    position: absolute;
+    top: 24px;
+    width: 300px;
+    height: 256px;
+    background: unquote("rgba(#{$color-dark-contrast}, 0.75)");
+    z-index: 20;
+    opacity: 0;
+    cursor: pointer;
+    //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+    transition: opacity 500ms;
+    &.is-show {
+      opacity: 1;
+    }
+    > div {
+      background: unquote("rgb(#{$color-dark-contrast})");
+    }
+    .select {
+      @extend %extend_1;
+      &.is-active {
+        display: block;
+      }
+      .mdl-list {
+        padding: 0;
+        margin: 0;
+        .mdl-list__item {
+          padding: 13px 16px;
+          border-bottom: 1px solid $button-primary-color;
+          &:last-child {
+            border-bottom: none;
+          }
+          .mdl-radio {
+            display: inline;
+          }
+          .mdl-list__item-avatar {
+            margin-right: 16px;
+            @extend %extend_2;
+            &.material-icons {
+              @extend %extend_2;
+            }
+          }
+          .mdl-avatar-list__label {
+            display: inline-block;
+            width: 100%;
+            max-height: 32px;
+            line-height: 32px;
+            max-width: 164px;
+            overflow: hidden;
+            white-space: nowrap;
+            cursor: pointer;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+    .gallery {
+      @extend %extend_1;
+      padding: 13px 0 0 17px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      &.is-active {
+        display: block;
+      }
+      .mdl-avatar__apply {
+        width: 68px;
+        height: 68px;
+        border: 1px solid transparent;
+        margin: 0 17px 17px 0;
+        cursor: pointer;
+        &:nth-child(3n) {
+          margin-right: 0;
+        }
+        &.is-selected {
+          border: 1px solid $button-fab-color-alt;
+        }
+      }
+    }
+    .gravatar {
+      @extend %extend_1;
+      padding: 16px;
+      text-align: right;
+      &.is-active {
+        display: block;
+      }
+      button {
+        margin-left: 16px;
+      }
+      .mdl-textfield {
+        margin-bottom: 90px;
+      }
+    }
+    .url {
+      @extend %extend_1;
+      padding: 16px;
+      text-align: right;
+      &.is-active {
+        display: block;
+      }
+      button {
+        margin-left: 16px;
+      }
+      .mdl-textfield {
+        margin-bottom: 90px;
+      }
+    }
+    .upload {
+      @extend %extend_1;
+      padding: 16px;
+      text-align: right;
+      &.is-active {
+        display: block;
+      }
+      button {
+        margin-left: 16px;
+      }
+      .mdl-file {
+        margin-bottom: 90px;
+      }
+    }
+  }
+}
