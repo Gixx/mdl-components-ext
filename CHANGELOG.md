@@ -1,6 +1,11 @@
 Change log
 ==========
 
+Version 1.5.1
+-------------
+* File Upload Component
+  * Add support of arrayed input IDs (eg.: avatar[default-image])
+
 Version 1.5
 -----------
 * KVL Component
