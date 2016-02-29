@@ -71,7 +71,7 @@ When you define the `Avatar Component` described above, you have to prepare your
 ```html
 <div class="mdl-avatar mdl-js-avatar mdl-avatar--floating-label">
   <input class="mdl-avatar__input" type="text" name="avatar" id="avatar" value="/img/avatars/default1.jpg" data-gallery-src="/img/avatars" data-gallery-list="default2.jpg,default3.jpg,/img/myProfilePic.jpg" data-i18n-gallery="Default" data-i18n-gravatar="GR" data-i18n-url="Web Address" data-i18n-upload="From local machine">
-  <input type="hidden" name="avatarProfileType" value="gallery">
+  <input type="hidden" class="mdl-avatar__type" name="avatarProfileType" value="gallery">
   <input type="file" name="avatarProfileImage">
   <label class="mdl-avatar__label" for="avatar">Avatar</label>
 </div>
