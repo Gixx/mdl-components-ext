@@ -75,6 +75,8 @@
         AVATAR_IMAGE: 'mdl-avatar__image',
         AVATAR_APPLY: 'mdl-avatar__apply',
         AVATAR_CANCEL: 'mdl-avatar__cancel',
+        AVATAR_TYPE: 'mdl-avatar__type',
+        AVATAR_FILE: 'mdl-avatar__file',
         TEXTFIELD_LABEL: 'mdl-textfield__label',
         TEXTFIELD_FLOATING: 'mdl-textfield--floating-label',
         TEXTFIELD_INPUT: 'mdl-textfield__input',
@@ -796,12 +798,16 @@
                 }
             }
 
-            // Create hidden input for the type (default value is 'gallery'
-            var hiddenElement = document.createElement('input');
-            hiddenElement.setAttribute('type', 'hidden');
-            hiddenElement.setAttribute('name', this.getFieldNameVariant_(this.FormInputElementName_, 'type'));
-            hiddenElement.value = 'gallery';
-            this.element_.appendChild(hiddenElement);
+            // Create hidden input for the type (default value is 'gallery') if not exists
+            var hiddenTypeElement = mdlContainer.querySelector('.' + this.CssClasses_.AVATAR_TYPE);
+            if (hiddenTypeElement) {
+                hiddenTypeElement = document.createElement('input');
+                hiddenTypeElement.setAttribute('type', 'hidden');
+                hiddenTypeElement.setAttribute('name', this.getFieldNameVariant_(this.FormInputElementName_, 'type'));
+                hiddenTypeElement.classList.add(this.CssClasses_.AVATAR_TYPE);
+                hiddenTypeElement.value = 'gallery';
+                this.element_.appendChild(hiddenTypeElement);
+            }
 
             // Create avatar image
             var imageElement = document.createElement('img');
@@ -857,7 +863,14 @@
                 '</div>';
 
             // Upload overlay
-            var uploadOverlay = '<div class="upload">Upload</div>';
+            var uploadOverlay = '<div class="upload">' +
+                '<div class="mdl-file mdl-js-file mdl-file--floating-label">' +
+                '<input type="file" name="' + this.getFieldNameVariant_(this.FormInputElementName_, 'file') + '" id="' + this.getFieldNameVariant_(this.FormInputElementName_, 'file') + '">' +
+                '<label class="mdl-file__label" for="avatar">' + this.I18n_.upload.name + '</label>' +
+                '</div>' +
+                '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab ' + this.CssClasses_.AVATAR_APPLY + '"><i class="material-icons ' + this.CssClasses_.AVATAR_APPLY + '">done</i></button>' +
+                '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored ' + this.CssClasses_.AVATAR_CANCEL + '"><i class="material-icons ' + this.CssClasses_.AVATAR_CANCEL + '">delete_forever</i></button>' +
+                '</div>';
 
             // this is faster than creating every element by DOM one-by-one
             overlayElement.innerHTML = selectOverlay + galleryOverlay + gravatarOverlay + urlOverlay + uploadOverlay;

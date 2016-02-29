@@ -6,7 +6,7 @@
     padding-top: 24px;
 }
 
-.mdl-avatar .mdl-avatar__image {
+.mdl-avatar > .mdl-avatar__image {
     position: relative;
     vertical-align: middle;
     display: block;
@@ -15,7 +15,11 @@
     margin: 0 auto;
 }
 
-.mdl-avatar .mdl-avatar__label,
+.mdl-avatar > .mdl-avatar__file {
+    display: none;
+}
+
+.mdl-avatar > .mdl-avatar__label,
 .mdl-avatar .mdl-textfield__label {
     z-index: 200;
 }
@@ -130,17 +134,20 @@
 }
 
 .mdl-avatar .mdl-avatar-overlay .gravatar,
-.mdl-avatar .mdl-avatar-overlay .url {
+.mdl-avatar .mdl-avatar-overlay .url,
+.mdl-avatar .mdl-avatar-overlay .upload {
     padding: 16px;
     text-align: right;
 }
 
 .mdl-avatar .mdl-avatar-overlay .gravatar button,
-.mdl-avatar .mdl-avatar-overlay .url button {
+.mdl-avatar .mdl-avatar-overlay .url button,
+.mdl-avatar .mdl-avatar-overlay .upload button {
     margin-left: 16px;
 }
 
 .mdl-avatar .mdl-avatar-overlay .gravatar .mdl-textfield,
-.mdl-avatar .mdl-avatar-overlay .url .mdl-textfield {
+.mdl-avatar .mdl-avatar-overlay .url .mdl-textfield,
+.mdl-avatar .mdl-avatar-overlay .upload .mdl-file {
     margin-bottom: 90px;
 }
