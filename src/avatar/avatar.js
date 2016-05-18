@@ -841,7 +841,7 @@
             // Generate default name attribute value for the new file input
             var fileInputName = this.getFieldNameVariant_(this.FormInputElementName_, 'file');
             // Remove file input if supplied
-            var defaultFileInput = this.element_.querySelector('input[type=file');
+            var defaultFileInput = this.element_.querySelector('input[type=file]');
             if (defaultFileInput) {
                 // Save the given name attribute
                 fileInputName = defaultFileInput.getAttribute('name');

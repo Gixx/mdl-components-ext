@@ -1,6 +1,18 @@
 Change log
 ==========
 
+Version 1.6.3
+-------------
+* Fix JS selector syntax error for Safari
+ 
+Version 1.6.2
+-------------
+* _undocumented_
+ 
+Version 1.6.1
+-------------
+* _undocumented_
+
 Version 1.6
 -----------
 * Initial version of the Avatar Component
