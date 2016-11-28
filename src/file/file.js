@@ -230,9 +230,9 @@
 
             // replace the file input
             var clonedInput = fileInput.cloneNode(true);
-            clonedInput.classList.remove();
+            clonedInput.className = "";
             fileInputContainer.appendChild(clonedInput);
-            fileInput.remove();
+            fileInput.parentNode.removeChild(fileInput);
 
             // Add event listeners
             clonedInput.addEventListener('change', this.inputChange_.bind(this));
