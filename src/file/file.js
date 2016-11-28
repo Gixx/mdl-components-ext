@@ -16,7 +16,7 @@
  * @license   http://webhemi.gixx-web.com/license/new-bsd   New BSD License
  * @link      http://www.gixx-web.com
  */
-(function () {
+(function() {
     'use strict';
 
     /**
@@ -89,7 +89,7 @@
      * @returns {boolean}
      * @private
      */
-    MaterialFile.prototype.isStringEndsWith_ = function (string, search) {
+    MaterialFile.prototype.isStringEndsWith_ = function(string, search) {
         try {
             return string.endsWith(search);
         } catch (exp) {
@@ -108,7 +108,7 @@
      * @returns {string}
      * @private
      */
-    MaterialFile.prototype.getFieldNameVariant_ = function (inputElement, variant) {
+    MaterialFile.prototype.getFieldNameVariant_ = function(inputElement, variant) {
         var fieldName = '';
         var nameVariant = '';
 
@@ -136,10 +136,11 @@
      *
      * @private
      */
-    MaterialFile.prototype.inputChange_ = function (event) {
+    MaterialFile.prototype.inputChange_ = function(event)
+    {
         event.preventDefault();
         var fileInput = event.target;
-        var selector = this.fileNameID_.replace(/([^a-zA-Z0-9])/g, '\\$1') + '';
+        var selector  = this.fileNameID_.replace(/([^a-zA-Z0-9])/g, '\\$1') + '';
         var textInput = this.element_.querySelector('#' + selector);
         var fileCount = fileInput.files.length;
 
@@ -172,7 +173,7 @@
     /**
      * Initialize component.
      */
-    MaterialFile.prototype.init = function () {
+    MaterialFile.prototype.init = function() {
         if (this.element_) {
             // the file input
             var fileInput = this.element_.querySelector('input[type=file]');
