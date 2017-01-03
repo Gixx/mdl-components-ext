@@ -5,7 +5,7 @@
   "type": "project",
   "keywords": ["mdl", "component"],
   "homepage": "http://www.gixx-web.com",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "authors": [
     {
       "name": "Gabor Ivan",

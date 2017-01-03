@@ -1,6 +1,14 @@
 Change log
 ==========
 
+Version 1.6.5
+-------------
+* Publish to npm
+
+Version 1.6.4
+-------------
+* Fix IE issues
+
 Version 1.6.3
 -------------
 * Fix JS selector syntax error for Safari

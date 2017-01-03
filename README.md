@@ -1,4 +1,4 @@
-# Introduction
+# Introduction #
 [The Material Design Lite](https://github.com/google/material-design-lite) (MDL) from Google is a really great thing if
 you want to create semantic websites with nice looking elements that also fit for mobile devices.
 
@@ -9,8 +9,7 @@ like phone numbers: add and remove, change type, set value. Or you need a file u
 This library provides different components as extensions to the official MDL library.
 Please read the [The Material Design Lite license](LICENSE-MDL). 
  
-Requirements
-------------
+## Requirements for contribute ##
 
 - [PHP 5.5+](http://php.net/downloads.php) (for composer)
 - [Sass](http://sass-lang.com/install) (for compile scss files)
@@ -18,15 +17,26 @@ Requirements
 - [Java] (http://www.java.com/en/download/mac_download.jsp) (for the YUI compressor)
 - [YUI Compressor](http://yui.github.io/yuicompressor/)
 
-Installation
-------------
+### Installation ###
 
 - Download and unzip the source files or clone the repository
 - Download and unzip the [Material Design Lite](https://github.com/google/material-design-lite) into the vendor folder or use the composer by running the `php composer.phar install` command to get the required MDL packages
 - Use the [YUI Compressor](http://yui.github.io/yuicompressor/) in the library folder
 
-How to use
-----------
+## Requirements for use ##
+
+- [NodeJS 6.9+](https://nodejs.org/en/) (for npm)
+
+### Installation ###
+
+You can easily install it via the NPM package manager:
+
+```bash
+npm install npm-components-ext
+```
+
+## How to use ##
+
 The easy way:
 
 - Check the [Material Design Lite Component Extensions](http://mdl.gixx-web.com/getting-started.html) website for detailed instructions.
@@ -41,7 +51,6 @@ library/create-package.sh
 
 - Include the generated files into your HTML and use the syntax described in each components' `README.md` file.
 
-Change Log
-----------
+## Change Log ##
 
 - Check [Change log](CHANGELOG.md)

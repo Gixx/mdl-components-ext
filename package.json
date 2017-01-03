@@ -1,0 +1,26 @@
+{
+  "name": "mdl-components-ext",
+  "version": "1.6.5",
+  "description": "Component extensions for the official Material Design Lite library",
+  "main": "package/material.components.ext.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gixx/mdl-components-ext"
+  },
+  "keywords": [
+    "MDL",
+    "file upload",
+    "components"
+  ],
+  "author": "Gabor Ivan <gixx@gixx-web.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Gixx/mdl-components-ext/issues"
+  },
+  "dependencies": {
+    "material-design-lite": "*"
+  }
+}
