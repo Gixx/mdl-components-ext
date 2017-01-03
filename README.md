@@ -32,7 +32,7 @@ Please read the [The Material Design Lite license](LICENSE-MDL).
 You can easily install it via the NPM package manager:
 
 ```bash
-npm install npm-components-ext
+npm install mdl-components-ext
 ```
 
 ## How to use ##
