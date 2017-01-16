@@ -1,6 +1,6 @@
 {
   "name": "mdl-components-ext",
-  "version": "1.6.6",
+  "version": "1.6.7",
   "description": "Component extensions for the official Material Design Lite library",
   "main": "package/material.components.ext.min.js",
   "scripts": {

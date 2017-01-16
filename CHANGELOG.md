@@ -1,6 +1,10 @@
 Change log
 ==========
 
+Version 1.6.7
+-------------
+* Forgot to update NPM package
+
 Version 1.6.6
 -------------
 * Fix issue with file upload preview when multiple avatar components used on the same page. 
