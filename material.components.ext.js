@@ -11,9 +11,9 @@
  */
 /*!
  * mdl-components-ext - Component Extensions for the Material Design Light in CSS, JS and HTML
- * @version   1.6.5
+ * @version   1.6.6
  * @author    Gabor Ivan <gixx@gixx-web.com>
- * @copyright 2012 - 2016 Gixx-web (http://www.gixx-web.com)
+ * @copyright 2012 - 2017 Gixx-web (http://www.gixx-web.com)
  * @license   https://opensource.org/licenses/MIT The MIT License (MIT)
  * @link      http://www.gixx-web.com
  */
