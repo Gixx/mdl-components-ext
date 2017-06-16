@@ -1,6 +1,10 @@
 Change log
 ==========
 
+Version 1.6.8
+-------------
+* Check compatibility with MDL 1.3.0
+
 Version 1.6.7
 -------------
 * Forgot to update NPM package
@@ -54,7 +58,7 @@ Version 1.4.1
 -------------
 * Add combined SCSS file and modified the README file how to generate package
 * Use combined minified files and vendor files in snippets
-* Removed WebHemi2 specific colors (use [MDL Color Theme package](https://github.com/Gixx/mdl-color-theme) in the future)
+* Removed WebHemi specific colors (use [MDL Color Theme package](https://github.com/Gixx/mdl-color-theme) in the future)
 
 Version 1.4
 -----------
