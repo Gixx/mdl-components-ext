@@ -1,8 +1,8 @@
 Change log
 ==========
 
-Version 1.6.10
---------------
+Version 1.7.0
+-------------
 * Add ```componentRegistry``` object to be able to retrieve the proper MDL Component instance for a DOM element:
 * Add ```resetInput_()``` function, and support for FORM reset for the `FileComponent`.
 * Update package creator script:

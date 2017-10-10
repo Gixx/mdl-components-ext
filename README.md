@@ -41,7 +41,7 @@ library/create-package.sh
 
 ### The `componentRegister` ###
 
-As of version 1.6.10 the `componentRegister` is being introduced. It's purpose to collect all the `Material*` components
+As of version 1.7.0 the `componentRegister` is being introduced. It's purpose to collect all the `Material*` components
 instances and make it retrievable by DOM search:
 
 ```html
