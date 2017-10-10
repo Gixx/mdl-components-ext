@@ -1,9 +1,10 @@
 /vendor/autoload.php
-/vendor/google
+/node_modules
 /vendor/composer
 composer.lock
 /.sass-cache
 /src/file/.sass-cache
 /src/kvl/.sass-cache
 /.idea
-
+/demo/
+/src/file/snippets/index.html

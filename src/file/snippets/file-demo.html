@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>MDL-Styled File input element</title>
-        <link href="../../../vendor/google/material-design-lite/material.min.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="../../../node_modules/material-design-lite/material.min.css" media="screen" rel="stylesheet" type="text/css">
         <link href="../../../package/material.components.ext.min.css" media="screen" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" media="screen" rel="stylesheet" type="text/css">
         <link rel="shortcut icon" href="../../../favicon.png">
@@ -24,20 +24,33 @@
             <main class="mdl-layout__content">
                 <div class="page-content">
                     <h1>Demo</h1>
-                    <form name="test" action="" method="post" id="testForm" enctype="multipart/form-data">
-
-                        <div class="element file mdl-file mdl-js-file mdl-file--floating-label">
+                    <p><strong>NEW</strong> - You can reset the file input field in three ways:</p>
+                    <ol>
+                        <li>Press the form's reset button (<code>input[type=reset]</code> or <code>button[type=reset]</code> ).</li>
+                        <li>From JavaScript reset the form: <code>document.getElementById('myFormElement').reset();</code></li>
+                        <li>Reset only the file element (also from JavaScript: <code>componentRegister.getComponentById('myFileInputElement').resetInput_();</code></li>
+                    </ol>
+                    <p>
+                        <strong>NOTE:</strong> the <code>componentRegister</code> object collects every registered MDL element, and it is able to return the their components' instances, but each component has different methods available.<br>
+                        The <code>resetInput_();</code> component method is available only for the File component.
+                    </p>
+                    <form name="test" action="" method="post" id="myFormElement" enctype="multipart/form-data">
+                        <div class="element file mdl-file mdl-js-file mdl-file--floating-label" id="myFileInputElement">
                             <input type="file" name="avatar[profileImage]" id="avatar[profileImage]" multiple="multiple" accept=".jpg,.gif,.png,.svg">
                             <label class="mdl-file__label" for="avatar[profileImage]">Avatar</label>
-                            <span class="mdl-textfield__error">You can upload only </span>
+                            <span class="mdl-textfield__error">You can upload only images.</span>
                         </div>
+
                         <br>
                         <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Submit</button>
-                    </form>
+                        <button type="reset" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Reset</button>
+                    </form><br><br>
+                    <p><a href="#" onclick="document.getElementById('myFormElement').reset();return false;">Reset form with document.getElementById('myFormElement').reset();</a></p>
+                    <p><a href="#" onclick="componentRegister.getComponentById('myFileInputElement').resetInput_();return false;">Reset file input with componentRegister.getComponentById('myFileInputElement').resetInput_();</a></p>
                 </div>
             </main>
         </div>
-        <script type="text/javascript" src="../../../vendor/google/material-design-lite/material.min.js"></script>
+        <script type="text/javascript" src="../../../node_modules/material-design-lite/material.min.js"></script>
         <script type="text/javascript" src="../../../package/material.components.ext.min.js"></script>
     </body>
 </html>

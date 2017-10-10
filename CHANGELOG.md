@@ -1,6 +1,21 @@
 Change log
 ==========
 
+Version 1.6.10
+--------------
+* Add ```componentRegistry``` object to be able to retrieve the proper MDL Component instance for a DOM element:
+* Add ```resetInput_()``` function, and support for FORM reset for the `FileComponent`.
+* Update package creator script:
+  * Change `sass` to `node-sass` and generate source-map along with the compressed CSS file.
+  * Remove YUICompressor.
+  * Add `uglifyjs` and generate source-map along with the compressed JS file.
+  * Automatically `zip` package files.  
+* Get rid of the composer from this project.
+
+Version 1.6.9
+-------------
+* Minor fixes
+
 Version 1.6.8
 -------------
 * Check compatibility with MDL 1.3.0

@@ -25,6 +25,7 @@
         // Initialize instance.
         this.init();
     };
+
     window.MaterialFile = MaterialFile;
 
     /**
@@ -82,13 +83,14 @@
      * @returns {boolean}
      * @private
      */
-    MaterialFile.prototype.isStringEndsWith_ = function(string, search) {
+    MaterialFile.prototype.isStringEndsWith_ = function(string, search)
+    {
         try {
             return string.endsWith(search);
         } catch (exp) {
             var stringLength = string.length;
             var searchLength = search.length;
-            return (string == (string.substring(0, (stringLength - searchLength)) + search));
+            return (string === (string.substring(0, (stringLength - searchLength)) + search));
         }
     };
 
@@ -101,11 +103,12 @@
      * @returns {string}
      * @private
      */
-    MaterialFile.prototype.getFieldNameVariant_ = function(inputElement, variant) {
+    MaterialFile.prototype.getFieldNameVariant_ = function(inputElement, variant)
+    {
         var fieldName = '';
         var nameVariant = '';
 
-        if (typeof inputElement == 'string') {
+        if (typeof inputElement === 'string') {
             fieldName = inputElement;
         } else {
             fieldName = inputElement.getAttribute('name');
@@ -122,6 +125,45 @@
         }
 
         return nameVariant;
+    };
+
+    /**
+     * Add focus to the element.
+     *
+     * @private
+     */
+    MaterialFile.prototype.focusInput_ = function ()
+    {
+        if (!this.element_.classList.contains('is-focused')) {
+            this.element_.querySelector('input[type=text]').focus();
+            this.element_.classList.add('is-focused')
+        }
+    };
+
+    /**
+     * Remove focus from the element.
+     *
+     * @private
+     */
+    MaterialFile.prototype.blurInput_ = function ()
+    {
+        if (this.element_.classList.contains('is-focused')) {
+            this.element_.classList.remove('is-focused')
+        }
+    };
+
+    /**
+     * Reset element.
+     *
+     * @private
+     */
+    MaterialFile.prototype.resetInput_ = function ()
+    {
+        this.element_.querySelector('input[type=text]').setAttribute('value', '');
+        this.element_.querySelector('input[type=text]').blur();
+        this.element_.querySelector('input[type=file]').value = null;
+        this.element_.querySelector('input[type=file]').setAttribute('value', null);
+        this.blurInput_();
     };
 
     /**
@@ -146,8 +188,8 @@
             }
         }
 
-        if (fileCount > 0 && typeof fileInput.files[0].name != 'undefined') {
-            if (fileCount == 1) {
+        if (fileCount > 0 && typeof fileInput.files[0].name !== 'undefined') {
+            if (fileCount === 1) {
                 textInput.setAttribute('value', fileInput.files[0].name);
             } else {
                 var label = this.element_.hasAttribute('data-placeholder-multiple')
@@ -166,32 +208,31 @@
     /**
      * Initialize component.
      */
-    MaterialFile.prototype.init = function() {
+    MaterialFile.prototype.init = function()
+    {
         if (this.element_) {
             // the file input
             var fileInput = this.element_.querySelector('input[type=file]');
-            // the file input and label container
-            var mdlContainer = fileInput.parentNode;
             // set the IDs
             this.fileID_ = fileInput.getAttribute('id');
             this.fileNameID_ = this.getFieldNameVariant_(this.fileID_, 'filename');
 
             // update container class list
-            if (!mdlContainer.classList.contains(this.CssClasses_.TEXTFIELD)) {
-                mdlContainer.classList.add(this.CssClasses_.TEXTFIELD);
+            if (!this.element_.classList.contains(this.CssClasses_.TEXTFIELD)) {
+                this.element_.classList.add(this.CssClasses_.TEXTFIELD);
             }
 
-            if (!mdlContainer.classList.contains(this.CssClasses_.JS_TEXTFIELD)) {
-                mdlContainer.classList.add(this.CssClasses_.JS_TEXTFIELD);
+            if (!this.element_.classList.contains(this.CssClasses_.JS_TEXTFIELD)) {
+                this.element_.classList.add(this.CssClasses_.JS_TEXTFIELD);
             }
 
-            if (mdlContainer.classList.contains(this.CssClasses_.FILE_FLOATING)) {
-                mdlContainer.classList.remove(this.CssClasses_.FILE_FLOATING);
-                mdlContainer.classList.add(this.CssClasses_.TEXTFIELD_FLOATING);
+            if (this.element_.classList.contains(this.CssClasses_.FILE_FLOATING)) {
+                this.element_.classList.remove(this.CssClasses_.FILE_FLOATING);
+                this.element_.classList.add(this.CssClasses_.TEXTFIELD_FLOATING);
             }
 
             // update the label
-            var label = mdlContainer.querySelector('label');
+            var label = this.element_.querySelector('label');
             label.classList.remove(this.CssClasses_.FILE_LABEL);
             label.classList.add(this.CssClasses_.TEXTFIELD_LABEL);
             label.setAttribute('for', this.fileNameID_);
@@ -203,14 +244,14 @@
             textInput.setAttribute('name', this.fileNameID_);
             textInput.setAttribute('readonly', 'readonly');
             textInput.classList.add(this.CssClasses_.TEXTFIELD_INPUT);
-            mdlContainer.insertBefore(textInput, label);
+            this.element_.insertBefore(textInput, label);
 
             // create new container for the file input
             var fileInputContainer = document.createElement('div');
             fileInputContainer.classList.add(this.CssClasses_.BUTTON);
             fileInputContainer.classList.add(this.CssClasses_.BUTTON_PRIMARY);
             fileInputContainer.classList.add(this.CssClasses_.BUTTON_ICON);
-            mdlContainer.appendChild(fileInputContainer);
+            this.element_.appendChild(fileInputContainer);
 
             // create attach button
             var attachButton = document.createElement('i');
@@ -229,6 +270,8 @@
 
             // Add event listeners
             clonedInput.addEventListener('change', this.inputChange_.bind(this));
+            this.element_.querySelector('.mdl-button').addEventListener('click', this.focusInput_.bind(this));
+            this.element_.closest('form').addEventListener('reset', this.resetInput_.bind(this));
 
             // apply MDL on new elements
             componentHandler.upgradeDom();
@@ -245,4 +288,3 @@
         widget: true
     });
 })();
-

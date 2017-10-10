@@ -1,6 +1,6 @@
 {
   "name": "mdl-components-ext",
-  "version": "1.6.9",
+  "version": "1.6.10",
   "description": "Component extensions for the official Material Design Lite library",
   "main": "package/material.components.ext.min.js",
   "scripts": {
@@ -21,6 +21,8 @@
     "url": "https://github.com/Gixx/mdl-components-ext/issues"
   },
   "dependencies": {
-    "material-design-lite": "*"
+    "material-design-lite": "3.0.0",
+    "node-sass": "4.5.3",
+    "uglify-js": "3.1.3"
   }
 }
