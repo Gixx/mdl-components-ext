@@ -1,3 +1,7 @@
+[![Email](https://img.shields.io/badge/email-navig80@gmail.com-blue.svg?style=flat-square)](mailto:navig80@gmail.com)
+[![npm version](https://badge.fury.io/js/mdl-components-ext.svg)](https://badge.fury.io/js/mdl-components-ext)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+
 # Introduction #
 [The Material Design Lite](https://github.com/google/material-design-lite) (MDL) from Google is a really great thing if
 you want to create semantic websites with nice looking elements that also fit for mobile devices.
