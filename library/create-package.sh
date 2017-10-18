@@ -24,6 +24,8 @@ if [ -n "$(type -t uglifyjs)" ]; then
         --source-map "filename='./package/material.components.ext.js.map'";
     rm -f ./package/material.components.ext.js;
 
+    cat ./material.components.ext.js.meta ./package/material.components.ext.min.js > temp && mv temp ./package/material.components.ext.min.js
+
     echo "Done."
 else
     echo "No UglifyJS is not installed. Use the 'sudo npm install uglify-js -g' to install";

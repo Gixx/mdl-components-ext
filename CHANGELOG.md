@@ -1,6 +1,10 @@
 Change log
 ==========
 
+Version 1.7.1
+-------------
+* Fix typo (by [Hersonls](https://github.com/hersonls))
+
 Version 1.7.0
 -------------
 * Add ```componentRegistry``` object to be able to retrieve the proper MDL Component instance for a DOM element:
